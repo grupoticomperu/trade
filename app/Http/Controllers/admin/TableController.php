@@ -7,5 +7,9 @@ use Illuminate\Http\Request;
 
 class TableController extends Controller
 {
-    return view('admin.tablesshow');
+
+    public function showtables()
+    {
+        return view('admin.tablesshow');
+    }
 }

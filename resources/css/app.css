@@ -1,6 +1,16 @@
+@import 'buttons.css';
+@import 'container.css';
+@import 'form.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+[x-cloak] {
+    display: none;
+}
+
+
 
 [x-cloak] {
     display: none;

@@ -23,7 +23,7 @@
                                 </article>
                                {{--  @endcan  --}}
 
-                                @can('User View')
+                                {{-- @can('User View') --}}
                                 <article>
                                     <figure>
                                         <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/usuarios.jpg')}}" alt="Lita de Usuarios">
@@ -33,7 +33,7 @@
                                     </header>
 
                                 </article>
-                                @endcan
+                               {{--  @endcan --}}
 
                                 {{-- @can('Permission View') --}}
                                 <article>
