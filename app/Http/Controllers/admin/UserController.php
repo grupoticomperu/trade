@@ -36,43 +36,16 @@ class UserController extends Controller
         $user = new User(); //instanvciamos el modelo user pero vacia
         //$this->authorize('create', $user);
         $roles = Role::with('permissions')->get();
-        $permissions = Permission::pluck('name','id');
-        $positions = Position::where('state', 1)->get();//positions de la emresa
-        $locales = Local::where('state', 1)->get();//locales de la empresa
+        //$permissions = Permission::pluck('name','id');
+        $permissions = Permission::orderBy('model_name', 'asc')->get();
+        $positions = Position::where('state', 1)->get(); //positions de la emresa
+        $locales = Local::where('state', 1)->get(); //locales de la empresa
         return view('admin.users.create', compact('user', 'roles', 'permissions', 'positions', 'locales'));
-
     }
 
 
     public function store(Request $request)
     {
-
-        /* try {
-            $filePath = $request->file('photo')->store('test-folder', 's3'); // Guarda el archivo
-            $url = Storage::disk('s3')->url($filePath); // Obtén la URL pública
-            dd(['filePath' => $filePath, 'url' => $url]);
-        } catch (\Exception $e) {
-            dd("Error: " . $e->getMessage());
-        } */
-
-       /*  try {
-            $result = Storage::disk('s3')->put('test-folder/test-file.txt', 'This is a test file', 'public');
-            dd($result ? "Connection successful: File uploaded." : "Connection failed.");
-        } catch (\Exception $e) {
-            dd("Error: " . $e->getMessage());
-        } */
-
-        /* dd([
-            'AWS_ACCESS_KEY_ID' => env('AWS_ACCESS_KEY_ID'),
-            'AWS_SECRET_ACCESS_KEY' => env('AWS_SECRET_ACCESS_KEY'),
-            'AWS_DEFAULT_REGION' => env('AWS_DEFAULT_REGION'),
-            'AWS_BUCKET' => env('AWS_BUCKET'),
-        ]); */
-        
-
-        //$this->authorize('create', new User);
-        //$company = auth()->user()->employee->company;
-
 
         $this->validate($request, [
             'name' => 'required |min:5',
@@ -81,9 +54,7 @@ class UserController extends Controller
             'photo' => 'image|max:2048'
         ]);
 
-
-        if($request->hasFile('photo'))
-        {
+        if ($request->hasFile('photo')) {
             //dd($request->file('photo'));
             //$currentTenant = Tenant::current();
             //dd($currentTenant);
@@ -94,8 +65,6 @@ class UserController extends Controller
 
                 // Construir la ruta basada en el nombre de la base de datos
                 $path = "{$databaseName}/users";
-                //dd($path);
-
                 // Subir la imagen al bucket S3
                 //$urlimage = Storage::disk('s3')->put($path, $request->file('photo'), 'public');//activar esta linea para s3
                 $urlimage = $request->file('photo')->store($path);
@@ -108,56 +77,65 @@ class UserController extends Controller
             } else {
                 throw new \Exception('No se encontró un inquilino activo.');
             }
-             //$urlimage = Storage::disk('s3')->put($path, $request->file('photo'), 'public');
-        }else{
-             $urlimage = 'erpd/users/userdefault.jpg';
+            //$urlimage = Storage::disk('s3')->put($path, $request->file('photo'), 'public');
+        } else {
+            $urlimage = 'erpd/users/userdefault.jpg';
         }
 
 
-        /* if ($request->hasFile('photo')) {
-            try {
-                $path = Storage::disk('s3')->put('erpd/users', $request->file('photo'), 'public');
-                if (!$path) {
-                    throw new \Exception("Failed to upload file to S3.");
-                }
-                $urlimage = Storage::disk('s3')->url($path);
-            } catch (\Exception $e) {
-                dd($e->getMessage()); // Captura el mensaje de error
-            }
-        } else {
-            $urlimage = 'https://ticomperut.s3.sa-east-1.amazonaws.com/erpd/users/userdefault.jpg';
-        } */
 
         $user = User::create([
-            'name'=> $request ->name,
-            'email' => $request -> email,
-            'password' => Hash::make( $request -> password ),
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
             //'company_id'=> auth()->user()->employee->company->id,
         ]);
 
         Employee::create([
-            'address'=> $request ->address,
-            'movil'=> $request ->movil,
+            'address' => $request->address,
+            'movil' => $request->movil,
             'photo' => $urlimage,
-            'dni'=> $request ->dni,
-            'gender'=> $request ->gender,
-            'birthdate'=> $request ->birthdate,
-            'state'=> $request ->state,
-            'user_id'=> $user ->id,
-            'position_id'=> $request->position_id,
-            'local_id'=> $request->local_id,
+            'dni' => $request->dni,
+            'gender' => $request->gender,
+            'birthdate' => $request->birthdate,
+            'state' => $request->state,
+            'user_id' => $user->id,
+            'position_id' => $request->position_id,
+            'local_id' => $request->local_id,
             //'company_id'=> auth()->user()->employee->company->id,
 
         ]);
 
         $user->assignRole($request->roles);
+        // $user->givePermissionTo($request->permissions);
         $user->givePermissionTo($request->permissions);
-        return redirect()->route('admin.users.index')->withFlash('El Usuario fue creado');
+
+        /* if ($request->has('permissions')) {
+            $permissionNames = Permission::whereIn('id', $request->permissions)->pluck('name');
+            $user->givePermissionTo($permissionNames);
+        } */
+
+        //return redirect()->route('admin.users.index')->withFlash('El Usuario fue creado');
+        //return redirect()->route('admin.users.index')->with('success', 'El Usuario fue creado');
+
+        session()->flash('swal', [
+            'icon' => 'succes',
+            'title' => 'Bien Hecho',
+            'text' => 'Usuario Creado Correctamente',
+        ]);
+
+        return redirect()->route('admin.users.index');
+
+        //return redirect()->route('admin.users.index')->with([
+        //    'flash.banner' => 'El Usuario fue creado',
+        //    'flash.bannerStyle' => 'success', // Estilo del banner (success, danger, warning, etc.)
+        //]);
+
     }
 
-    /**
-     * Display the specified resource.
-     */
+
+
+
     public function show(User $user)
     {
         //
@@ -168,15 +146,16 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-       // $companyId = auth()->user()->employee->company->id;
+        // $companyId = auth()->user()->employee->company->id;
         //$this->authorize('update', $user);
         //$roles = Role::pluck('name', 'id');//mandara un array asociativo con clave
         $roles = Role::with('permissions')->get();
         //valor y no un array de objetos
-        $permissions = Permission::pluck('name','id');
+        //$permissions = Permission::pluck('name','id');
+        $permissions = Permission::orderBy('model_name', 'asc')->get();
         $positions = Position::all();
-        $locales = Local::where('state', 1)->get();//locales de la empresa
-         return view('admin.users.edit', compact('user', 'roles', 'permissions', 'positions', 'locales'));
+        $locales = Local::where('state', 1)->get(); //locales de la empresa
+        return view('admin.users.edit', compact('user', 'roles', 'permissions', 'positions', 'locales'));
     }
 
     /**
@@ -184,12 +163,70 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // Validar los datos de entrada
+        $this->validate($request, [
+            'name' => 'required|min:5',
+            'email' => 'required|email|max:200|unique:users,email,' . $user->id, // Ignorar email del usuario actual
+            'password' => 'nullable|confirmed|min:6', // Password es opcional al actualizar
+            'roles' => 'nullable|array',
+            'permissions' => 'nullable|array',
+            'photo' => 'nullable|image|max:2048',
+        ]);
+
+        // Manejo del archivo de foto
+        if ($request->hasFile('photo')) {
+            $currentTenant = Tenant::current() ?? Tenant::defaultTenant();
+            if ($currentTenant) {
+                $databaseName = $currentTenant->database;
+                $path = "{$databaseName}/users";
+                $urlimage = $request->file('photo')->store($path);
+
+                // Actualizar la foto del usuario
+                if ($user->employee->photo && $user->employee->photo != 'erpd/users/userdefault.jpg') {
+                    Storage::delete($user->employee->photo); // Borra la foto anterior si existe
+                }
+            } else {
+                throw new \Exception('No se encontró un inquilino activo.');
+            }
+        } else {
+            $urlimage = $user->employee->photo; // Mantener la foto existente
+        }
+
+
+        // Actualizar los datos del usuario
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? Hash::make($request->password) : $user->password, // Solo actualiza si se envía un nuevo password
+        ]);
+
+        // Actualizar datos del empleado asociado
+        $user->employee->update([
+            'address' => $request->address,
+            'movil' => $request->movil,
+            'photo' => $urlimage,
+            'dni' => $request->dni,
+            'gender' => $request->gender,
+            'birthdate' => $request->birthdate,
+            'state' => $request->state,
+            'position_id' => $request->position_id,
+            'local_id' => $request->local_id,
+        ]);
+   
+
+
+        session()->flash('swal', [
+            'icon' => 'succes',
+            'title' => 'Bien Hecho',
+            'text' => 'Usuario Actualizado Correctamente',
+        ]);
+
+        //return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.edit', $user);
+
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(User $user)
     {
         //

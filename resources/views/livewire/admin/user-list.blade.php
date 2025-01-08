@@ -189,12 +189,13 @@
                                                     @if ($userr->employee->photo)
 
                                                         <img class="object-cover w-10 h-10 rounded-sm"
-                                                           {{--  src="{{ Storage::disk('s3')->url($userr->employee->photo) }}" --}}
+                                                            {{-- src="{{ Storage::disk('s3')->url($userr->employee->photo) }}"  --}}
+                                                            src="{{ asset('img/' . $userr->employee->photo) }}"
                                                             alt="TICOM">
-                                                        {{-- @else
-                                                        <img class="object-cover w-10 h-10 rounded-full"
-                                                            src="https://images.pexels.com/photos/4883800/pexels-photo-4883800.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-                                                            alt=""> --}}
+                                                         @else
+                                                        <img class="object-cover w-10 h-10 rounded-sm"
+                                                            src="{{ asset('img/erp2025dic/users/default.jpg') }}"
+                                                            alt="Usuario del Sistema"> 
                                                     @endif
                                                     {{-- src="{{ Storage::url($brand->image) }}" storage//storage/brand/default.jpg  en la bd esta puesto esto 	/storage/brands/default.jpg > --}}
                                                     {{-- url($brand->image) muestra tal como es la ruta en la bd esta puesto esto 	/storage/brands/default.jpg --}}

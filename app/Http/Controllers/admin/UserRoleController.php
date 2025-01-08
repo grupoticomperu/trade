@@ -14,6 +14,18 @@ class UserRoleController extends Controller
         //syncRoles es un metodo de laravelpermission
         $user->syncRoles($request->roles);
         //redireccionar
-        return back()->withFlash('Los Roles fueron actualizados');
+        //return back()->withFlash('Los Roles fueron actualizados');
+
+
+        session()->flash('swal', [
+            'icon' => 'succes',
+            'title' => 'Bien Hecho',
+            'text' => 'Roles del Usuario Actualizados Correctamente',
+        ]);
+
+        return redirect()->route('admin.users.edit', $user);
+
+
+
     }
 }

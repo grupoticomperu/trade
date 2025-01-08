@@ -45,9 +45,19 @@
         </div>
 
         @stack('modals')
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
         @livewireScripts
 
-        <livewire:probar />
+        @stack('scripts')
+
+    
+
+        @if(session('swal'))
+            <script>
+                Swal.fire({!! json_encode(session('swal')) !!});
+            </script>
+        @endif
+
     </body>
 </html>

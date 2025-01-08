@@ -1,8 +1,20 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Users') }}
+
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 flex items-center space-x-2">
+            <!-- Enlace a la lista de usuarios -->
+            <a href="{{ route('admin.users.index') }}" class="text-blue-600 no-underline flex items-center space-x-1">
+                <!-- Ícono de usuarios -->
+                <i class="fas fa-users"></i>
+                <span>{{ __('List Users') }}</span>
+            </a>
+            <!-- Separador -->
+            <span class="text-gray-500">/</span>
+            <!-- Página actual -->
+            <span class="text-gray-800">{{ __('Create User') }}</span>
         </h2>
+
+
     </x-slot>
     <form method="POST" action="{{ route('admin.users.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}

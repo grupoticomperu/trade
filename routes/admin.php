@@ -21,6 +21,7 @@ Route::middleware('tenant')->group(function() {
 });
 
 
+
 //Route::put('users/{user}/roles', [UserRoleController::class, 'update'])->name('admin.users.roles.update')->middleware('role:Admin');
 //Route::put('users/{user}/permissions', [UserPermissionController::class, 'update'])->name('admin.users.permissions.update')->middleware('role:Admin');
 Route::put('users/{user}/roles', [UserRoleController::class, 'update'])->name('admin.users.roles.update');

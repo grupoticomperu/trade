@@ -16,6 +16,16 @@ class UserPermissionController extends Controller
         }
 
 		//$user->syncPermissions($request->permissions);//de la libreria
-        return back()->withFlash('Los Permisos fueron actualizados');
+        //return back()->withFlash('Los Permisos fueron actualizados');
+        session()->flash('swal', [
+            'icon' => 'succes',
+            'title' => 'Bien Hecho',
+            'text' => 'Permisos del Usuario Actualizados Correctamente',
+        ]);
+
+        return redirect()->route('admin.users.edit', $user);
+
+
+
 	}
 }

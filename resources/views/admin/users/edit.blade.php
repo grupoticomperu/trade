@@ -1,8 +1,18 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Edit Users') }}
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 flex items-center space-x-2">
+            <!-- Enlace a la lista de usuarios -->
+            <a href="{{ route('admin.users.index') }}" class="text-blue-600 no-underline flex items-center space-x-1">
+                <!-- Ícono de usuarios -->
+                <i class="fas fa-users"></i>
+                <span>{{ __('List Users') }}</span>
+            </a>
+            <!-- Separador -->
+            <span class="text-gray-500">/</span>
+            <!-- Página actual -->
+            <span class="text-gray-800">{{ __('User Edit') }}</span>
         </h2>
+
     </x-slot>
 
     <div class="grid grid-cols-1 px-4 mx-auto mt-4 sm:px-6 lg:px-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-x-6 gap-y-8">
@@ -192,7 +202,7 @@
                                     <div>
                                         <p class=ml-4>Imagen actual del usuario</p>
                                     </div>
-                                    <img class="w-20 mb-2 ml-4" src="{{ asset($user->employee->photo) }}"
+                                    <img class="w-20 mb-2 ml-4" src="{{ asset('img/' . $user->employee->photo) }}"
                                         alt="usuario">
                                 @endif
                             </div>
@@ -244,7 +254,6 @@
 
             <p class="pb-4 text-lg font-bold underline underline-offset-2">Permisos</p>
             @role('Admin')
-
 
                 {{-- @include('admin.permissions.checkboxes', ['model' => $user]) --}}
 
