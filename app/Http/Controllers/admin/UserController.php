@@ -32,9 +32,8 @@ class UserController extends Controller
 
     public function create()
     {
-        //$companyId = auth()->user()->employee->company->id;
         $user = new User(); //instanvciamos el modelo user pero vacia
-        //$this->authorize('create', $user);
+        $this->authorize('create', $user);
         $roles = Role::with('permissions')->get();
         //$permissions = Permission::pluck('name','id');
         $permissions = Permission::orderBy('model_name', 'asc')->get();
@@ -47,6 +46,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
+        $this->authorize('create', new User);
         $this->validate($request, [
             'name' => 'required |min:5',
             'email' => 'required|unique:users|email|max:100',
@@ -138,7 +138,14 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        //
+        $this->authorize('view', $user);
+        $roles = Role::with('permissions')->get();
+        //valor y no un array de objetos
+        //$permissions = Permission::pluck('name','id');
+        $permissions = Permission::orderBy('model_name', 'asc')->get();
+        $positions = Position::all();
+        $locales = Local::where('state', 1)->get(); //locales de la empresa
+        return view('admin.users.show', compact('user', 'roles', 'permissions', 'positions', 'locales'));
     }
 
     /**
@@ -146,8 +153,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        // $companyId = auth()->user()->employee->company->id;
-        //$this->authorize('update', $user);
+        $this->authorize('update', $user);
         //$roles = Role::pluck('name', 'id');//mandara un array asociativo con clave
         $roles = Role::with('permissions')->get();
         //valor y no un array de objetos
@@ -163,6 +169,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update', $user);
         // Validar los datos de entrada
         $this->validate($request, [
             'name' => 'required|min:5',

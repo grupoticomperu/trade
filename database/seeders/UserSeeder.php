@@ -97,6 +97,7 @@ class UserSeeder extends Seeder
         $sellerRole = Role::create(['name' => 'Seller', 'display_name' => 'Vendedor']);
         $grocerRole = Role::create(['name' => 'Grocer', 'display_name' => 'Almacenero']);
 
+        Permission::create(['name' => 'User List', 'display_name' => 'Listar Usuario'])->SyncRoles([$adminRole]);//hay que analizar este para dar permiso de ver la lista
         Permission::create(['name' => 'User View', 'display_name' => 'Ver Usuario'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'User Create', 'display_name' => 'Crear Usuario'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'User Update', 'display_name' => 'Actualizar Usuario'])->SyncRoles([$adminRole]);

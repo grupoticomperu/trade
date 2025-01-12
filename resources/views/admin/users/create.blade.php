@@ -148,10 +148,11 @@
                         </div>
 
                     </div>
-
+                    @can('User Create') 
                     <x-danger-button class="w-full mt-1 mb-3" type="submit">
                         <i class="mx-2 fa-regular fa-floppy-disk"></i> Crear Usuario
                     </x-danger-button>
+                    @endcan
 
         </div>
     </form>

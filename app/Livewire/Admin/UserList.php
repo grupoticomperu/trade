@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\validation\Rule;
 use Livewire\WithFileUploads;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\On;
 
 class UserList extends Component
 {
@@ -19,6 +20,7 @@ class UserList extends Component
     use WithPagination;
     //use WithFileUploads;
     public $user;
+    public $userid;
     public $search;
     public $sort = 'id';
     public $direction = 'desc';
@@ -27,6 +29,8 @@ class UserList extends Component
     public $readyToLoad = false; //para controlar el preloader inicia en false
 
     // protected $listeners = ['render', 'delete'];
+    //protected $listeners = ['render', 'delete'];
+    //protected $listeners = ['eliminar' => 'delete', 'notify'];
 
     protected $queryString = [
         'cant' => ['except' => '10'],
@@ -49,7 +53,7 @@ class UserList extends Component
 
     public function render()
     {
-        $this->authorize('view', new User);//probaremos poniendo en el controlador
+        $this->authorize('viewAny', User::class);//probaremos poniendo en el controlador
 
         if ($this->readyToLoad) {
             /*  $users = User::where('name', 'like', '%' .$this->search. '%')
@@ -62,7 +66,6 @@ class UserList extends Component
             $users = [];
         }
         return view('livewire.admin.user-list', compact('users'));
-
     }
 
     public function order($sort)
@@ -92,25 +95,98 @@ class UserList extends Component
     }
 
 
-
-/*     public function activar(User $userr)
+    public function deleteUser($userId)
     {
-        $this->user = $userr;
-        dd($this->user);
+        $user = User::findOrFail($userId);
+        $user->delete();
 
-        $this->user->update([
-            'state' => 1
+        $this->emit('notify', [
+            'message' => 'Usuario eliminado con éxito.',
+            'type' => 'success',
         ]);
     }
 
-    public function desactivar(User $userr)
+
+
+ /*    public function confirmDelete($userId)
     {
-        $this->user = $userr;
-        dd($this->user);
-        $this->user->update([
-            'state' => 0
-        ]);
+        $this->emit('confirmDelete', $userId);
     } */
+
+
+
+    /*  public function delete()
+    {
+        if ($this->userid) {
+            $user = User::find($this->userid);
+    
+            if ($user) {
+                $user->delete();
+    
+            
+                $this->emit('notify', [
+                    'message' => 'Usuario eliminado con éxito.',
+                    'type' => 'success',
+                ]);
+            } else {
+           
+                $this->emit('notify', [
+                    'message' => 'Usuario no encontrado.',
+                    'type' => 'error',
+                ]);
+            }
+        }
+    } */
+
+   
+
+    public function confirmarEliminado($id)
+    {
+        $this->userid = $id;
+        $this->dispatch('confirmareliminado');
+        //$this->dispatch('confirmareliminado', message:'¿Estás seguro de eliminar?');
+        /* $this->dispatch('confirmareliminado', [
+            'message' => '¿Estás seguro de eliminar este usuario?',
+        ]); */
+    }
+
+
+  /*   #[On('eliminar')]
+    public function testEvent()
+    {
+        dd('Evento eliminar recibido');
+    } */
+
+
+    #[On('eliminar')] // Escucha el evento "eliminar"
+    public function delete()
+    {
+        //$this->authorize('delete', $user);
+
+        if ($this->userid) {
+            $user = User::find($this->userid);
+            $this->authorize('delete', $user);
+            //dd($user);
+            if ($user) {
+                $user->delete();
+
+                // Notifica éxito
+                $this->dispatch('borrado', [
+                    'message' => 'Usuario eliminado con éxito.',
+                ]);
+            } else {
+                // Notifica error si el usuario no existe
+                $this->dispatch('borrado', [
+                    'message' => 'Usuario no encontrado.',
+                    'type' => 'error',
+                ]);
+            }
+
+            $this->reset('userid');
+        }
+    }
+
+
 
 
 

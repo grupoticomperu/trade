@@ -24,4 +24,15 @@ class Employee extends Model
     {
         return $this->belongsTo(Local::class);
     }
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+    // Accessor para el campo 'gender' masculino y femenino
+    public function getGenderTextAttribute()
+    {
+        return $this->gender == self::MASCULINO ? 'Masculino' : 'Femenino';
+    }
+
+
 }
