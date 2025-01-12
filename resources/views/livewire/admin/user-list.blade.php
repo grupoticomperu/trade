@@ -11,7 +11,7 @@
                     </a>
                 </h2>
 
-      
+
             </div>
         </x-slot>
         <!-- This example requires Tailwind CSS v2.0+ -->
@@ -39,14 +39,14 @@
                         placeholder="buscar" />
                 </div>
 
-                @can('User Create') 
-                <div class="flex items-center justify-center">
-                    <a href="{{ route('admin.users.create') }}"
-                        class="items-center justify-center sm:flex btn btn-orange">
-                        <i class="mx-2 fa-regular fa-file"></i> Nuevo
-                    </a>
-                </div>
-                @endcan 
+                @can('User Create')
+                    <div class="flex items-center justify-center">
+                        <a href="{{ route('admin.users.create') }}"
+                            class="items-center justify-center sm:flex btn btn-orange">
+                            <i class="mx-2 fa-regular fa-file"></i> Nuevo
+                        </a>
+                    </div>
+                @endcan
 
                 {{-- @can('create User')
                                 @livewire('admin.brand-create')
@@ -248,24 +248,24 @@
 
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                         @can('User View')
-                                        <a href="{{ route('admin.users.show', $userr) }}" class="btn btn-blue"><i
-                                                class="fa-sharp fa-solid fa-eye"></i></a>
+                                            <a href="{{ route('admin.users.show', $userr) }}" class="btn btn-blue"><i
+                                                    class="fa-sharp fa-solid fa-eye"></i></a>
                                         @endcan
                                         @can('User Update')
-                                        <a href="{{ route('admin.users.edit', $userr) }}" class="btn btn-green"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-                                         @endcan
+                                            <a href="{{ route('admin.users.edit', $userr) }}" class="btn btn-green"><i
+                                                    class="fa-solid fa-pen-to-square"></i></a>
+                                        @endcan
 
-                                        @can('User Delete') 
-
-                                        {{-- <a class="btn btn-red" wire:click="confirmDelete({{ $userr->id }})">
+                                        @can('User Delete')
+                                            {{-- <a class="btn btn-red" wire:click="confirmDelete({{ $userr->id }})">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </a> --}}
-                                        <a class="btn btn-red" wire:click="confirmarEliminado({{ $userr->id }})">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a>
-
-                                         @endcan
+                                            @if ($userr->id !== 1)  {{-- Ocultar el botón para el superusuario --}}
+                                            <a class="btn btn-red" wire:click="confirmarEliminado({{ $userr->id }})">
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+                                            @endif
+                                        @endcan
 
 
                                     </td>
@@ -373,6 +373,16 @@
                     });
                 });
 
+
+
+                window.addEventListener('nosepuedeborraralsuperusuario', event => {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Nose puede Eliminar al Super Usuario!",
+                        footer: '<a href="#">WWW.TICOMPERU.COM</a>'
+                    });
+                });
 
 
                 /*  $wire.on('confirmareliminado', function() =>{

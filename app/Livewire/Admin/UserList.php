@@ -95,7 +95,7 @@ class UserList extends Component
     }
 
 
-    public function deleteUser($userId)
+    /* public function deleteUser($userId)
     {
         $user = User::findOrFail($userId);
         $user->delete();
@@ -105,7 +105,7 @@ class UserList extends Component
             'type' => 'success',
         ]);
     }
-
+ */
 
 
  /*    public function confirmDelete($userId)
@@ -143,6 +143,13 @@ class UserList extends Component
     public function confirmarEliminado($id)
     {
         $this->userid = $id;
+
+        if ($this->userid == 1) {
+            //session()->flash('error', 'No puedes eliminar al superusuario.');
+            $this->dispatch('nosepuedeborraralsuperusuario');
+            return;//poner este return para que no continue a la eliminación
+        }
+
         $this->dispatch('confirmareliminado');
         //$this->dispatch('confirmareliminado', message:'¿Estás seguro de eliminar?');
         /* $this->dispatch('confirmareliminado', [
@@ -151,17 +158,12 @@ class UserList extends Component
     }
 
 
-  /*   #[On('eliminar')]
-    public function testEvent()
-    {
-        dd('Evento eliminar recibido');
-    } */
-
 
     #[On('eliminar')] // Escucha el evento "eliminar"
     public function delete()
     {
         //$this->authorize('delete', $user);
+
 
         if ($this->userid) {
             $user = User::find($this->userid);
