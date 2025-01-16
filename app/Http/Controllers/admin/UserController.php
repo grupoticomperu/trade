@@ -118,18 +118,19 @@ class UserController extends Controller
         //return redirect()->route('admin.users.index')->withFlash('El Usuario fue creado');
         //return redirect()->route('admin.users.index')->with('success', 'El Usuario fue creado');
 
-        session()->flash('swal', [
-            'icon' => 'succes',
+        /* session()->flash('swal', [
+            'icon' => 'success',
             'title' => 'Bien Hecho',
             'text' => 'Usuario Creado Correctamente',
+        ]); */
+
+
+        //return redirect()->route('admin.users.index');
+
+        return redirect()->route('admin.users.index')->with([
+            'flash.banner' => 'El Usuario fue creado',
+            'flash.bannerStyle' => 'success', // Estilo del banner (success, danger, warning, etc.)
         ]);
-
-        return redirect()->route('admin.users.index');
-
-        //return redirect()->route('admin.users.index')->with([
-        //    'flash.banner' => 'El Usuario fue creado',
-        //    'flash.bannerStyle' => 'success', // Estilo del banner (success, danger, warning, etc.)
-        //]);
 
     }
 

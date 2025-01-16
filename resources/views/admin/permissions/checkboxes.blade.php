@@ -1,4 +1,4 @@
-@foreach($permissions as $permission)
+ @foreach($permissions as $permission)
     <div>
         <x-label>
             <input name="permissions[]" type="checkbox"
@@ -6,10 +6,10 @@
                    value="{{ $permission->name }}"
                    {{ isset($model) && $model->permissions->contains($permission->id) ? 'checked' : '' }}>
             {{ $permission->display_name ?? $permission->name }} 
-           {{--  <small class="text-muted">{{ $permission->model_name }}</small> --}}
+       {{--  <small class="text-muted">{{ $permission->model_name }}</small>   --}}
         </x-label>
     </div>
-@endforeach
+@endforeach  
 
 
 

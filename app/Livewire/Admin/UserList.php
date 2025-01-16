@@ -95,50 +95,7 @@ class UserList extends Component
     }
 
 
-    /* public function deleteUser($userId)
-    {
-        $user = User::findOrFail($userId);
-        $user->delete();
-
-        $this->emit('notify', [
-            'message' => 'Usuario eliminado con éxito.',
-            'type' => 'success',
-        ]);
-    }
- */
-
-
- /*    public function confirmDelete($userId)
-    {
-        $this->emit('confirmDelete', $userId);
-    } */
-
-
-
-    /*  public function delete()
-    {
-        if ($this->userid) {
-            $user = User::find($this->userid);
     
-            if ($user) {
-                $user->delete();
-    
-            
-                $this->emit('notify', [
-                    'message' => 'Usuario eliminado con éxito.',
-                    'type' => 'success',
-                ]);
-            } else {
-           
-                $this->emit('notify', [
-                    'message' => 'Usuario no encontrado.',
-                    'type' => 'error',
-                ]);
-            }
-        }
-    } */
-
-   
 
     public function confirmarEliminado($id)
     {

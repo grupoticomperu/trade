@@ -4,6 +4,9 @@ use App\Http\Controllers\admin\TableController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\admin\UserPermissionController;
 use App\Http\Controllers\admin\UserRoleController;
+use App\Livewire\Admin\PermissionList;
+//use App\Livewire\Counter;
+use App\Http\Controllers\admin\RoleController;
 
 Route::get('/hola', function () {
     return ('hola');
@@ -26,3 +29,8 @@ Route::middleware('tenant')->group(function() {
 //Route::put('users/{user}/permissions', [UserPermissionController::class, 'update'])->name('admin.users.permissions.update')->middleware('role:Admin');
 Route::put('users/{user}/roles', [UserRoleController::class, 'update'])->name('admin.users.roles.update');
 Route::put('users/{user}/permissions', [UserPermissionController::class, 'update'])->name('admin.users.permissions.update');
+Route::get('/permission', PermissionList::class)->name('admin.permissions.list');
+Route::resource('roles', RoleController::class)->names('admin.roles');
+
+
+//Route::get('/counter', Counter::class);

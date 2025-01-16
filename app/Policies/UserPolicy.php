@@ -24,7 +24,7 @@ class UserPolicy
     //puede ver varios modelos, osea la lista de usuarios
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('User View');
+        return $user->hasPermissionTo('User List');
     }
 
 

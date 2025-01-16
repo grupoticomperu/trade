@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 //use App\Http\Livewire\Probar;
 use App\Livewire\Probar as LivewireProbar;
+use App\Livewire\TestComponent;
 
 Route::get('/probar', LivewireProbar::class)->name('probar.sweetalert');
 
@@ -21,3 +22,4 @@ Route::middleware([
 });
 
 
+Route::get('/test-component', TestComponent::class);

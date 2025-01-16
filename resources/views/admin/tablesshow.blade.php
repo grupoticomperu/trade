@@ -23,7 +23,7 @@
                                 </article>
                                {{--  @endcan  --}}
 
-                                {{-- @can('User View') --}}
+                               @can('User List')
                                 <article>
                                     <figure>
                                         <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/usuarios.jpg')}}" alt="Lita de Usuarios">
@@ -33,31 +33,31 @@
                                     </header>
 
                                 </article>
-                               {{--  @endcan --}}
-
-                                {{-- @can('Permission View') --}}
+                               @endcan
+                               
+                                @can('Permission List')
                                 <article>
                                     <figure>
                                         <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/permisos.jpg')}}" alt="">
                                     </figure>
                                     <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{-- {{route('permission.list')}} --}}">Permisos</a></h1>
+                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('admin.permissions.list')}}">Permisos</a></h1>
                                     </header>
 
                                 </article>
-                                {{-- @endcan --}}
+                               @endcan
 
-                                {{-- @can('Role View') --}}
+                                @can('Role List') 
                                 <article>
                                     <figure>
                                         <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/roles.jpg')}}" alt="">
                                     </figure>
                                     <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{-- {{route('admin.role.index')}} --}}">Roles</a></h1>
+                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('admin.roles.index')}}">Roles</a></h1>
                                     </header>
 
                                 </article>
-                                {{-- @endcan --}}
+                                @endcan 
 
 
                                 {{-- @can('Local View')
