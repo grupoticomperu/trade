@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Exports\PermissionExport;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Permission;
@@ -128,7 +129,12 @@ class PermissionList extends Component
     }
 
 
-
+    public function generateReport()
+    {
+        //dd("prueba");
+        //return Excel::download(new UserExport(), 'users.xlsx');
+        return new PermissionExport();
+    }
 
 
 }

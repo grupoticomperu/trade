@@ -239,4 +239,15 @@ class UserController extends Controller
     {
         //
     }
+
+    public function export()
+    {
+        return view('admin.users.export');
+    }
+
+    public function import()
+    {
+        return view('admin.users.import');
+    }
+
 }

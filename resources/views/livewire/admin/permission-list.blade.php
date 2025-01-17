@@ -39,6 +39,10 @@
                 wire:model.live="search"
                 class="flex items-center justify-center w-80 sm:w-full rounded-lg py-2.5"
                 placeholder="buscar" />
+
+                <a class="btn btn-red"  wire:click="generateReport">
+                    generate Report
+                </a>
             </div>
 
 

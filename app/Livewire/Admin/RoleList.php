@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin;
 
+use App\Exports\RoleExport;
 use Livewire\Component;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\WithPagination;
@@ -131,6 +132,15 @@ class RoleList extends Component
             $this->reset('roleid');
         }
     }
+
+
+    public function generateReport()
+    {
+        //dd("prueba");
+        //return Excel::download(new UserExport(), 'users.xlsx');
+        return new RoleExport();
+    }
+
 
 
 }

@@ -13,6 +13,9 @@ use Livewire\WithFileUploads;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
 
+use App\Exports\UserExport;
+//use Maatwebsite\Excel\Facades\Excel;
+
 class UserList extends Component
 {
 
@@ -39,6 +42,14 @@ class UserList extends Component
         'search' => ['except' => ''],
     ];
 
+
+    public function generateReport()
+    {
+        //dd("prueba");
+        //return Excel::download(new UserExport(), 'users.xlsx');
+        return new UserExport();
+    }
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -51,9 +62,12 @@ class UserList extends Component
     }
 
 
+
+
+
     public function render()
     {
-        $this->authorize('viewAny', User::class);//probaremos poniendo en el controlador
+        $this->authorize('viewAny', User::class); //probaremos poniendo en el controlador
 
         if ($this->readyToLoad) {
             /*  $users = User::where('name', 'like', '%' .$this->search. '%')
@@ -95,7 +109,7 @@ class UserList extends Component
     }
 
 
-    
+
 
     public function confirmarEliminado($id)
     {
@@ -104,7 +118,7 @@ class UserList extends Component
         if ($this->userid == 1) {
             //session()->flash('error', 'No puedes eliminar al superusuario.');
             $this->dispatch('nosepuedeborraralsuperusuario');
-            return;//poner este return para que no continue a la eliminación
+            return; //poner este return para que no continue a la eliminación
         }
 
         $this->dispatch('confirmareliminado');
@@ -144,9 +158,4 @@ class UserList extends Component
             $this->reset('userid');
         }
     }
-
-
-
-
-
 }

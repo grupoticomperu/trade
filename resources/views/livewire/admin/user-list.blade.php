@@ -11,6 +11,15 @@
                     </a>
                 </h2>
             </div>
+           {{--  @can('User Create') --}}
+            <div class="flex items-center justify-center">
+                {{-- <a href="{{ route('admin.users.create') }}"
+                    class="items-center justify-center sm:flex btn btn-orange">
+                    <i class="mx-2 fa-regular fa-file"></i> Nuevo
+                </a> --}}
+    
+            </div>
+            {{-- @endcan --}}
         </x-slot>
         <!-- This example requires Tailwind CSS v2.0+ -->
         <div class="container py-12 mx-auto border-gray-400 max-w-7xl sm:px-6 lg:px-8">
@@ -42,6 +51,10 @@
                         <a href="{{ route('admin.users.create') }}"
                             class="items-center justify-center sm:flex btn btn-orange">
                             <i class="mx-2 fa-regular fa-file"></i> Nuevo
+                        </a>
+
+                        <a class="btn btn-red"  wire:click="generateReport">
+                            generate Report
                         </a>
                     </div>
                 @endcan
@@ -175,6 +188,9 @@
                                 </th>
                             </tr>
                         </thead>
+
+                        
+
                         <tbody class="bg-white divide-y divide-gray-200">
 
                             @foreach ($users as $userr)

@@ -32,5 +32,8 @@ Route::put('users/{user}/permissions', [UserPermissionController::class, 'update
 Route::get('/permission', PermissionList::class)->name('admin.permissions.list');
 Route::resource('roles', RoleController::class)->names('admin.roles');
 
+Route::get('/users/export', [UserController::class, 'export'])->name('admin.users.export');
+Route::get('/users/import', [UserController::class, 'import'])->name('admin.users.import');
+
 
 //Route::get('/counter', Counter::class);

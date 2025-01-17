@@ -48,6 +48,10 @@
                         </a>
 
                     </div>
+
+                    <a class="btn btn-red"  wire:click="generateReport">
+                        generate Report
+                    </a>
                 @endcan
 
 
