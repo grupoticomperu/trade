@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->string('address')->nullable();
             $table->string('movil')->nullable();
             $table->string('photo')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->date('birthdate')->nullable();
             $table->boolean('state')->nullable();
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('position_id')->nullable();

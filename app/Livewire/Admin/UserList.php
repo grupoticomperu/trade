@@ -13,6 +13,8 @@ use Livewire\WithFileUploads;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
 
+//use Barryvdh\DomPDF\Facade\Pdf;
+
 use App\Exports\UserExport;
 //use Maatwebsite\Excel\Facades\Excel;
 
@@ -27,20 +29,71 @@ class UserList extends Component
     public $search;
     public $sort = 'id';
     public $direction = 'desc';
-    public $cant = '10';
+    public $cant = '3';
+    public $state;
+    public $showActive = false;
+    public $showInactive = false;
     // public $open_edit = false;
     public $readyToLoad = false; //para controlar el preloader inicia en false
+    public $created_at;
+    public $selectedUsers = []; //para eliminar en grupo
+    public $selectAll = false; //para eliminar en grupo
 
     // protected $listeners = ['render', 'delete'];
     //protected $listeners = ['render', 'delete'];
     //protected $listeners = ['eliminar' => 'delete', 'notify'];
 
     protected $queryString = [
-        'cant' => ['except' => '10'],
+        'cant' => ['except' => '3'],
         'sort' => ['except' => 'id'],
         'direction' => ['except' => 'desc'],
         'search' => ['except' => ''],
     ];
+
+
+    // Método para seleccionar/deseleccionar todos
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedUsers = User::pluck('id')->mapWithKeys(function ($id) {
+                return [$id => true];
+            })->toArray();
+        } else {
+            $this->selectedUsers = [];
+        }
+        //mapWithKeys(function ($id) { return [$id => true]; })
+        //Estamos utilizando el método mapWithKeys para transformar el array de IDs en un array asociativo donde
+        //cada ID es la clave y el valor es establecido como verdadero. Esto se hace para representar las marcas seleccionadas
+    }
+
+
+
+
+
+
+    // Método para restablecer la selección después de eliminar
+    private function resetSelected()
+    {
+        $this->selectAll = false;
+        $this->selectedUsers = [];
+    }
+
+
+
+    public function updatedShowActive($value)
+    {
+        if ($value) {
+            $this->showInactive = false;
+        }
+    }
+
+    public function updatedShowInactive($value)
+    {
+        if ($value) {
+            $this->showActive = false;
+        }
+    }
+
 
 
     public function generateReport()
@@ -62,25 +115,30 @@ class UserList extends Component
     }
 
 
-
-
-
     public function render()
     {
         $this->authorize('viewAny', User::class); //probaremos poniendo en el controlador
 
         if ($this->readyToLoad) {
-            /*  $users = User::where('name', 'like', '%' .$this->search. '%')
-                ->orderBy($this->sort, $this->direction)
-                ->paginate($this->cant); */
             $users = User::where('name', 'like', '%' . $this->search . '%')
+                ->when($this->showActive && !$this->showInactive, function ($query) {
+                    // Filtrar solo activos
+                    return $query->where('state', 1);
+                })
+                ->when($this->showInactive && !$this->showActive, function ($query) {
+                    // Filtrar solo inactivos
+                    return $query->where('state', 0);
+                })
                 ->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant);
+            // Actualizar selectAll basado en los usuarios seleccionados
+            // $this->selectAll = count($this->selectedUsers) === $users->total();
         } else {
             $users = [];
         }
         return view('livewire.admin.user-list', compact('users'));
     }
+
 
     public function order($sort)
     {
@@ -128,7 +186,11 @@ class UserList extends Component
         ]); */
     }
 
+    public function confirmarEliminadogrupal()
+    {
 
+        $this->dispatch('confirmareliminadogrupal');
+    }
 
     #[On('eliminar')] // Escucha el evento "eliminar"
     public function delete()
@@ -156,6 +218,40 @@ class UserList extends Component
             }
 
             $this->reset('userid');
+        }
+    }
+
+
+
+    // Método para eliminar marcas seleccionadas
+    #[On('eliminargrupal')] // Escucha el evento "eliminar"
+    public function deleteSelected()
+    {
+        //$this->authorize('update', User::class); // Asegúrate de tener permisos para eliminar
+
+        $selectedIds = array_keys(array_filter($this->selectedUsers));
+        //dd($selectedIds );
+        // Excluir el ID del superusuario (id = 1)
+        $filteredIds = array_filter($selectedIds, function ($id) {
+            return $id != 1;
+        });
+
+
+        if (!empty($filteredIds)) {
+            User::whereIn('id', $filteredIds)->delete();
+
+            $this->resetSelected();
+            $this->dispatch('borradogrupal', [
+                'message' => 'Usuario eliminado con éxito.',
+                'type' => 'success',
+            ]);
+            //$this->emit('alert', 'Las marcas seleccionadas se eliminaron correctamente');
+        } else {
+            // Notifica error si el usuario no existe
+            $this->dispatch('noescogiste', [
+                'message' => 'No escogiste para eliminar.',
+                'type' => 'error',
+            ]);
         }
     }
 }

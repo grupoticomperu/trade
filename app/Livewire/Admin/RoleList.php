@@ -43,7 +43,6 @@ class RoleList extends Component
 
     public function render()
     {
-
         if ($this->readyToLoad) {
             $roles = Role::where('name', 'like', '%' .$this->search. '%')
                ->orderBy($this->sort, $this->direction)

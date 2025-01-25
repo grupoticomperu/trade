@@ -82,4 +82,16 @@
 
 </body>
 
+<script>
+    document.addEventListener('livewire:load', () => {
+        Livewire.on('notify', data => {
+            Swal.fire({
+                icon: data.type, // Puede ser 'success', 'error', 'warning', etc.
+                title: data.title,
+                text: data.message,
+            });
+        });
+    });
+</script>
+
 </html>

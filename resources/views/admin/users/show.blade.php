@@ -19,9 +19,9 @@
             <h3 class="text-lg font-bold text-gray-700 mb-4">Datos del Usuario</h3>
             <div class="flex flex-col lg:flex-row lg:space-x-6">
                 <!-- Foto del usuario -->
-                @if ($user->employee->photo)
+                @if ($user?->employee?->photo)
                     <img class="w-32 h-32 rounded-full object-cover mx-auto lg:mx-0"
-                        src="{{ asset('img/' . $user->employee->photo) }}" alt="Foto del Usuario">
+                        src="{{ asset('img/' . ($user?->employee?->photo ?? 'sin foto')) }}" alt="Foto del Usuario">
                 @else
                     <div class="w-32 h-32 bg-gray-200 rounded-full mx-auto lg:mx-0 flex items-center justify-center">
                         <i class="text-gray-500 fas fa-user text-3xl"></i>
@@ -43,30 +43,31 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                         <div>
                             <x-label value="Dirección:" />
-                            <x-input type="text" value="{{ $user->employee->address }}" class="w-full" disabled />
+                            <x-input type="text" value="{{ $user?->employee?->address ?? 'Sin Dirección' }}" class="w-full" disabled />
                         </div>
                         <div>
                             <x-label value="Celular:" />
-                            <x-input type="text" value="{{ $user->employee->movil }}" class="w-full" disabled />
+                            <x-input type="text" value="{{ $user?->employee?->movil ?? 'Sin Celular' }}" class="w-full" disabled />
                         </div>
                         <div>
                             <x-label value="DNI:" />
-                            <x-input type="text" value="{{ $user->employee->dni }}" class="w-full" disabled />
+                            <x-input type="text" value="{{ $user?->employee?->dni ?? 'Sin DNI'  }}" class="w-full" disabled />
                         </div>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
                         <div>
                             <x-label value="Cargo:" />
-                            <x-input type="text" value="{{ $user->employee->position->name }}" class="w-full" disabled />
+                            {{-- <x-input type="text" value="{{ $user->employee->position->name }}" class="w-full" disabled /> --}}
+                            <x-input type="text" value="{{ $user->employee->position?->name ?? 'Sin posición asignada' }}" class="w-full" disabled />
                         </div>
                         <div>
                             <x-label value="Género:" />
-                            <x-input type="text" value="{{ $user->employee->gender_text }}" class="w-full" disabled />
+                            <x-input type="text" value="{{ $user?->employee?->gender_text ?? 'falta seleccionar genero' }}" class="w-full" disabled />
                         </div>
                         <div>
                             <x-label value="Local:" />
-                            <x-input type="text" value="{{ $user->employee->local->name }}" class="w-full" disabled />
+                            <x-input type="text" value="{{ $user?->employee?->local->name ?? 'sin local' }}" class="w-full" disabled />
                         </div>
                     </div>
                 </div>

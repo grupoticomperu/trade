@@ -19,6 +19,8 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests; // Importar el trait
 
 use App\Models\Tenant;
 use Spatie\Multitenancy\Models\Tenant as BaseTenant;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 
 class UserController extends Controller
 {
@@ -249,5 +251,19 @@ class UserController extends Controller
     {
         return view('admin.users.import');
     }
+
+
+    public function generatepdf()
+    {
+        // Obtener todos los usuarios
+        $users = User::all();
+        //dd($users);
+        // Crear el PDF con una vista
+        $pdf = Pdf::loadView('admin.users.pdf', compact('users'));
+    
+        // Descargar el PDF
+        return $pdf->download('admin.users.pdf');
+    }
+
 
 }
