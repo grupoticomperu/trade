@@ -8,7 +8,7 @@
                     <!-- Título -->
                     <div class="flex items-center space-x-3">
                         <i class="fas fa-users text-blue-600 text-xl"></i>
-                        <h1 class="text-2xl font-semibold text-gray-800">Lista de Usuarios</h1>
+                        <h1 class="text-2xl font-semibold text-gray-800"> {{ __('List Users') }}</h1>
                     </div>
 
                     <!-- Botones de acción -->

@@ -17,8 +17,7 @@ use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests; // Importar el trait
 
-use App\Models\Tenant;
-use Spatie\Multitenancy\Models\Tenant as BaseTenant;
+
 use Barryvdh\DomPDF\Facade\Pdf;
 
 
@@ -40,8 +39,8 @@ class UserController extends Controller
         //$permissions = Permission::pluck('name','id');
         $permissions = Permission::orderBy('model_name', 'asc')->get();
         $positions = Position::where('state', 1)->get(); //positions de la emresa
-        $locales = Local::where('state', 1)->get(); //locales de la empresa
-        return view('admin.users.create', compact('user', 'roles', 'permissions', 'positions', 'locales'));
+        //$locales = Local::where('state', 1)->get(); //locales de la empresa
+        return view('admin.users.create', compact('user', 'roles', 'permissions', 'positions'));
     }
 
 
@@ -57,28 +56,9 @@ class UserController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            //dd($request->file('photo'));
-            //$currentTenant = Tenant::current();
-            //dd($currentTenant);
-            $currentTenant = Tenant::current() ?? Tenant::defaultTenant();
-            //dd($currentTenant);
-            if ($currentTenant) {
-                $databaseName = $currentTenant->database;
 
-                // Construir la ruta basada en el nombre de la base de datos
-                $path = "{$databaseName}/users";
-                // Subir la imagen al bucket S3
-                //$urlimage = Storage::disk('s3')->put($path, $request->file('photo'), 'public');//activar esta linea para s3
-                $urlimage = $request->file('photo')->store($path);
-                //$urlimage = $path;
-                //dd($urlimage);
-                //dd($request->file('photo'));
-                //$filePath = $request->file('photo')->store($path, 's3'); // Guarda el archivo y devuelve su ruta
-                //$urlimage = Storage::disk('s3')->url($filePath); // Construye la URL pública
-
-            } else {
-                throw new \Exception('No se encontró un inquilino activo.');
-            }
+            $path = "users";
+            $urlimage = $request->file('photo')->store($path);
             //$urlimage = Storage::disk('s3')->put($path, $request->file('photo'), 'public');
         } else {
             $urlimage = 'erpd/users/userdefault.jpg';
@@ -133,7 +113,6 @@ class UserController extends Controller
             'flash.banner' => 'El Usuario fue creado',
             'flash.bannerStyle' => 'success', // Estilo del banner (success, danger, warning, etc.)
         ]);
-
     }
 
 
@@ -185,18 +164,13 @@ class UserController extends Controller
 
         // Manejo del archivo de foto
         if ($request->hasFile('photo')) {
-            $currentTenant = Tenant::current() ?? Tenant::defaultTenant();
-            if ($currentTenant) {
-                $databaseName = $currentTenant->database;
-                $path = "{$databaseName}/users";
-                $urlimage = $request->file('photo')->store($path);
 
-                // Actualizar la foto del usuario
-                if ($user->employee->photo && $user->employee->photo != 'erpd/users/userdefault.jpg') {
-                    Storage::delete($user->employee->photo); // Borra la foto anterior si existe
-                }
-            } else {
-                throw new \Exception('No se encontró un inquilino activo.');
+            $path = "users";
+            $urlimage = $request->file('photo')->store($path);
+
+            // Actualizar la foto del usuario
+            if ($user->employee->photo && $user->employee->photo != 'erpd/users/userdefault.jpg') {
+                Storage::delete($user->employee->photo); // Borra la foto anterior si existe
             }
         } else {
             $urlimage = $user->employee->photo; // Mantener la foto existente
@@ -222,7 +196,7 @@ class UserController extends Controller
             'position_id' => $request->position_id,
             'local_id' => $request->local_id,
         ]);
-   
+
 
 
         session()->flash('swal', [
@@ -233,8 +207,6 @@ class UserController extends Controller
 
         //return redirect()->route('admin.users.index');
         return redirect()->route('admin.users.edit', $user);
-
-
     }
 
     public function destroy(User $user)
@@ -260,10 +232,8 @@ class UserController extends Controller
         //dd($users);
         // Crear el PDF con una vista
         $pdf = Pdf::loadView('admin.users.pdf', compact('users'));
-    
+
         // Descargar el PDF
         return $pdf->download('admin.users.pdf');
     }
-
-
 }

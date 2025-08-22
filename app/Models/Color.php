@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Color extends Model
+{
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+
+    //Relacion uno a muchos
+    public function productos()
+    {
+        return $this->hasMany(Producto::class);
+    }
+}

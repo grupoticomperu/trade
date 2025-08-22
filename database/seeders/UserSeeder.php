@@ -1,6 +1,7 @@
 <?php
 
 namespace Database\Seeders;
+
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -97,7 +98,7 @@ class UserSeeder extends Seeder
         $sellerRole = Role::create(['name' => 'Seller', 'display_name' => 'Vendedor']);
         $grocerRole = Role::create(['name' => 'Grocer', 'display_name' => 'Almacenero']);
 
-        Permission::create(['name' => 'User List', 'display_name' => 'Listar Usuarios', 'model_name' => 'User'])->SyncRoles([$adminRole]);//hay que analizar este para dar permiso de ver la lista
+        Permission::create(['name' => 'User List', 'display_name' => 'Listar Usuarios', 'model_name' => 'User'])->SyncRoles([$adminRole]); //hay que analizar este para dar permiso de ver la lista
         Permission::create(['name' => 'User View', 'display_name' => 'Ver Usuario', 'model_name' => 'User'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'User Create', 'display_name' => 'Crear Usuario', 'model_name' => 'User'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'User Update', 'display_name' => 'Actualizar Usuario', 'model_name' => 'User'])->SyncRoles([$adminRole]);
@@ -113,24 +114,53 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Role Update', 'display_name' => 'Actualizar Rol', 'model_name' => 'Role'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Role Delete', 'display_name' => 'Eliminar Rol', 'model_name' => 'Role'])->SyncRoles([$adminRole]);
 
-        Permission::create(['name' => 'Local List', 'display_name' => 'Listar Locales', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        Permission::create(['name' => 'Local View', 'display_name' => 'Ver Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        Permission::create(['name' => 'Local Create', 'display_name' => 'Crear Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        Permission::create(['name' => 'Local Update', 'display_name' => 'Actualizar Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        Permission::create(['name' => 'Local Delete', 'display_name' => 'Eliminar Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
+        //Permission::create(['name' => 'Local List', 'display_name' => 'Listar Locales', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
+        //Permission::create(['name' => 'Local View', 'display_name' => 'Ver Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
+        //Permission::create(['name' => 'Local Create', 'display_name' => 'Crear Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
+        //Permission::create(['name' => 'Local Update', 'display_name' => 'Actualizar Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
+        //Permission::create(['name' => 'Local Delete', 'display_name' => 'Eliminar Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
+
+        //php artisan make:policy CategoryPolicy --model=Category
+        Permission::create(['name' => 'Category List', 'display_name' => 'Listar categorias', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Category View', 'display_name' => 'Ver Categoria', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Category Create', 'display_name' => 'Crear Categoria', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Category Update', 'display_name' => 'Actualizar Categoria', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Category Delete', 'display_name' => 'Eliminar Categoria', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
+
+
+        Permission::create(['name' => 'Lead List', 'display_name' => 'Listar Leads', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Lead View', 'display_name' => 'Ver Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Lead Create', 'display_name' => 'Crear Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Lead Update', 'display_name' => 'Actualizar Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Lead Delete', 'display_name' => 'Eliminar Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
+
+
+
+        Permission::create(['name' => 'Crm List', 'display_name' => 'Listar Crms', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Crm View', 'display_name' => 'Ver Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Crm Create', 'display_name' => 'Crear Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Crm Update', 'display_name' => 'Actualizar Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Crm Delete', 'display_name' => 'Eliminar Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
+
+
+        Permission::create(['name' => 'Producto List', 'display_name' => 'Listar Productos', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Producto View', 'display_name' => 'Ver Producto', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Producto Create', 'display_name' => 'Crear Producto', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Producto Update', 'display_name' => 'Actualizar Producto', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Producto Delete', 'display_name' => 'Eliminar Producto', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);
 
 
 
         //creando local principal de company
-        $local = Local::create([
-            'name' => 'local principal',
-            //'company_id' => $company->id,
-        ]);
+        //$local = Local::create([
+        //    'name' => 'local principal',
+        //'company_id' => $company->id,
+        //]);
 
-        $local = Local::create([
-            'name' => 'local secundario',
-            //'company_id' => $company->id,
-        ]);
+        // $local = Local::create([
+        //    'name' => 'local secundario',
+        //'company_id' => $company->id,
+        //]);
 
         //creando posicion o profesion o cargo
         $position = Position::create([
@@ -143,7 +173,7 @@ class UserSeeder extends Seeder
             'name' => 'Michael',
             'email' => 'michael@ticomperu.com',
             'email_verified_at' => now(),
-            'state' =>true,
+            'state' => true,
             //'company_id' => $company->id,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -156,9 +186,9 @@ class UserSeeder extends Seeder
             'movil' => '996929478',
             'dni' => '10133423',
             'gender' => 1,
-            'state' =>true,
+            'state' => true,
             'user_id' => $admin->id,
-            'local_id' => $local->id,
+            //'local_id' => $local->id,
             'position_id' => $position->id,
             //'company_id' => $company->id,
             'photo' => 'fe/default/users/userdefault.jpg',
@@ -167,10 +197,10 @@ class UserSeeder extends Seeder
 
         //creando usuario vendedor
         $seller = User::create([
-            'name' => 'Karin',
-            'email' => 'karin@ticomperu.com',
+            'name' => 'luis',
+            'email' => 'luis@ticomperu.com',
             'email_verified_at' => now(),
-            'state' =>true,
+            'state' => true,
             //'company_id' => $company->id,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
@@ -183,9 +213,9 @@ class UserSeeder extends Seeder
             'movil' => '996929478',
             'dni' => '10133423',
             'gender' => 1,
-            'state' =>true,
+            'state' => true,
             'user_id' => $seller->id,
-            'local_id' => $local->id,
+            //'local_id' => $local->id,
             'position_id' => $position->id,
             //'company_id' => $company->id,
             'photo' => 'fe/default/users/userdefault.jpg',
@@ -193,7 +223,31 @@ class UserSeeder extends Seeder
         ]);
 
 
+        //creando usuario vendedor
+        $seller2 = User::create([
+            'name' => 'Mario',
+            'email' => 'mario@ticomperu.com',
+            'email_verified_at' => now(),
+            'state' => true,
+            //'company_id' => $company->id,
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'remember_token' => Str::random(10),
+        ]);
+        $seller2->assignRole($sellerRole);
+
+        //creando empleado admin
+        Employee::create([
+            'address' => 'Av petith thouars 3022',
+            'movil' => '996929470',
+            'dni' => '10133424',
+            'gender' => 1,
+            'state' => true,
+            'user_id' => $seller2->id,
+            //'local_id' => $local->id,
+            'position_id' => $position->id,
+            //'company_id' => $company->id,
+            'photo' => 'fe/default/users/userdefault.jpg',
+
+        ]);
     }
-
-
 }

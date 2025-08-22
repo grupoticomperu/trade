@@ -7,6 +7,12 @@ use App\Http\Controllers\admin\UserRoleController;
 use App\Livewire\Admin\PermissionList;
 //use App\Livewire\Counter;
 use App\Http\Controllers\admin\RoleController;
+use App\Livewire\Admin\CategoryList;
+use App\Http\Controllers\admin\LeadController;
+use App\Http\Controllers\admin\CrmController;
+use App\Http\Controllers\admin\ProductoController;
+use App\Http\Controllers\admin\ProveedorController;
+use App\Http\Controllers\admin\SeguimientoController;
 
 Route::get('/hola', function () {
     return ('hola');
@@ -18,10 +24,13 @@ Route::get('/inicio', function () {
 
 Route::get('/tables', [TableController::class, 'showtables'])->name('admin.showtables');
 Route::resource('users', UserController::class)->names('admin.users');
+Route::resource('leads', LeadController::class)->names('admin.leads');
+Route::resource('crms', CrmController::class)->names('admin.crms');
+Route::resource('proveedors', ProveedorController::class)->names('admin.proveedors')->parameters(['proveedors' => 'proveedor']);
+Route::resource('productos', ProductoController::class)->names('admin.productos');
 
-Route::middleware('tenant')->group(function() {
-    // routes
-});
+Route::get('/admin/leads/import', [LeadController::class, 'form'])->name('admin.leads.import.form');
+Route::post('/admin/leads/import', [LeadController::class, 'import'])->name('admin.leads.import');
 
 
 
@@ -36,4 +45,21 @@ Route::resource('roles', RoleController::class)->names('admin.roles');
 //Route::get('/users/import', [UserController::class, 'import'])->name('admin.users.import');
 
 Route::get('/userspdf/pdf', [UserController::class, 'generatepdf'])->name('admin.users.pdf');
+
+//categorias
+Route::get('/categories', CategoryList::class)->name('category.list');
+
+//Route::get('/leads', [LeadController::class, 'index'])->name('admin.leads');
+
+Route::get('admin/crms/createe/{email?}/{placa?}', [CrmController::class, 'createe'])->name('admin.crms.createe');
+
+Route::resource('crms.seguimientos', SeguimientoController::class)
+        ->parameters(['crms' => 'crm', 'seguimientos' => 'seguimiento'])
+        ->names('admin.crms.seguimientos')
+        ->shallow();
+        
+        
+
+
+
 

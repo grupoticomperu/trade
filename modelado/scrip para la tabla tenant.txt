@@ -1,7 +1,0 @@
-
-
-INSERT INTO `tenants` (`id`, `name`, `domain`, `database`, `created_at`, `updated_at`) VALUES
-(1, 'unoerp2025dic', 'uno.erp2025dic.test', 'unoerp2025dic', NULL, NULL),
-(2, 'doserp2025dic', 'dos.erp2025dic.test', 'doserp2025dic', NULL, NULL),
-(3, 'treserp2025dic', 'tres.erp2025dic.test', 'treserp2025dic', NULL, NULL),
-(4, 'localhost', 'erp2025dic.test', 'erp2025dic', NULL, NULL);

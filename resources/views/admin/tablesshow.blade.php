@@ -10,6 +10,7 @@
             {{--  <div class="mx-auto max-w-7xl sm:px-6 lg:px-8"> --}}
             {{-- <div class="overflow-hidden bg-white shadow-xl sm:rounded-lg"> --}}
 
+                
             <div
                 class="grid grid-cols-1 px-4 mx-auto mt-4 max-w-7xl sm:px-6 lg:px-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-6 gap-y-8">
 
@@ -25,6 +26,7 @@
                     </header>
                 </article>
                 {{--  @endcan  --}}
+
 
                 @can('User List')
                     <article>
@@ -69,6 +71,209 @@
                 @endcan
 
 
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/locals.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Tipo Marketing</a>
+                        </h1>
+                    </header>
+                </article>
+
+                 <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/locals.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('admin.leads.index') }}">Leads</a>
+                        </h1>
+                    </header>
+                </article>
+
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/proveedores.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Proveedores</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/categorias.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('category.list') }}">Categorias</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/productos.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('admin.productos.index') }}">Productos</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/marcas.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Marcas</a>
+                        </h1>
+                    </header>
+
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/modelos.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Modelos</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/colores.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Colores</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/anios2.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Años</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/combustibles.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Combustibles</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/transmision.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Transmisión</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/traccion.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Tracción</a>
+                        </h1>
+                    </header>
+                </article>
+
+
+               {{--  <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Compras</a>
+                        </h1>
+                    </header>
+                </article> --}}
+                
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/crm.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('admin.crms.index') }}">CRM</a>
+                        </h1>
+                    </header>
+                </article>
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/etapas.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Etapas</a>
+                        </h1>
+                    </header>
+                </article>
+
+
+                 <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/seguimiento.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Seguimiento</a>
+                        </h1>
+                    </header>
+                </article>
+
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/ventas.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Ventas</a>
+                        </h1>
+                    </header>
+                </article>
+                
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/clientes.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="">Clientes</a>
+                        </h1>
+                    </header>
+                </article>
                 {{-- @can('Local View')
                                 <article>
                                     <figure>
@@ -193,7 +398,7 @@
 
     <section class="content-center">
         <div class="mt-4 bg-white shadow ">
-            <p class="p-2 text-center">TICOM SOFTWARE - FACTURACIÓN ELECTRÓNICA</p>
+            <p class="p-2 text-center">TICOM SOFTWARE</p>
         </div>
     </section>
 

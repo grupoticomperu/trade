@@ -108,7 +108,7 @@
                                                 <x-input-error for="gender" />
                                             </div>
 
-                                            <div>
+                                           {{--  <div>
                                                 <x-label value="Local:" />
                                                 <select name="local_id" class="block w-full py-2.5 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                                     <option value="">Selecciona un local</option>
@@ -117,7 +117,7 @@
                                                     @endforeach
                                                 </select>
                                                 <x-input-error for="position_id" />
-                                            </div>
+                                            </div> --}}
                                         </div>
 
 
