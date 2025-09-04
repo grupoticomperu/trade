@@ -76,7 +76,7 @@ class CategoryCreate extends Component
         //$this->emitTo('admin.category-list', 'render');
 
         // ✅ Emite evento global para que el otro componente lo escuche
-        $this->dispatch('categoria-creada');
+        //$this->dispatch('categoria-creada');
 
         $this->dispatch('swal:success', [
             'title' => '¡Guardado!',

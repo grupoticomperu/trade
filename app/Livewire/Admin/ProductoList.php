@@ -63,7 +63,7 @@ class ProductoList extends Component
 
         $user = auth()->user();
         $query = Producto::query()
-            ->where('nombre', 'like', '%' . $this->search . '%')
+            ->where('placa', 'like', '%' . $this->search . '%')
            ->when($this->stateFilter === 'disp', fn($q) => $q->where('state', 0))
             ->when($this->stateFilter === 'res', fn($q) => $q->where('state', 1))
             ->when($this->stateFilter === 'vend', fn($q) => $q->where('state', 2))

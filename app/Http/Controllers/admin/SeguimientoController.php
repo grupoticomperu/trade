@@ -40,6 +40,7 @@ class SeguimientoController extends Controller
     // Form de edición (ruta shallow)
     public function edit(Seguimiento $seguimiento)
     {
+         $seguimiento->load('crm'); // belongsTo
         return view('admin.seguimientos.edit', compact('seguimiento'));
     }
 

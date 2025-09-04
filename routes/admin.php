@@ -13,6 +13,12 @@ use App\Http\Controllers\admin\CrmController;
 use App\Http\Controllers\admin\ProductoController;
 use App\Http\Controllers\admin\ProveedorController;
 use App\Http\Controllers\admin\SeguimientoController;
+use App\Livewire\Admin\BrandList;
+use App\Livewire\Admin\Compras\ComprasList;
+use App\Livewire\Admin\Crms\GanadosList;
+use App\Livewire\Admin\Tipomarketings\Index as TipomarketingsIndex;
+use App\Livewire\Admin\Tipomarketings\Create as TipomarketingsCreate;
+use App\Livewire\Admin\Tipomarketings\Edit as TipomarketingsEdit;
 
 Route::get('/hola', function () {
     return ('hola');
@@ -59,7 +65,13 @@ Route::resource('crms.seguimientos', SeguimientoController::class)
         ->shallow();
         
         
+Route::get('/tipomarketings', TipomarketingsIndex::class)->name('tipomarketings.index');
+Route::get('/tipomarketings/create', TipomarketingsCreate::class)->name('tipomarketings.create');
+Route::get('/tipomarketings/{tipomarketing}/edit', TipomarketingsEdit::class)->name('tipomarketings.edit');
 
 
+Route::get('/brands', BrandList::class)->name('brand.list');
 
+Route::get('/crmss/ganados', GanadosList::class)->name('admin.crms.ganados');
 
+Route::get('/compras', ComprasList::class)->name('admin.compras.index');

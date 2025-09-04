@@ -150,6 +150,20 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Producto Delete', 'display_name' => 'Eliminar Producto', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);
 
 
+        Permission::create(['name' => 'Tipomarketing List', 'display_name' => 'Listar Tipomarketings', 'model_name' => 'Tipomarketing'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Tipomarketing View', 'display_name' => 'Ver Tipomarketing', 'model_name' => 'Tipomarketing'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Tipomarketing Create', 'display_name' => 'Crear Tipomarketing', 'model_name' => 'Tipomarketing'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Tipomarketing Update', 'display_name' => 'Actualizar Tipomarketing', 'model_name' => 'Tipomarketing'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Tipomarketing Delete', 'display_name' => 'Eliminar Tipomarketing', 'model_name' => 'Tipomarketing'])->SyncRoles([$adminRole]);
+
+
+        Permission::create(['name' => 'Brand List', 'display_name' => 'Listar Brands', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Brand View', 'display_name' => 'Ver Brand', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Brand Create', 'display_name' => 'Crear Brand', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Brand Update', 'display_name' => 'Actualizar Brand', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Brand Delete', 'display_name' => 'Eliminar Brand', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
+
+
 
         //creando local principal de company
         //$local = Local::create([

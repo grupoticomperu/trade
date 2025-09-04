@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tipomarketing extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name','order',];
 
     // Un tipo de marketing puede tener muchos leads
     public function leads()

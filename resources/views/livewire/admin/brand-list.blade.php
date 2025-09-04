@@ -1,18 +1,15 @@
-<div wire:init="loadCategories">
+<div wire:init="loadBrands">
 
     <x-slot name="header">
         <div class="flex items-center">
             <h2 class="text-xl font-semibold leading-tight text-gray-600">
-                Lista de Categorias
+                Lista de Marcas
             </h2>
         </div>
     </x-slot>
 
     <!-- This example requires Tailwind CSS v2.0+ -->
     <div class="container py-12 mx-auto border-gray-400 max-w-7xl sm:px-6 lg:px-8">
-
-
-
         <x-table>
 
             <div class="items-center px-6 py-4 bg-gray-200 sm:flex">
@@ -37,24 +34,23 @@
                         placeholder="buscar" />
                 </div>
 
-
-
-                @can('Category Create')
-                    @livewire('admin.category-create')
+                @can('Brand Create')
+                    @livewire('admin.brand-create')
                 @endcan
 
 
             </div>
 
 
-            @if (count($categories))
+            @if (count($brands))
 
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
                         <tr>
 
                             <th scope="col"
-                                class="w-24 px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer">
+                                class="w-24 px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
+                                wire:click="order('id')">
 
                                 ID
 
@@ -70,9 +66,10 @@
                             </th>
 
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
+                                wire:click="order('name')">
 
-                                Categoria
+                                Marca
                                 @if ($sort == 'name')
                                     @if ($direction == 'asc')
                                         <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
@@ -87,7 +84,8 @@
 
 
                             <th scope="col"
-                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer">
+                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
+                                wire:click="order('name')">
                                 Estado
                                 @if ($sort == 'state')
                                     @if ($direction == 'asc')
@@ -110,30 +108,29 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
 
-                        @foreach ($categories as $categoryy)
+                        @foreach ($brands as $brand)
                             <tr>
-
                                 <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                    {{ $categoryy->id }}
+                                    {{ $brand->id }}
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
                                         <div class="flex-shrink-0 w-10 h-10">
-                                            @if ($categoryy->image)
+                                            @if ($brand->image)
                                                 <img class="object-cover w-10 h-10 rounded"
-                                                    src="{{ url($categoryy->image) }}" alt="">
+                                                    src="{{ url($brand->image) }}" alt="">
 
-                                                {{-- src="{{ Storage::disk("s3")->url($categoryy->image) }}" alt=""> --}}
-                                                {{-- src="{{ Storage::url($categoryy->image) }}" --}}
+                                                {{-- src="{{ Storage::disk("s3")->url($brand->image) }}" alt=""> --}}
+                                                {{-- src="{{ Storage::url($brand->image) }}" --}}
                                             @else
-                                                {{-- <img class="object-cover w-10 h-10 rounded-full"
-                                                                src="storage/categories/default.jpg" alt=""> --}}
+                                                <img class="object-cover w-10 h-10 rounded-full"
+                                                    src="storage/brands/default.jpg" alt="">
                                             @endif
                                         </div>
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
-                                                {{ $categoryy->name }}
+                                                {{ $brand->name }}
                                             </div>
                                         </div>
                                     </div>
@@ -142,17 +139,17 @@
 
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                   
-                                    @switch($categoryy->state)
+
+                                    @switch($brand->state)
                                         @case(0)
-                                            <span wire:click="activar({{ $categoryy->id }})"
+                                            <span wire:click="activar({{ $brand->id }})"
                                                 class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full cursor-pointer">
                                                 inactivo
                                             </span>
                                         @break
 
                                         @case(1)
-                                            <span wire:click="desactivar({{ $categoryy->id }})"
+                                            <span wire:click="desactivar({{ $brand->id }})"
                                                 class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full cursor-pointer">
                                                 activo
                                             </span>
@@ -168,20 +165,20 @@
 
                                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                     {{-- <a href="" class="btn btn-blue"><i class="fa-sharp fa-solid fa-eye"></i></a> --}}
-                                    @can('Category Update')
-                                        <a wire:click="edit({{ $categoryy }})" class="mr-1 btn btn-green">
+                                    @can('Brand Update')
+                                        <a wire:click="edit({{ $brand }})" class="mr-1 btn btn-green">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     @endcan
 
                                     {{-- @can('Category Delete')
                                             <a class="btn btn-red"
-                                                wire:click="$emit('deleteCategory', {{ $categoryy->id }})">
+                                                wire:click="$emit('deleteCategory', {{ $brand->id }})">
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         @endcan --}}
 
-                                    <a class="btn btn-red" wire:click="confirmarEliminado({{ $categoryy->id }})">
+                                    <a class="btn btn-red" wire:click="confirmarEliminado({{ $brand->id }})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
 
@@ -198,10 +195,10 @@
                     </tbody>
                 </table>
 
-                @if ($categories->hasPages())
+                @if ($brands->hasPages())
                     {{-- existe paginación --}}
                     <div class="px-6 py-8">
-                        {{ $categories->links() }}
+                        {{ $brands->links() }}
                     </div>
                 @endif
             @else
@@ -232,36 +229,85 @@
 
 
         <script>
-            window.addEventListener('confirmareliminadooo', event => {
-                Swal.fire({
-                    title: event.detail.message,
-                    text: "No se podrá revertir!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#3085d6",
-                    cancelButtonColor: "#d33",
-                    confirmButtonText: "Sí, eliminar!",
-                    cancelButtonText: "Cancelar"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Emitir el evento 'eliminar' al backend
-                        //$wire.dispatch('eliminar');
-                        //console.log('Emitir evento eliminar'); // Verificar en la consola
-                        //Livewire.emit("eliminar");
-                        Livewire.dispatch("eliminar");
-                    }
+            document.addEventListener('livewire:navigated', () => {
+                Livewire.on('swal:success', (title, text, icon) => {
+                    Swal.fire({
+                        title: title,
+                        text: text,
+                        icon: icon, // aquí ya llega el que mandas desde PHP
+                        confirmButtonColor: '#3085d6'
+                    });
+                });
+
+                Livewire.on('borrado', (message) => {
+                    Swal.fire({
+                        title: "Mensaje del Sistema",
+                        text: message || "Registro eliminado correctamente.",
+                        icon: "success",
+                    });
+                });
+
+                Livewire.on('confirmareliminadooo', (message) => {
+                    Swal.fire({
+                        title: message,
+                        text: "No se podrá revertir!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Sí, eliminar!",
+                        cancelButtonText: "Cancelar"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Livewire.dispatch("eliminar");
+                        }
+                    });
                 });
             });
 
 
-            window.addEventListener('borrado', event => {
-                Swal.fire({
-                    title: "Mensaje del Sistema",
-                    text: event.detail.message || "Registro eliminado correctamente.",
-                    icon: "success",
-                });
-            });
-        </script>
+
+            /*  window.addEventListener('confirmareliminadooo', event => {
+                 Swal.fire({
+                     title: event.detail.message,
+                     text: "No se podrá revertir!",
+                     icon: "warning",
+                     showCancelButton: true,
+                     confirmButtonColor: "#3085d6",
+                     cancelButtonColor: "#d33",
+                     confirmButtonText: "Sí, eliminar!",
+                     cancelButtonText: "Cancelar"
+                 }).then((result) => {
+                     if (result.isConfirmed) {
+                         
+                         Livewire.dispatch("eliminar");
+                     }
+                 });
+             });
+
+
+             window.addEventListener('borrado', event => {
+                 Swal.fire({
+                     title: "Mensaje del Sistema",
+                     text: event.detail.message || "Registro eliminado correctamente.",
+                     icon: "success",
+                 });
+             });
+
+            
+
+
+             document.addEventListener('livewire:init', () => {
+                 Livewire.on('swal:success', (title, text, icon) => {
+                     Swal.fire({
+                         title: title,
+                         text: text,
+                         icon: 'success',
+                         confirmButtonColor: '#3085d6'
+                     });
+                 });
+             });
+        </script> */
     @endpush
 
 

@@ -44,8 +44,8 @@ return new class extends Migration
             $table->unsignedBigInteger('proveedor_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable(); // Vendedor o usuario asociado
             $table->unsignedBigInteger('brand_id')->nullable(); // Marca del vehículo
-            $table->unsignedBigInteger('modello_id')->nullable(); // Marca del vehículo
-             $table->unsignedBigInteger('version_id')->nullable(); // Marca del vehículo
+           // $table->unsignedBigInteger('modello_id')->nullable(); // Marca del vehículo
+           //  $table->unsignedBigInteger('version_id')->nullable(); // Marca del vehículo
             $table->unsignedBigInteger('color_id')->nullable(); // Color del vehículo       
             $table->unsignedBigInteger('year_id')->nullable(); // Color del vehículo  
             $table->unsignedBigInteger('traccion_id')->nullable(); // Color del vehículo  
@@ -57,8 +57,12 @@ return new class extends Migration
             $table->foreign('proveedor_id')->references('id')->on('proveedors')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
-            $table->foreign('modello_id')->references('id')->on('modellos')->onDelete('cascade');
-            $table->foreign('version_id')->references('id')->on('versions')->onDelete('cascade');
+            //$table->foreign('modello_id')->references('id')->on('modellos')->onDelete('cascade');
+            //$table->foreign('version_id')->references('id')->on('versions')->onDelete('cascade');
+
+            $table->foreignId('modello_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('version_id')->nullable()->constrained()->onDelete('cascade');
+
             $table->foreign('color_id')->references('id')->on('colors')->onDelete('cascade');
             $table->foreign('year_id')->references('id')->on('years')->onDelete('cascade');
             $table->foreign('traccion_id')->references('id')->on('traccions')->onDelete('cascade');

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('tipomarketings', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->integer('order')->nullable();
             $table->timestamps();
         });
     }

@@ -38,4 +38,14 @@ class Lead extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // App\Models\Lead.php
+    protected $casts = [
+        'state'         => 'boolean',
+        'esoportunidad' => 'boolean',
+        'fecha'         => 'date',
+        'fechaderivacion' => 'date',
+    ];
+
+    
 }

@@ -98,7 +98,7 @@
                                     @endif
                                 </th>
 
-                                <th scope="col"
+                               {{--  <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
                                     wire:click="order('nombre')">
 
@@ -113,7 +113,7 @@
                                         <i class="float-right mt-1 fas fa-sort"></i>
                                     @endif
 
-                                </th>
+                                </th> --}}
 
                                 <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
@@ -167,20 +167,23 @@
                                         {{ $producto->id }}
                                     </td>
 
-                                    <td class="flex items-center px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                    {{-- <td class="flex items-center px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
 
 
                                         <div class="ml-4">
                                             {{ $producto->nombre }}
                                         </div>
-                                    </td>
+                                    </td> --}}
 
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                         {{ $producto->placa }}
                                     </td>
 
                                     <td>
-                                        {{ $producto->precio_esperado }}
+                                        @if($producto->precio_esperado )
+                                            US$ {{ $producto->precio_esperado }}
+                                        @endif
+                                        
                                     </td>
 
                                     <td class="px-6 py-4 whitespace-nowrap">

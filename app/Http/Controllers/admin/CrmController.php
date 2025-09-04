@@ -62,6 +62,7 @@ class CrmController extends Controller
         ]); */
 
         //$proveedor = Proveedor::where('correo', $email)->first();
+        //ponemos lead a true
         $lead = Lead::where('correoelectronico', $email)->latest()->first();
         $lead->esoportunidad = true;
         $lead->save();
@@ -101,7 +102,6 @@ class CrmController extends Controller
                 ['name' => $lead->modelo, 'brand_id' => $brand->id]
             );
         }
-
 
 
 

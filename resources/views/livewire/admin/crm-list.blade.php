@@ -168,11 +168,14 @@
 
                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
 
-                                            @if ($crm->producto)
+                                            {{-- @if ($crm->producto)
                                                 <p> {{ $crm->producto->nombre }}</p>
                                             @else
                                                 <p>No hay producto asignado.</p>
-                                            @endif
+                                            @endif --}}
+
+                                            {{ $crm->nombre }}
+
                                         </td>
 
                                         <td class="px-6 py-4 whitespace-nowrap">

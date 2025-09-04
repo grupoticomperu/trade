@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <div class="max-w-4xl mx-auto mt-6 p-6 bg-white rounded-xl shadow">
+    <div class="max-w-2xl mx-auto mt-6 p-6 bg-white rounded-xl shadow">
         {{-- Mensaje de éxito --}}
         @if(session('success'))
             <div class="p-3 mb-4 bg-green-100 text-green-700 rounded">

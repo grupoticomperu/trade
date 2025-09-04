@@ -25,9 +25,9 @@ class ProductoController extends Controller
         return view('admin.productos.index');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+   
+    
+
     public function create()
     {
         //

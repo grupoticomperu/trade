@@ -206,16 +206,40 @@
                 </article>
 
 
-               {{--  <article>
+                <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
                             alt="">
                     </figure>
                     <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="">Compras</a>
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('admin.crms.index') }}">CRM</a>
                         </h1>
                     </header>
-                </article> --}}
+                </article> 
+
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('admin.crms.ganados') }}">Ganados</a>
+                        </h1>
+                    </header>
+                </article> 
+
+
+                <article>
+                    <figure>
+                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
+                            alt="">
+                    </figure>
+                    <header class="mt-2">
+                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('admin.compras.index') }}">Compras</a>
+                        </h1>
+                    </header>
+                </article> 
                 
 
                 <article>

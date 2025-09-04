@@ -43,5 +43,20 @@ class Crm extends Model
         return $this->hasMany(Seguimiento::class);
     }
 
+    public function scopeGanados($q)
+    {
+        // Ajusta 'ganado' si en BD está 'Ganado' / 'WON' / etc.
+        return $q->whereHas(
+            'etapa',
+            fn($qq) =>
+            $qq->whereRaw('LOWER(name) = ?', ['ganado'])
+        );
+    }
 
+
+    // app/Models/Crm.php
+    public function compra()
+    {
+        return $this->hasOne(Compra::class);
+    }
 }

@@ -3,22 +3,37 @@
 namespace App\Livewire\Admin;
 
 use Livewire\Component;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+use App\Models\Brand;
+use Illuminate\Support\Str;
+use App\Exports\BrandExport;
 use Livewire\WithPagination;
-use App\Models\Category;
+use Livewire\WithFileUploads;
+use Illuminate\validation\Rule;
+use App\Models\Configuration;
 use Livewire\Attributes\On;
 
-class CategoryList extends Component
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+//php artisan make:livewire admin/BrandList
+class BrandList extends Component
 {
-    use AuthorizesRequests;
-    use WithPagination;
-    public $search, $image, $category, $state, $identificador;
+
+    use WithPagination; //para paginacion
+    use AuthorizesRequests; //para permisos
+    use WithFileUploads; //para la carga de imagenes
+    public $search, $image, $brand, $identificador; //identificador para recargar la imagen
+
+    public $order, $name, $state;
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
     public $open_edit = false;
+    //public $open_view = false;
     public $readyToLoad = false; //para controlar el preloader inicia en false
-    public $categoryid;
+    public $brandid;
+
 
     protected $queryString = [
         'cant' => ['except' => '10'],
@@ -27,16 +42,11 @@ class CategoryList extends Component
         'search' => ['except' => ''],
     ];
 
-    public function mount()
-    {
-        $this->identificador = rand();
-        //$this->category = new Category();
-        $this->image = "";
+
+    #[On('marca-creada')] // Escucha el evento
+    public function refreshList() {
+          $this->resetPage();
     }
-
-
-    #[On('categoria-creada')] // Escucha el evento
-    public function refreshList() {}
 
 
     public function updatingSearch()
@@ -44,7 +54,7 @@ class CategoryList extends Component
         $this->resetPage();
     }
 
-    public function loadCategories()
+    public function loadBrands()
     {
         $this->readyToLoad = true;
     }
@@ -52,17 +62,22 @@ class CategoryList extends Component
 
 
 
+
+
+
     public function render()
     {
-        //$this->authorize('create', new Category);
+
         if ($this->readyToLoad) {
 
-            $categories = Category::where('name', 'like', '%' . $this->search . '%')->paginate(10);
+            $brands = Brand::where('name', 'like', '%' . $this->search . '%')->paginate(10);
         } else {
-            $categories = [];
+            $brands = [];
         }
-        return view('livewire.admin.category-list', compact('categories'))->layout('layouts.app');
+
+        return view('livewire.admin.brand-list', compact('brands'))->layout('layouts.app');
     }
+
 
     public function order($sort)
     {
@@ -80,28 +95,25 @@ class CategoryList extends Component
 
 
 
-    public function activar($categoryy)
+    public function activar($brand)
     {
 
-        Category::find($categoryy)
+        Brand::find($brand)
             ->update(['state' => 1]);
     }
 
-    public function desactivar($categoryy)
+    public function desactivar($brand)
     {
-
-        Category::find($categoryy)
+        Brand::find($brand)
             ->update(['state' => 0]);
     }
 
 
-
-
     public function confirmarEliminado($id)
     {
-        $this->categoryid = $id;
+        $this->brandid = $id;
 
-       
+
 
         $this->dispatch('confirmareliminadooo');
         //$this->dispatch('confirmareliminado', message:'¿Estás seguro de eliminar?');
@@ -111,21 +123,18 @@ class CategoryList extends Component
     }
 
 
-
-
-
     #[On('eliminar')] // Escucha el evento "eliminar"
     public function delete()
     {
         //$this->authorize('delete', $user);
 
 
-        if ($this->categoryid) {
-            $category = Category::find($this->categoryid);
+        if ($this->brandid) {
+            $brand = Brand::find($this->brandid);
             //$this->authorize('delete', $user);
             //dd($user);
-            if ($category) {
-                $category->delete();
+            if ($brand) {
+                $brand->delete();
 
                 // Notifica éxito
                 $this->dispatch('borrado', [
@@ -139,10 +148,7 @@ class CategoryList extends Component
                 ]);
             }
 
-            $this->reset('categoryid');
+            $this->reset('brandid');
         }
     }
-
-
-
 }

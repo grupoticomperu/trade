@@ -75,9 +75,16 @@
                                 {{ optional($seg->fecha)->format('d/m/Y') }}
                             </td>
                             <td class="px-4 py-2 text-sm text-right">
-                                <a href="{{ route('admin.crms.seguimientos.edit', $seg) }}" class="btn btn-green">
+                              {{--  <a href="{{ route('admin.crms.seguimientos.edit', $seg) }}" class="btn btn-green">
+
                                     <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
+                                </a>  --}}
+
+                                <button type="button" class="btn btn-green"
+                                    onclick="Livewire.dispatch('editar-seguimiento', { id: {{ $seg->id }} })">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
+
                                 <form action="{{ route('admin.crms.seguimientos.destroy', $seg) }}" method="POST"
                                     class="inline">
                                     @csrf @method('DELETE')
@@ -97,5 +104,7 @@
         </div>
 
     </div>
+
+    <livewire:admin.seguimientos.edit-modal :contextCrmId="$crm->id" />
 
 </x-app-layout>
