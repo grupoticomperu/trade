@@ -47,5 +47,10 @@ class Lead extends Model
         'fechaderivacion' => 'date',
     ];
 
-    
+
+    // App\Models\Lead.php
+    public function scopeNoOportunidad($q)
+    {
+        return $q->where('esoportunidad', 0);
+    }
 }

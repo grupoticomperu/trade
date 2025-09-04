@@ -66,7 +66,7 @@ class LeadList extends Component
     }
 
 
-    /*  public function render()
+    public function render()
     {
 
 
@@ -88,38 +88,10 @@ class LeadList extends Component
 
 
         return view('livewire.admin.lead-list', compact('leads'));
-    } */
+    } 
 
 
-public function render()
-{
-    $this->authorize('viewAny', \App\Models\Lead::class);
-
-    $user = auth()->user();
-
-    $query = \App\Models\Lead::query()
-        ->where(function ($q) {
-            $q->where('esoportunidad', 0)      // NO es oportunidad
-              ->orWhereNull('esoportunidad');  // por si hay datos viejos en NULL
-        })
-        ->when(filled($this->search), fn ($q) =>
-            $q->where('nombres', 'like', '%'.$this->search.'%')
-        )
-        ->when($this->stateFilter === 'active', fn ($q) => $q->where('state', 1))
-        ->when($this->stateFilter === 'inactive', fn ($q) => $q->where('state', 0));
-
-    if (! $user->hasRole('Admin')) {
-        $query->where('user_id', $user->id);
-    }
-
-    $allowedSorts = ['id','nombres','fecha','fechaderivacion'];
-    $sort = in_array($this->sort, $allowedSorts, true) ? $this->sort : 'id';
-    $direction = $this->direction === 'asc' ? 'asc' : 'desc';
-
-    $leads = $query->orderBy($sort, $direction)->paginate($this->cant);
-
-    return view('livewire.admin.lead-list', compact('leads'));
-}
+  
 
 
 
