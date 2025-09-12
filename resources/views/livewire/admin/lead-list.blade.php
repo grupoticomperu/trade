@@ -52,7 +52,7 @@
                     <select wire:model.live="cant"
                         class="block p-7 py-2.5 ml-3 mr-3 text-sm text-gray-900 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
 
-                        <option value="10"> 10 </option>
+                        <option value="10">10</option>
                         <option value="25">25</option>
                         <option value="50">50</option>
                         <option value="100">100</option>
@@ -80,13 +80,15 @@
 
 
                 <div class="flex items-center gap-4 px-2 mt-2 mr-4 md:mt-0">
-                    <p class="font-medium">Perfil coincide</p>
+
 
                     <label class="inline-flex items-center gap-2">
                         <input type="radio" name="stateFilter" value="all" wire:model.live="stateFilter"
                             class="rounded">
                         <span>Todos</span>
                     </label>
+
+                    <p class="font-medium">Perfil coincide</p>
 
                     <label class="inline-flex items-center gap-2">
                         <input type="radio" name="stateFilter" value="active" wire:model.live="stateFilter"
@@ -99,6 +101,13 @@
                             class="rounded">
                         <span>No</span>
                     </label>
+
+                    <label class="inline-flex items-center gap-2">
+                        <input type="radio" name="stateFilter" value="iniciar" wire:model.live="stateFilter"
+                            class="rounded">
+                        <span>Iniciar</span>
+                    </label>
+
                 </div>
 
 
@@ -106,7 +115,7 @@
             </div>
         </div>
 
-        <div class="container mx-auto py-0 max-w-7xl sm:px-6 lg:px-8">
+        <div class="container mx-auto py-0 max-w-full sm:px-6 lg:px-8">
 
             <x-table>
 
@@ -130,6 +139,40 @@
                                     @else
                                         <i class="float-right mt-1 fas fa-sort"></i>
                                     @endif
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
+                                    wire:click="order('fechaderivacion')">
+
+                                    Fecha Derivacion
+                                    @if ($sort == 'fechaderivacion')
+                                        @if ($direction == 'asc')
+                                            <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
+                                        @else
+                                            <i class="float-right mt-1 fas fa-sort-alpha-down-alt"></i>
+                                        @endif
+                                    @else
+                                        <i class="float-right mt-1 fas fa-sort"></i>
+                                    @endif
+
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
+                                    wire:click="order('fecha')">
+
+                                    Fecha
+                                    @if ($sort == 'fecha')
+                                        @if ($direction == 'asc')
+                                            <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
+                                        @else
+                                            <i class="float-right mt-1 fas fa-sort-alpha-down-alt"></i>
+                                        @endif
+                                    @else
+                                        <i class="float-right mt-1 fas fa-sort"></i>
+                                    @endif
+
                                 </th>
 
                                 <th scope="col"
@@ -167,7 +210,7 @@
                                 </th>
 
                                 <th scope="col"
-                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                     Placa
                                 </th>
 
@@ -177,8 +220,18 @@
                                 </th>
 
                                 <th scope="col"
-                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                                    wire:click="order('telefono')">
                                     Telefono
+                                    @if ($sort == 'telefono')
+                                        @if ($direction == 'asc')
+                                            <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
+                                        @else
+                                            <i class="float-right mt-1 fas fa-sort-alpha-down-alt"></i>
+                                        @endif
+                                    @else
+                                        <i class="float-right mt-1 fas fa-sort"></i>
+                                    @endif
                                 </th>
                                 <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
@@ -201,6 +254,15 @@
                                         {{ $lead->id }}
                                     </td>
 
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+
+                                           {{ $lead->fechaderivacion }}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                       {{ $lead->fecha }}
+                                    </td>
+
                                     <td class="flex items-center px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
 
 
@@ -219,16 +281,23 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap">
 
-                                        @switch($lead->state)
-                                            @case(0)
-                                                <span wire:click="activar({{ $lead->id }})"
+                                        @switch($lead->perfilcoincide)
+                                            @case('iniciar')
+                                                <span
+                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full cursor-pointer">
+                                                    Iniciar
+                                                </span>
+                                            @break
+
+                                            @case('no')
+                                                <span
                                                     class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full cursor-pointer">
                                                     No
                                                 </span>
                                             @break
 
-                                            @case(1)
-                                                <span wire:click="desactivar({{ $lead->id }})"
+                                            @case('si')
+                                                <span
                                                     class="inline-flex px-2 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full cursor-pointer">
                                                     Si
                                                 </span>
@@ -239,15 +308,17 @@
 
                                     </td>
 
-                                    <td>
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap 
+                                        @if (in_array($lead->telefono, $duplicatedPhones)) bg-yellow-200 @endif">
                                         {{ $lead->telefono }}
                                     </td>
 
                                     <td>
-                                        @if($lead->user)
-                                        {{ $lead->user->name }}
+                                        @if ($lead->user)
+                                            {{ $lead->user->name }}
                                         @else
-                                        <p>Sin user</p>
+                                            <p>Sin user</p>
                                         @endif
                                     </td>
 
@@ -267,8 +338,11 @@
                                             @php
                                                 $email = trim($lead->correoelectronico ?? '');
                                                 $placa = trim($lead->placa ?? '');
-                                                $user_id = $lead->user_id ?? NULL;
-                                                $ready = filter_var($email, FILTER_VALIDATE_EMAIL) && $placa !== '' && $user_id !== NULL;
+                                                $user_id = $lead->user_id ?? null;
+                                                $ready =
+                                                    filter_var($email, FILTER_VALIDATE_EMAIL) &&
+                                                    $placa !== '' &&
+                                                    $user_id !== null;
                                             @endphp
 
                                             @if ($ready)

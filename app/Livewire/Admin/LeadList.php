@@ -53,6 +53,11 @@ class LeadList extends Component
         //RESETEA la paginación, updating() cuando se cambia una de las propiedades  updatingSearch() cuando se cambia la propiedad search
     }
 
+    public function updatedCant()
+    {
+        $this->resetPage();
+    }
+
     public function loadLeads()
     {
         $this->readyToLoad = true;
@@ -74,24 +79,32 @@ class LeadList extends Component
 
         $user = auth()->user();
         $query = Lead::query()
-            ->where('esoportunidad', 0)
-            ->where('nombres', 'like', '%' . $this->search . '%')
-            ->when($this->stateFilter === 'active', fn($q) => $q->where('state', 1))
-            ->when($this->stateFilter === 'inactive', fn($q) => $q->where('state', 0));
+            ->where('state', 1)
+            ->where(function ($q) {
+                $q->where('nombres', 'like', '%' . $this->search . '%')
+                    ->orWhere('telefono', 'like', '%' . $this->search . '%')
+                    ->orWhere('telefono', 'like', '%' . $this->search . '%')
+                    ->orWhere('correoelectronico', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->stateFilter === 'active', fn($q) => $q->where('perfilcoincide', 'si'))
+            ->when($this->stateFilter === 'inactive', fn($q) => $q->where('perfilcoincide', 'no'))
+            ->when($this->stateFilter === 'iniciar', fn($q) => $q->where('perfilcoincide', 'iniciar'));
 
         if (!$user->hasRole('Admin')) {
-            $query->where('user_id', $user->id);  
+            $query->where('user_id', $user->id);
         }
 
         $leads = $query->orderBy($this->sort, $this->direction)->paginate($this->cant);
 
+        // Calcular duplicados en los leads paginados
+        $duplicatedPhones = $leads->groupBy('telefono')
+            ->filter(fn($group) => $group->count() > 1)
+            ->keys()
+            ->toArray();
 
+        return view('livewire.admin.lead-list', compact('leads', 'duplicatedPhones'));
 
-        return view('livewire.admin.lead-list', compact('leads'));
-    } 
-
-
-  
+    }
 
 
 
@@ -100,13 +113,13 @@ class LeadList extends Component
     public function activar($leadId)
     {
         $lead = Lead::findOrFail($leadId); // Buscar el usuario por ID
-        $lead->update(['state' => Lead::STATE_ACTIVE]); // Actualizar el estado a activo
+        $lead->update(['esoportunidad' => Lead::STATE_ACTIVE]); // Actualizar el estado a activo
     }
 
     public function desactivar($leadId)
     {
         $lead = Lead::findOrFail($leadId); // Buscar el usuario por ID
-        $lead->update(['state' => Lead::STATE_INACTIVE]); // Actualizar el estado a inactivo
+        $lead->update(['esoportunidad' => Lead::STATE_INACTIVE]); // Actualizar el estado a inactivo
     }
 
 

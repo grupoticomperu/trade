@@ -23,7 +23,8 @@ return new class extends Migration
             $table->string('anio')->nullable();
             $table->string('kilometraje')->nullable();
             $table->string('placa')->nullable();                    
-            $table->boolean('state')->nullable();
+            $table->boolean('state')->nullable()->default(1);
+            $table->enum('perfilcoincide', ['iniciar', 'si', 'no'])->default('iniciar');
             $table->boolean('esoportunidad')->default(false);
             $table->text('observacion')->nullable(); //aqui pondremos observaciones antes de pasar a oportuinidad o porque no paso a oportunidad
             $table->unsignedBigInteger('user_id')->nullable();

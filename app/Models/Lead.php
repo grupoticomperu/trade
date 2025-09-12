@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 
 class Lead extends Model
 {
@@ -53,4 +55,49 @@ class Lead extends Model
     {
         return $q->where('esoportunidad', 0);
     }
+
+
+    /*  protected function fechaderivacion(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => \Carbon\Carbon::parse($value)->format('m/d/Y'),
+        );
+    } */
+
+    /* protected function fechaderivacion(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->translatedFormat('d/m/Y'),
+        );
+    } */
+
+    protected function fechaderivacion(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->locale('es')->translatedFormat('d \d\e F \d\e Y'),
+        );
+    }
+
+
+    protected function fecha(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->locale('es')->translatedFormat('d \d\e F \d\e Y'),
+        );
+    }
+
+
+    /*  protected function fecha(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => \Carbon\Carbon::parse($value)->format('m/d/Y'),
+        );
+    } */
+
+    /* protected function fecha(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Carbon::parse($value)->translatedFormat('d/m/Y'),
+        );
+    } */
 }

@@ -24,7 +24,7 @@ class LeadsImport implements ToModel, WithHeadingRow, WithValidation
             'anio'                => $row['anio'] ?? null,
             'kilometraje'         => $row['kilometraje'] ?? null,
             'placa'               => $row['placa'] ?? null,
-            'state'               => $row['state'] ?? null,
+            'state'               => $row['state'] ?? 1,
             'user_id'             => $row['user_id'] ?? null,
             'tipomarketing_id'    => $row['tipomarketing_id'] ?? null,
         ]);
