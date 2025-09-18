@@ -14,6 +14,7 @@ use App\Models\Traccion;
 use App\Models\Transmision;
 use App\Models\Year;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -25,8 +26,8 @@ class ProductoController extends Controller
         return view('admin.productos.index');
     }
 
-   
-    
+
+
 
     public function create()
     {
@@ -120,6 +121,7 @@ class ProductoController extends Controller
             'state'                      => ['nullable', 'integer', 'in:0,1,2,3'], // 0=Disp,1=Vend,2=Res
             //'comprado'                   => ['nullable', 'boolean'],
             //'vendido'                    => ['nullable', 'boolean'],
+            'tarjetadepropiedad' => ['nullable', 'file', 'mimes:jpg,jpeg,png,pdf', 'max:5120'],
         ]);
 
         // Normaliza checkboxes (por si faltan)
@@ -146,9 +148,103 @@ class ProductoController extends Controller
         $producto->update($data);
 
 
+        // Acumula cambios de archivos aquí
+        $fileUpdates = [];
 
-        return redirect()->route('admin.crms.index')
-            ->with('success', 'Producto actualizado correctamente');
+        // FOTO 1 (solo si se subió)
+        if ($request->hasFile('foto1')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('foto1'), 'public');
+
+            $fileUpdates['foto1'] = $newPath;
+        }
+
+        if ($request->hasFile('foto2')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('foto2'), 'public');
+
+            $fileUpdates['foto2'] = $newPath;
+        }
+
+        if ($request->hasFile('foto3')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('foto3'), 'public');
+
+            $fileUpdates['foto3'] = $newPath;
+        }
+
+        if ($request->hasFile('foto4')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('foto4'), 'public');
+
+            $fileUpdates['foto4'] = $newPath;
+        }
+
+
+        // SOAT (imagen o PDF)
+        if ($request->hasFile('soat')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('soat'), 'public');
+
+            $fileUpdates['soat'] = $newPath;
+        }
+
+        // permiso de lunas (imagen o PDF)
+        if ($request->hasFile('permisodelunas')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('permisodelunas'), 'public');
+
+            $fileUpdates['permisodelunas'] = $newPath;
+        }
+
+        // TARJETA DE PROPIEDAD (imagen o PDF)
+        if ($request->hasFile('tarjetadepropiedad')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('tarjetadepropiedad'), 'public');
+
+            $fileUpdates['tarjetadepropiedad'] = $newPath;
+        }
+
+
+        // TARJETA DE PROPIEDAD (imagen o PDF)
+        if ($request->hasFile('revisiontecnica')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('revisiontecnica'), 'public');
+
+            $fileUpdates['revisiontecnica'] = $newPath;
+        }
+
+        // TARJETA DE PROPIEDAD (imagen o PDF)
+        if ($request->hasFile('voucherpago1')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('voucherpago1'), 'public');
+
+            $fileUpdates['voucherpago1'] = $newPath;
+        }
+
+        // TARJETA DE PROPIEDAD (imagen o PDF)
+        if ($request->hasFile('voucherpago2')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('voucherpago2'), 'public');
+
+            $fileUpdates['voucherpago2'] = $newPath;
+        }
+
+        // TARJETA DE PROPIEDAD (imagen o PDF)
+        if ($request->hasFile('voucherpago3')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('voucherpago3'), 'public');
+
+            $fileUpdates['voucherpago3'] = $newPath;
+        }
+
+        // TARJETA DE PROPIEDAD (imagen o PDF)
+        if ($request->hasFile('voucherpago4')) {
+            $newPath = Storage::disk('s3')->putFile('tradecar/productos', $request->file('voucherpago4'), 'public');
+
+            $fileUpdates['voucherpago4'] = $newPath;
+        }
+
+        // Un solo update con todo
+        $producto->update(array_merge($data, $fileUpdates));
+
+
+
+
+
+        /* return redirect()->route('admin.crms.index')
+            ->with('success', 'Producto actualizado correctamente'); */
+
+        return back()->with('success', 'Producto actualizado correctamente');
     }
 
 

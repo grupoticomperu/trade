@@ -26,6 +26,8 @@ return new class extends Migration
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             
+            $table->boolean('state')->nullable()->default(0);
+
             $table->foreign('proveedor_id')->references('id')->on('proveedors')->onDelete('cascade');
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
             $table->foreign('etapa_id')->references('id')->on('etapas')->onDelete('cascade');

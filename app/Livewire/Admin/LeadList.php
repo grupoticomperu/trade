@@ -79,7 +79,7 @@ class LeadList extends Component
 
         $user = auth()->user();
         $query = Lead::query()
-            ->where('state', 1)
+            ->where('esoportunidad', 0)
             ->where(function ($q) {
                 $q->where('nombres', 'like', '%' . $this->search . '%')
                     ->orWhere('telefono', 'like', '%' . $this->search . '%')

@@ -40,6 +40,7 @@
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Proveedor</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Oportunidad</th>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Vehículo</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Autorizado</th>
                             <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Acciones</th>
                         </tr>
                     </thead>
@@ -50,7 +51,30 @@
                                 <td class="px-6 py-3 text-sm text-gray-700">{{ $crm->proveedor->nombre ?? '—' }}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">{{ $crm->nombre }}</td>
                                 <td class="px-6 py-3 text-sm text-gray-700">{{ $crm->producto->nombre ?? '—' }}</td>
+
+                                <td class="px-6 py-3 text-sm">
+                                    @if ($crm->state)
+                                        <span
+                                            class="px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sí</span>
+                                    @else
+                                        <span
+                                            class="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">No</span>
+                                    @endif
+                                </td>
+
                                 <td class="px-6 py-3 text-sm text-right">
+
+                                    @if (!$crm->state)
+                                    <button type="button"
+                                        class="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
+                                        wire:click="abrirModalComprados({{ $crm->id }})"
+                                        wire:loading.attr="disabled" wire:target="abrirModalComprados">
+                                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                                        <span>Autorizar</span>
+                                    </button>
+                                    @endif
+
+
 
                                     @if ($crm->compra)
                                         <span
@@ -89,4 +113,5 @@
 
     {{-- Modal para crear el documento desde CRM --}}
     <livewire:admin.compras.create-from-crm-modal />
+    <livewire:admin.compras.create-from-crm-modaldos />
 </div>

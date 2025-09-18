@@ -80,7 +80,7 @@
                 </div>
             </div>
 
-            <div class="container mx-auto py-0 max-w-7xl sm:px-6 lg:px-8">
+            <div class="container mx-auto py-0 max-w-full sm:px-6 lg:px-8">
 
                 <x-table>
 
@@ -143,6 +143,11 @@
                                     </th>
 
                                     <th scope="col"
+                                        class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                        Autorizado
+                                    </th>
+
+                                    <th scope="col"
                                         class="px-6 py-3 text-xs font-medium tracking-wider text-right text-gray-500 uppercase">
                                         ACCIONES
                                     </th>
@@ -188,7 +193,17 @@
                                             {{ $crm->proveedor->telefono }}
                                         </td>
 
+                                        <td>
 
+                                            @if ($crm->state)
+                                                <span
+                                                    class="px-2 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">Sí</span>
+                                            @else
+                                                <span
+                                                    class="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">No</span>
+                                            @endif
+
+                                        </td> 
 
                                         <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
 
@@ -213,8 +228,11 @@
                                             @endcan --}}
 
                                             {{-- @can('Lead Update') --}}
-                                             <a href="{{ route('admin.crms.show', $crm) }}" class="btn btn-green"><i
+                                            @if(!$crm->state)
+                                            <a href="{{ route('admin.crms.show', $crm) }}" class="btn btn-green"><i
                                                     class="fa-solid fa-pen-to-square"></i></a>
+                                            @endif    
+
 
 
                                             {{-- @endcan
@@ -230,6 +248,15 @@
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                             {{--  @endcan --}}
+
+
+                                            {{-- solamente muestra si esta autorizado --}}
+                                            {{-- @if($crm->state)
+                                            <a href="{{ route('admin.crms.show', $crm) }}"
+                                                class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition">
+                                                <i class="fa-solid fa-magnifying-glass text-gray-500"></i>
+                                            </a>
+                                            @endif --}}
 
 
                                         </td>

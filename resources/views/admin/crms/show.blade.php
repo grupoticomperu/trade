@@ -30,8 +30,8 @@
             </div>
             <div>
                 <p><strong>Fecha derivación:</strong> {{ $crm->fechaderivacion ?? '-' }}</p>
-                <p><strong>Fecha oportunidad:</strong> {{ $crm->fechaoportunidad ?? '-' }}</p>
-                <p><strong>Fecha registro:</strong> {{ $crm->created_at->format('d/m/Y') }}</p>
+                {{-- <p><strong>Fecha oportunidad:</strong> {{ $crm->fechaoportunidad ?? '-' }}</p> --}}
+                <p><strong>Fecha creción de la Oportunidad:</strong> {{ $crm->created_at->format('d/m/Y') }}</p>
             </div>
         </div>
 

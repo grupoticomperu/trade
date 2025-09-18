@@ -7,6 +7,7 @@ use Livewire\Component;
 use App\Models\Crm;
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\Attributes\On;
 
 
 class GanadosList extends Component
@@ -35,8 +36,14 @@ class GanadosList extends Component
         $this->dispatch('crear-compra', crmId: $crmId);
     }
 
+    public function abrirModalComprados(int $crmId): void
+    {
+        // El envío es 100% server-side; Livewire gestiona el payload como nombrado.
+        $this->dispatch('crear-comprados', crmId: $crmId);
+    }
 
 
+    #[On('crm-actualizado')]
     public function render()
     {
         $this->authorize('viewAny', Crm::class);

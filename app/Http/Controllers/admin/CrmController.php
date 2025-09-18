@@ -18,6 +18,7 @@ use App\Models\Traccion;
 use App\Models\Transmision;
 use App\Models\Year;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 
 class CrmController extends Controller
@@ -137,6 +138,8 @@ class CrmController extends Controller
                 'user_id' => $lead->user_id,
                 'producto_id' => $producto->id,
                 'etapa_id' => 1,
+                //'fechaderivacion' => $lead->fechaderivacion,
+                'fechaderivacion' => Carbon::createFromFormat('d/m/Y', $lead->fechaderivacion),
                 'lead_id' => $lead->id,
                 'tipomarketing_id' => $lead->tipomarketing_id,
                 'fecha' => now()

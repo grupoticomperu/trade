@@ -8,9 +8,16 @@ class Producto extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function crms()
+    /* public function crms()
     {
         return $this->hasMany(Crm::class);
+    } */
+
+
+    // Producto.php
+    public function crm()
+    {
+        return $this->hasOne(Crm::class);
     }
 
     //Relacion uno a muhos inversa

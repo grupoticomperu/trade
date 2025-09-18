@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('dni')->nullable();
             $table->string('estado')->default('activo'); // activo, inactivo
             $table->text('observacion')->nullable(); //aqui pondremos observaciones antes de pasar a oportuinidad o porque no paso a oportunidad
+
+            $table->string('imagedni')->nullable();
             
             $table->unsignedBigInteger('distrito_id')->nullable(); 
             $table->foreign('distrito_id')->references('id')->on('distritos')->onDelete('cascade');

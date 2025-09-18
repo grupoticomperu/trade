@@ -53,6 +53,21 @@ return new class extends Migration
             $table->unsignedBigInteger('combustible_id')->nullable(); // Color del vehículo 
             $table->unsignedBigInteger('category_id')->nullable(); // Color del vehículo 
 
+            $table->string('tarjetadepropiedad')->nullable();
+            $table->string('soat')->nullable();
+            $table->string('permisodelunas')->nullable();
+            $table->string('foto1')->nullable();
+            $table->string('foto2')->nullable();
+            $table->string('foto3')->nullable();
+            $table->string('foto4')->nullable();
+            $table->string('revisiontecnica')->nullable();
+            $table->string('voucherpago1')->nullable();
+            $table->string('voucherpago2')->nullable();
+            $table->string('voucherpago3')->nullable();
+            $table->string('voucherpago4')->nullable();
+
+
+
             $table->decimal('precio', 10, 2)->nullable();
             $table->foreign('proveedor_id')->references('id')->on('proveedors')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
