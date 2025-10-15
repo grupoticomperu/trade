@@ -119,18 +119,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
-                                            @if ($categoryy->image)
-                                                <img class="object-cover w-10 h-10 rounded"
-                                                    src="{{ url($categoryy->image) }}" alt="">
-
-                                                {{-- src="{{ Storage::disk("s3")->url($categoryy->image) }}" alt=""> --}}
-                                                {{-- src="{{ Storage::url($categoryy->image) }}" --}}
-                                            @else
-                                                {{-- <img class="object-cover w-10 h-10 rounded-full"
-                                                                src="storage/categories/default.jpg" alt=""> --}}
-                                            @endif
-                                        </div>
+                                        
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
                                                 {{ $categoryy->name }}
@@ -142,7 +131,7 @@
 
 
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                   
+
                                     @switch($categoryy->state)
                                         @case(0)
                                             <span wire:click="activar({{ $categoryy->id }})"
@@ -169,7 +158,11 @@
                                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                     {{-- <a href="" class="btn btn-blue"><i class="fa-sharp fa-solid fa-eye"></i></a> --}}
                                     @can('Category Update')
-                                        <a wire:click="edit({{ $categoryy }})" class="mr-1 btn btn-green">
+                                        {{-- <a wire:click="edit({{ $categoryy }})" class="mr-1 btn btn-green">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a> --}}
+
+                                        <a wire:click="edit({{ $categoryy->id }})" class="mr-1 btn btn-green">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     @endcan
@@ -225,6 +218,91 @@
             Pie
         </h2>
     </x-slot>
+
+
+
+
+
+
+
+
+    {{-- <x-dialog-modal wire:model="open_edit">
+        <x-slot name="title">
+            Modificando la Categoria
+        </x-slot>
+
+        <x-slot name="content">
+
+            <div class="mb-4">
+                <x-label value="Categoria" />
+                <x-input type="text" class="w-full" wire:model="category.name" />
+                <x-input-error for="name" />
+            </div>
+
+            <div class="flex row">
+                <div class="mb-4 mr-4">
+                    <x-label value="Estado" />
+                    <x-input type="checkbox" wire:model="category.state" />
+                    <x-input-error for="state" />
+                </div>
+            </div>
+
+
+        </x-slot>
+
+        <x-slot name="footer">
+
+            <x-button wire:click="cancelar" class="mr-2">
+                <i class="mx-2 fa-sharp fa-solid fa-xmark"></i>Cancelar
+            </x-button>
+
+            <x-danger-button wire:click="update" wire:loading.attr="disabled" class="disabled:opacity-25">
+                <i class="mx-2 fa-regular fa-floppy-disk"></i> Guardar
+            </x-danger-button>
+
+
+        </x-slot>
+
+    </x-dialog-modal> --}}
+
+
+
+    <x-dialog-modal wire:model="open_edit">
+        <x-slot name="title">
+            Modificando la Categoria
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="mb-4">
+                <x-label value="Categoria" />
+                <x-input type="text" class="w-full" wire:model="category.name" />
+                {{-- clave anidada --}}
+                <x-input-error for="category.name" />
+            </div>
+
+            <div class="flex row">
+                <div class="mb-4 mr-4">
+                    <x-label value="Estado" />
+                    <x-input type="checkbox" wire:model="category.state" />
+                    {{-- clave anidada --}}
+                    <x-input-error for="category.state" />
+                </div>
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-button wire:click="cancelar" class="mr-2">
+                <i class="mx-2 fa-sharp fa-solid fa-xmark"></i>Cancelar
+            </x-button>
+
+            <x-danger-button wire:click="update" wire:loading.attr="disabled" class="disabled:opacity-25">
+                <i class="mx-2 fa-regular fa-floppy-disk"></i> Guardar
+            </x-danger-button>
+        </x-slot>
+    </x-dialog-modal>
+
+
+
 
 
     @push('scripts')

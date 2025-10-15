@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Livewire\Admin;
+
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
@@ -22,6 +23,7 @@ class ProductoList extends Component
     public $direction = 'desc';
     public $cant = 10;
     public $stateFilter = 'all';
+    public $stockFilter = '';
     public $readyToLoad = false; // preloader
     public $created_at;
 
@@ -40,7 +42,7 @@ class ProductoList extends Component
     {
         $this->selectAll = false;
         $this->selected = [];
-    }
+    } 
 
     public function updatingSearch()
     {
@@ -57,6 +59,12 @@ class ProductoList extends Component
         $this->resetPage();
     }
 
+
+    public function updatedStockFilter()
+    {
+        $this->resetPage();
+    }
+
     public function render()
     {
         $this->authorize('viewAny', Producto::class);
@@ -64,10 +72,11 @@ class ProductoList extends Component
         $user = auth()->user();
         $query = Producto::query()
             ->where('placa', 'like', '%' . $this->search . '%')
-           ->when($this->stateFilter === 'disp', fn($q) => $q->where('state', 0))
+            ->when($this->stateFilter === 'disp', fn($q) => $q->where('state', 0))
             ->when($this->stateFilter === 'res', fn($q) => $q->where('state', 1))
             ->when($this->stateFilter === 'vend', fn($q) => $q->where('state', 2))
-            ->when($this->stateFilter === 'comp', fn($q) => $q->where('state', 3)); 
+            ->when($this->stateFilter === 'comp', fn($q) => $q->where('state', 3))
+            ->when($this->stockFilter, fn($q) => $q->where('stock', '>=', 1));
 
         if (!$user->hasRole('Admin')) {
             $query->where('user_id', $user->id);
@@ -75,8 +84,6 @@ class ProductoList extends Component
 
         $productos = $query->orderBy($this->sort, $this->direction)->paginate($this->cant);
         //$productos = $query->orderBy('id', 'desc')->paginate($this->cant);
-
-        //dd($productos);
 
         return view('livewire.admin.producto-list', compact('productos'));
     }
@@ -125,7 +132,4 @@ class ProductoList extends Component
             $this->direction = 'asc';
         }
     }
-
-
-    
 }

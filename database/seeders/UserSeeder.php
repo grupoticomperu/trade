@@ -163,6 +163,25 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Brand Update', 'display_name' => 'Actualizar Brand', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Brand Delete', 'display_name' => 'Eliminar Brand', 'model_name' => 'Brand'])->SyncRoles([$adminRole]);
 
+        Permission::create(['name' => 'Proveedor List', 'display_name' => 'Listar Proveedors', 'model_name' => 'Proveedor'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Proveedor View', 'display_name' => 'Ver Proveedor', 'model_name' => 'Proveedor'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Proveedor Create', 'display_name' => 'Crear Proveedor', 'model_name' => 'Proveedor'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Proveedor Update', 'display_name' => 'Actualizar Proveedor', 'model_name' => 'Proveedor'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Proveedor Delete', 'display_name' => 'Eliminar Proveedor', 'model_name' => 'Proveedor'])->SyncRoles([$adminRole]);
+
+        Permission::create(['name' => 'Modello List', 'display_name' => 'Listar Modellos', 'model_name' => 'Modello'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Modello View', 'display_name' => 'Ver Modello', 'model_name' => 'Modello'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Modello Create', 'display_name' => 'Crear Modello', 'model_name' => 'Modello'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Modello Update', 'display_name' => 'Actualizar Modello', 'model_name' => 'Modello'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Modello Delete', 'display_name' => 'Eliminar Modello', 'model_name' => 'Modello'])->SyncRoles([$adminRole]);
+
+
+        Permission::create(['name' => 'Color List', 'display_name' => 'Listar Colorss', 'model_name' => 'Color'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Color View', 'display_name' => 'Ver Color', 'model_name' => 'Color'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Color Create', 'display_name' => 'Crear Color', 'model_name' => 'Color'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Color Update', 'display_name' => 'Actualizar Color', 'model_name' => 'Color'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Color Delete', 'display_name' => 'Eliminar Color', 'model_name' => 'Color'])->SyncRoles([$adminRole]);
+
 
 
         //creando local principal de company

@@ -21,6 +21,11 @@
                                 </a>
                             @endcan
 
+                            <a href="{{ route('export.crms') }}" target="_blank"
+                                class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+                                <i class="fa-solid fa-file-excel mr-2"></i> Exportar Excel
+                            </a>
+
 
                             {{-- @can('Lead Create') --}}
                             {{--  <a href="{{ route('admin.leads.import.form') }}"
@@ -203,7 +208,7 @@
                                                     class="px-2 py-1 text-xs font-semibold text-red-700 bg-red-100 rounded-full">No</span>
                                             @endif
 
-                                        </td> 
+                                        </td>
 
                                         <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
 
@@ -228,10 +233,10 @@
                                             @endcan --}}
 
                                             {{-- @can('Lead Update') --}}
-                                            @if(!$crm->state)
-                                            <a href="{{ route('admin.crms.show', $crm) }}" class="btn btn-green"><i
-                                                    class="fa-solid fa-pen-to-square"></i></a>
-                                            @endif    
+                                            @if (!$crm->state)
+                                                <a href="{{ route('admin.crms.show', $crm) }}" class="btn btn-green"><i
+                                                        class="fa-solid fa-pen-to-square"></i></a>
+                                            @endif
 
 
 
@@ -251,7 +256,7 @@
 
 
                                             {{-- solamente muestra si esta autorizado --}}
-                                            {{-- @if($crm->state)
+                                            {{-- @if ($crm->state)
                                             <a href="{{ route('admin.crms.show', $crm) }}"
                                                 class="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-200 transition">
                                                 <i class="fa-solid fa-magnifying-glass text-gray-500"></i>

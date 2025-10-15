@@ -25,7 +25,7 @@ return new class extends Migration
             //$table->boolean('comprado')->default(false);
             //$table->boolean('vendido')->default(false);
 
-            $table->double('precio_venta')->nullable();
+            $table->double('precio_venta')->nullable();//Ejemplo: al guardar 0.1 + 0.2 puede dar 0.30000000000000004.
             $table->double('precio_esperado')->nullable();
             $table->double('precio_ofertado')->nullable();
             $table->string('deuda')->nullable();
@@ -33,10 +33,15 @@ return new class extends Migration
             $table->string('imagen')->nullable(); // Ruta de la imagen del producto
             //$table->string('state')->default('0'); // disponible, vendido, reservado
 
+            //es más eficiente que un int o string cuando solo necesitas unos pocos valores.
             $table->unsignedTinyInteger('state')
                 ->default(0)
                 ->comment('0=Disp,1=Res,2=Vend,3=Comp');
-
+                //0 = Disp → Disponible
+                //1 = Res → Reservado
+                //2 = Vend → Vendido
+                //3 = Comp → Comprado
+            //guardar 0.1 + 0.2 puede dar 0.30000000000000004.
             $table->double('descuentos_administrativos')->nullable();
             $table->double('descuentos_mecanicos')->nullable();
             $table->double('precio_compra')->nullable();
@@ -44,8 +49,8 @@ return new class extends Migration
             $table->unsignedBigInteger('proveedor_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable(); // Vendedor o usuario asociado
             $table->unsignedBigInteger('brand_id')->nullable(); // Marca del vehículo
-           // $table->unsignedBigInteger('modello_id')->nullable(); // Marca del vehículo
-           //  $table->unsignedBigInteger('version_id')->nullable(); // Marca del vehículo
+            $table->unsignedBigInteger('modello_id')->nullable(); // modelo del vehículo
+            $table->unsignedBigInteger('version_id')->nullable(); // version del vehículo
             $table->unsignedBigInteger('color_id')->nullable(); // Color del vehículo       
             $table->unsignedBigInteger('year_id')->nullable(); // Color del vehículo  
             $table->unsignedBigInteger('traccion_id')->nullable(); // Color del vehículo  

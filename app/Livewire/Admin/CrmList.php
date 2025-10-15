@@ -7,6 +7,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\Attributes\On;
+use App\Exports\CrmExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CrmList extends Component
 {
@@ -62,5 +64,10 @@ class CrmList extends Component
 
 
         return view('livewire.admin.crm-list', compact('crms'));
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new CrmExport, 'crms.xlsx');
     }
 }

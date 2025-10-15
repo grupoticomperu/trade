@@ -12,13 +12,21 @@ class CategoryList extends Component
 {
     use AuthorizesRequests;
     use WithPagination;
-    public $search, $image, $category, $state, $identificador;
+    public $search, $image, $state, $identificador;
     public $sort = 'id';
     public $direction = 'desc';
     public $cant = '10';
     public $open_edit = false;
     public $readyToLoad = false; //para controlar el preloader inicia en false
     public $categoryid;
+
+    //public $category = null;
+    public $category = [
+        'id' => null,
+        'name' => '',
+        'state' => false,
+    ];
+
 
     protected $queryString = [
         'cant' => ['except' => '10'],
@@ -35,8 +43,8 @@ class CategoryList extends Component
     }
 
 
-    #[On('categoria-creada')] // Escucha el evento
-    public function refreshList() {}
+    //#[On('categoria-creada')] // Escucha el evento
+    //public function refreshList() {}
 
 
     public function updatingSearch()
@@ -51,7 +59,7 @@ class CategoryList extends Component
 
 
 
-
+    #[On('categoria-creada')] // Escucha el evento
     public function render()
     {
         //$this->authorize('create', new Category);
@@ -101,7 +109,7 @@ class CategoryList extends Component
     {
         $this->categoryid = $id;
 
-       
+
 
         $this->dispatch('confirmareliminadooo');
         //$this->dispatch('confirmareliminado', message:'¿Estás seguro de eliminar?');
@@ -118,8 +126,6 @@ class CategoryList extends Component
     public function delete()
     {
         //$this->authorize('delete', $user);
-
-
         if ($this->categoryid) {
             $category = Category::find($this->categoryid);
             //$this->authorize('delete', $user);
@@ -144,5 +150,77 @@ class CategoryList extends Component
     }
 
 
+    /*  public function edit(Category $categoryy)
+    {
+        $this->category = $categoryy;
+        $this->open_edit = true;
+    } */
 
+
+
+    protected function rules()
+    {
+        return [
+            'category.name'  => 'required|string|max:255|unique:categories,name,' . ($this->category['id'] ?? 'NULL'),
+            'category.state' => 'boolean',
+        ];
+    }
+
+    public function edit($id)
+    {
+        $model = Category::findOrFail($id);
+
+        $this->category = [
+            'id' => $model->id,
+            'name' => $model->name,
+            'state' => (bool) $model->state,
+        ];
+
+        $this->resetValidation();
+        $this->open_edit = true;
+    }
+
+    public function update()
+{
+    $this->validate();
+
+    $model = Category::findOrFail($this->category['id']);
+    $model->name = $this->category['name'];
+    $model->state = $this->category['state'];
+    $model->save();
+
+    $this->reset(['open_edit', 'category']);
+    $this->resetValidation();
+
+    $this->dispatch('Actualizado', [
+        'message' => 'Categoría actualizada con éxito.',
+    ]);
+}
+
+    public function cancelar()
+    {
+        $this->reset('open_edit', 'category');
+        $this->resetValidation();
+    }
+
+
+
+    /* public function update()
+    {
+        $this->authorize('update', $this->category);
+
+        $this->validate();
+
+
+        $this->category->save();
+
+
+
+        $this->reset('open_edit');
+
+
+        $this->dispatch('Actualizado', [
+            'message' => 'Categoria actualizadao con éxito.',
+        ]);
+    } */
 }

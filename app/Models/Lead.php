@@ -21,6 +21,7 @@ class Lead extends Model
         'placa',
         'observacion',
         'state',
+        'perfilcoincide',
         'user_id',
         'tipomarketing_id',
     ];
@@ -45,8 +46,8 @@ class Lead extends Model
     protected $casts = [
         'state'         => 'boolean',
         'esoportunidad' => 'boolean',
-        'fecha'         => 'date',
-        'fechaderivacion' => 'date',
+        'fecha' => 'date:d/m/Y',
+        'fechaderivacion' => 'date:d/m/Y',
     ];
 
 
@@ -69,9 +70,9 @@ class Lead extends Model
         return Attribute::make(
             get: fn($value) => Carbon::parse($value)->translatedFormat('d/m/Y'),
         );
-    } 
+    }
 
-   /*  protected function fechaderivacion(): Attribute
+    /*  protected function fechaderivacion(): Attribute
     {
         return Attribute::make(
             get: fn($value) => Carbon::parse($value)->locale('es')->translatedFormat('d \d\e F \d\e Y'),
@@ -99,5 +100,5 @@ class Lead extends Model
         return Attribute::make(
             get: fn($value) => Carbon::parse($value)->translatedFormat('d/m/Y'),
         );
-    } 
+    }
 }

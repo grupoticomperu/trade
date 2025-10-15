@@ -25,14 +25,12 @@
                     <x-input type="checkbox" wire:model="state" />
                     <x-input-error for="state" />
                 </div>
-
-
             </div>
 
 
 
 
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <input type="file" wire:model="image" id="{{ $identificador }}">
                 <x-input-error for="image" />
                 <p class="text-red-400">tamaño 300px ancho por 200px alto</p>
@@ -50,7 +48,7 @@
             @if ($image)
                 <img class="mb-4" src="{{ $image->temporaryUrl() }}" alt="">
             @endif
-
+            --}}
 
         </x-slot>
 

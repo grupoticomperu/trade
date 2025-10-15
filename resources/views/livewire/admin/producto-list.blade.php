@@ -22,22 +22,13 @@
                         @endcan
 
 
-
-
                     </div>
                 </div>
             </div>
         </x-slot>
 
         <!-- Opciones adicionales -->
-        <div class="container py-2 mx-auto border-gray-400 max-w-7xl sm:px-6 lg:px-8">
-
-            {{--  @can('Banner Export') --}}
-            {{-- <div class="p-4 mb-2 bg-white">
-                <div class="flex flex-col items-center justify-between md:flex-row">
-                    <x-button wire:click="generateReport" class="mb-2 md:mb-0 md:mr-4">Importar</x-jet-button>
-                </div>
-            </div> --}}
+        <div class="container py-2 mx-auto border-gray-400 max-w-full sm:px-6 lg:px-8">
 
             <div class="items-center px-6 py-2 bg-gray-200 sm:flex">
 
@@ -60,6 +51,9 @@
                         <label><input type="radio" value="res" wire:model.live="stateFilter"> Reservado</label>
                         <label><input type="radio" value="vend" wire:model.live="stateFilter"> Vendido</label>
                         <label><input type="radio" value="comp" wire:model.live="stateFilter"> Comprado</label>
+                        
+                        <label> <input type="checkbox" wire:model.live="stockFilter"> Stock</label>
+                       
                     </div>
                 </div>
 
@@ -72,8 +66,8 @@
             </div>
         </div>
 
-        <div class="container mx-auto py-0 max-w-7xl sm:px-6 lg:px-8">
-
+        <div class="container mx-auto py-0 max-w-full sm:px-6 lg:px-8">
+             
             <x-table>
 
                 @if (count($productos))
@@ -98,22 +92,7 @@
                                     @endif
                                 </th>
 
-                               {{--  <th scope="col"
-                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
-                                    wire:click="order('nombre')">
 
-                                    Nombre
-                                    @if ($sort == 'nombre')">
-                                        @if ($direction == 'asc')
-                                            <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
-                                        @else
-                                            <i class="float-right mt-1 fas fa-sort-alpha-down-alt"></i>
-                                        @endif
-                                    @else
-                                        <i class="float-right mt-1 fas fa-sort"></i>
-                                    @endif
-
-                                </th> --}}
 
                                 <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
@@ -139,6 +118,11 @@
 
                                 <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    Kilometraje
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
                                     Estado
                                 </th>
 
@@ -146,9 +130,30 @@
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
                                     Precio Ofertado
                                 </th>
+
                                 <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
-                                    Dueño
+                                    Año
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    Marca
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    Modelo
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    Versión
+                                </th>
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
+                                    Color
                                 </th>
 
                                 <th scope="col"
@@ -167,14 +172,7 @@
                                         {{ $producto->id }}
                                     </td>
 
-                                    {{-- <td class="flex items-center px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-
-
-                                        <div class="ml-4">
-                                            {{ $producto->nombre }}
-                                        </div>
-                                    </td> --}}
-
+                
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                         {{ $producto->placa }}
                                     </td>
@@ -182,6 +180,12 @@
                                     <td>
                                         @if($producto->precio_esperado )
                                             US$ {{ $producto->precio_esperado }}
+                                        @endif
+                                        
+                                    </td>
+                                    <td>
+                                        @if($producto->kilometraje )
+                                             {{ $producto->kilometraje }} Kms
                                         @endif
                                         
                                     </td>
@@ -212,13 +216,41 @@
                                     </td>
 
                                     <td>
-                                        {{ $producto->precio_ofertado }}
+                                        @if($producto->precio_ofertado )
+                                         US$ {{ $producto->precio_ofertado }}
+                                        @endif
                                     </td>
 
                                     <td>
-                                        {{ $producto->proveedor->nombre }}
+                                        @if($producto->year )
+                                         {{ $producto->year->name }}
+                                        @endif
                                     </td>
 
+                                    <td>
+                                        @if($producto->brand )
+                                         {{ $producto->brand->name }}
+                                        @endif
+                                    </td>
+
+                                     <td>
+                                        @if($producto->modello )
+                                         {{ $producto->modello->name }}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($producto->version )
+                                         {{ $producto->version->name }}
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($producto->color)
+                                         {{ $producto->color->name }}
+                                        @endif
+                                    </td>
+                                        
                                     @if ($created_at)
                                         <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                             {{ $producto->created_at }}

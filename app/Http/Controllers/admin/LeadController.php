@@ -87,10 +87,12 @@ class LeadController extends Controller
             'placa'               => 'nullable|string',
             'observacion'         => 'nullable',
             'state'               => 'nullable|boolean',
+            'perfilcoincide'      => 'nullable',
             'user_id'             => 'nullable|exists:users,id',
             'tipomarketing_id'    => 'nullable|exists:tipomarketings,id',
         ]);
 
+        //dd($validated);
         $lead->update($validated);
 
         session()->flash('swal', [

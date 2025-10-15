@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Combustible extends Model
 {
-        protected $guarded = ['id', 'created_at', 'updated_at'];
+        protected $fillable = ['name'];
 
     //Relacion uno a muchos
     public function productos(){

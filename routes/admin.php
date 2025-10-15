@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\TableController;
 use App\Http\Controllers\admin\UserController;
@@ -14,11 +15,26 @@ use App\Http\Controllers\admin\ProductoController;
 use App\Http\Controllers\admin\ProveedorController;
 use App\Http\Controllers\admin\SeguimientoController;
 use App\Livewire\Admin\BrandList;
+use App\Livewire\Admin\ColorList;
 use App\Livewire\Admin\Compras\ComprasList;
 use App\Livewire\Admin\Crms\GanadosList;
 use App\Livewire\Admin\Tipomarketings\Index as TipomarketingsIndex;
 use App\Livewire\Admin\Tipomarketings\Create as TipomarketingsCreate;
 use App\Livewire\Admin\Tipomarketings\Edit as TipomarketingsEdit;
+use App\Exports\CrmExport;
+use App\Livewire\Admin\CombustibleList;
+use App\Livewire\Admin\DistritoList;
+use App\Livewire\Admin\EtapaList;
+use App\Livewire\Admin\ModelloList;
+use App\Livewire\Admin\ProveedorList;
+use App\Livewire\Admin\TraccionList;
+use App\Livewire\Admin\TransmisionList;
+use App\Livewire\Admin\VersionList;
+use App\Livewire\Admin\YearCrud;
+use App\Livewire\Admin\YearList;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 
 Route::get('/hola', function () {
     return ('hola');
@@ -60,11 +76,11 @@ Route::get('/categories', CategoryList::class)->name('category.list');
 Route::get('admin/crms/createe/{email?}/{placa?}', [CrmController::class, 'createe'])->name('admin.crms.createe');
 
 Route::resource('crms.seguimientos', SeguimientoController::class)
-        ->parameters(['crms' => 'crm', 'seguimientos' => 'seguimiento'])
-        ->names('admin.crms.seguimientos')
-        ->shallow();
-        
-        
+    ->parameters(['crms' => 'crm', 'seguimientos' => 'seguimiento'])
+    ->names('admin.crms.seguimientos')
+    ->shallow();
+
+
 Route::get('/tipomarketings', TipomarketingsIndex::class)->name('tipomarketings.index');
 Route::get('/tipomarketings/create', TipomarketingsCreate::class)->name('tipomarketings.create');
 Route::get('/tipomarketings/{tipomarketing}/edit', TipomarketingsEdit::class)->name('tipomarketings.edit');
@@ -75,3 +91,28 @@ Route::get('/brands', BrandList::class)->name('brand.list');
 Route::get('/crmss/ganados', GanadosList::class)->name('admin.crms.ganados');
 
 Route::get('/compras', ComprasList::class)->name('admin.compras.index');
+
+Route::get('/colors', ColorList::class)->name('color.list');
+
+
+Route::get('/export-crms', function () {
+    return Excel::download(new CrmExport, 'crms.xlsx');
+})->name('export.crms');
+
+
+Route::get('/years', YearList::class)->name('year.list');
+
+Route::get('/combustibles', CombustibleList::class)->name('combustible.list');
+
+Route::get('/transmisions', TransmisionList::class)->name('transmision.list');
+Route::get('/traccions', TraccionList::class)->name('traccion.list');
+
+Route::get('/etapas', EtapaList::class)->name('etapa.list');   
+
+Route::get('/modelos', ModelloList::class)->name('modello.list');   
+
+Route::get('/versiones', VersionList::class)->name('version.list');  
+
+Route::get('/proveedors', ProveedorList::class)->name('proveedor.list');  
+
+Route::get('/distritos', DistritoList::class)->name('distrito.list');  

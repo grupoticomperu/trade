@@ -76,12 +76,18 @@ class CategoryCreate extends Component
         //$this->emitTo('admin.category-list', 'render');
 
         // ✅ Emite evento global para que el otro componente lo escuche
-        //$this->dispatch('categoria-creada');
+        $this->dispatch('categoria-creada');
 
-        $this->dispatch('swal:success', [
+
+       /*  $this->dispatch('swal:success', [
             'title' => '¡Guardado!',
             'text' => 'La categoría se creó correctamente.',
-        ]);
+        ]);  */
+
+        /*tenemos que mandar asi de la forma de array no funca*/
+
+        $this->dispatch('swal:success', title: '¡Guardado!', text: 'La categoría se creó correctamente.');
+
 
 
         //$this->emit('alert', 'La categoria se creo correctamente');

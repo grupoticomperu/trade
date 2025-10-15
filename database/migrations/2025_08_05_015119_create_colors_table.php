@@ -11,9 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
         Schema::create('colors', function (Blueprint $table) {
             $table->id();
-             $table->string('name')->unique();
+            $table->string('name', 100) //Reducirlo ayuda a optimizar el tamaño de la tabla en memoria y disco.
+                ->unique() //no es necesario poner index porque unique ya lo crea
+                ->collation('utf8mb4_unicode_ci');
             $table->timestamps();
         });
     }

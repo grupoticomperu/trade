@@ -19,5 +19,11 @@ class Proveedor extends Model
         return $this->hasMany(Producto::class);
     }
 
+    public function distrito()
+    {
+        return $this->belongsTo(Distrito::class);
+    }
+
+
 
 }

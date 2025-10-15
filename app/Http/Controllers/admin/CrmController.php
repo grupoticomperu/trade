@@ -19,6 +19,8 @@ use App\Models\Transmision;
 use App\Models\Year;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use App\Models\User;
+use App\Notifications\CrmGanadoNotification;
 
 
 class CrmController extends Controller
@@ -199,7 +201,17 @@ class CrmController extends Controller
                     'stock' => 1,
                 ]);
             }
+
+
+        // Notificar a los admins
+        $admins = User::role('admin')->get();
+        foreach ($admins as $admin) {
+            $admin->notify(new CrmGanadoNotification($crm));
         }
+
+
+        }
+
         return redirect()->route('admin.crms.show', $crm)
             ->with('success', 'Etapa actualizada correctamente');
     }

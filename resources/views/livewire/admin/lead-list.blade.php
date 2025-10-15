@@ -36,7 +36,7 @@
         </x-slot>
 
         <!-- Opciones adicionales -->
-        <div class="container py-2 mx-auto border-gray-400 max-w-7xl sm:px-6 lg:px-8">
+        <div class="container py-2 mx-auto border-gray-400 max-w-full sm:px-6 lg:px-8">
 
             {{--  @can('Banner Export') --}}
             {{-- <div class="p-4 mb-2 bg-white">
@@ -67,17 +67,13 @@
                         placeholder="buscar" />
                 </div>
 
-
-
-
-                {{-- <div class="flex items-center justify-center px-2 mt-2 mr-4 md:mt-0">
-                    <p>Perfil Coincide</p>
-                    <x-input type="checkbox" wire:model.live="showActive" class="mx-1" />
-                    Si
-                    <x-input type="checkbox" wire:model.live="showInactive" class="mx-1" />
-                    No
-                </div> --}}
-
+                <div class="flex items-center justify-center gap-4 px-2 mt-2 mr-4 md:mt-0">
+                    <a wire:click="toggleDuplicates"
+                        class="cursor-pointer px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 flex items-center space-x-2">
+                        <i class="fa-solid fa-clone"></i>
+                        <span>Repetidos</span>
+                    </a>
+                </div>
 
                 <div class="flex items-center gap-4 px-2 mt-2 mr-4 md:mt-0">
 
@@ -175,6 +171,27 @@
 
                                 </th>
 
+
+
+                                <th scope="col"
+                                    class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
+                                    >
+
+                                    Campaña
+                                    {{-- @if ($sort == 'fecha')
+                                        @if ($direction == 'asc')
+                                            <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
+                                        @else
+                                            <i class="float-right mt-1 fas fa-sort-alpha-down-alt"></i>
+                                        @endif
+                                    @else
+                                        <i class="float-right mt-1 fas fa-sort"></i>
+                                    @endif --}}
+
+                                </th>
+
+
+
                                 <th scope="col"
                                     class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer"
                                     wire:click="order('nombres')">
@@ -256,11 +273,15 @@
 
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
 
-                                           {{ $lead->fechaderivacion }}
+                                        {{ $lead->fechaderivacion }}
                                     </td>
 
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                       {{ $lead->fecha }}
+                                        {{ $lead->fecha }}
+                                    </td>
+
+                                    <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                        {{ $lead->tipomarketing->name }}
                                     </td>
 
                                     <td class="flex items-center px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
@@ -291,7 +312,7 @@
 
                                             @case('no')
                                                 <span
-                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full cursor-pointer">
+                                                    class="inline-flex px-2 text-xs font-semibold leading-5 text-blue-800 bg-blue-100 rounded-full cursor-pointer">
                                                     No
                                                 </span>
                                             @break

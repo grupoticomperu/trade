@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('years', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->unique();
+            $table->string('name', 150) //Reducirlo ayuda a optimizar el tamaño de la tabla en memoria y disco.
+                ->unique() //no es necesario poner index porque unique ya lo crea
+                ->collation('utf8mb4_unicode_ci');
             $table->timestamps();
+
         });
     }
 

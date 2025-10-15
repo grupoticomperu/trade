@@ -34,10 +34,6 @@ return new class extends Migration
             $table->foreign('lead_id')->references('id')->on('leads')->onDelete('cascade');
             $table->foreign('tipomarketing_id')->references('id')->on('tipomarketings')->onDelete('cascade');
 
-
-
-            
-
             $table->timestamps();
         });
     }

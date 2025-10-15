@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modello extends Model
 {
-    protected $guarded = ['id', 'created_at', 'updated_at'];
+    protected $fillable = ['name', 'brand_id'];
 
     //Relacion uno a muchos
     public function productos()
@@ -19,3 +19,4 @@ class Modello extends Model
         return $this->belongsTo(Brand::class);
     } 
 }
+

@@ -30,6 +30,7 @@ class LeadList extends Component
     public $selectedUsers = []; //para eliminar en grupo
     public $selectAll = false; //para eliminar en grupo
     public string $stateFilter = 'all';
+    public $onlyDuplicates = false;
 
 
     protected $queryString = [
@@ -71,6 +72,20 @@ class LeadList extends Component
     }
 
 
+    //activamos el filtro de duplicados
+    public function showDuplicates()
+    {
+        $this->onlyDuplicates = true;
+        $this->resetPage(); // Reinicia paginación
+    }
+    //Si quieres un toggle (activar/desactivar), hazlo así:
+    public function toggleDuplicates()
+    {
+        $this->onlyDuplicates = !$this->onlyDuplicates;
+        $this->resetPage();
+    }
+
+
     public function render()
     {
 
@@ -80,19 +95,36 @@ class LeadList extends Component
         $user = auth()->user();
         $query = Lead::query()
             ->where('esoportunidad', 0)
-            ->where(function ($q) {
-                $q->where('nombres', 'like', '%' . $this->search . '%')
-                    ->orWhere('telefono', 'like', '%' . $this->search . '%')
-                    ->orWhere('telefono', 'like', '%' . $this->search . '%')
-                    ->orWhere('correoelectronico', 'like', '%' . $this->search . '%');
+            ->when(!empty($this->search), function ($q) {
+                $q->where(function ($sub) {
+                    $sub->where('nombres', 'like', '%' . $this->search . '%')
+                        ->orWhere('telefono', 'like', '%' . $this->search . '%')
+                        ->orWhere('correoelectronico', 'like', '%' . $this->search . '%');
+                });
             })
             ->when($this->stateFilter === 'active', fn($q) => $q->where('perfilcoincide', 'si'))
             ->when($this->stateFilter === 'inactive', fn($q) => $q->where('perfilcoincide', 'no'))
             ->when($this->stateFilter === 'iniciar', fn($q) => $q->where('perfilcoincide', 'iniciar'));
 
+
+        if ($this->onlyDuplicates) {
+            $query->whereIn('telefono', function ($sub) {
+                $sub->selectRaw('TRIM(telefono)')
+                    ->from('leads')
+                    ->whereNotNull('telefono')
+                    ->where('telefono', '<>', '')
+                    ->groupByRaw('TRIM(telefono)')
+                    ->havingRaw('COUNT(*) > 1');
+            });
+        }
+
+
+
         if (!$user->hasRole('Admin')) {
             $query->where('user_id', $user->id);
         }
+
+        //dd($query->toSql(), $query->getBindings());
 
         $leads = $query->orderBy($this->sort, $this->direction)->paginate($this->cant);
 
@@ -103,7 +135,6 @@ class LeadList extends Component
             ->toArray();
 
         return view('livewire.admin.lead-list', compact('leads', 'duplicatedPhones'));
-
     }
 
 
