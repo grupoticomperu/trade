@@ -89,13 +89,16 @@
                                 </td>
 
                                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
+                                    @can('Year Update')
                                     <a wire:click="edit({{ $year->id }})" class="mr-1 btn btn-green">
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-
+                                    @endcan
+                                    @can('Year Delete')     
                                     <a class="btn btn-red" wire:click="confirmarEliminado({{ $year->id }})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

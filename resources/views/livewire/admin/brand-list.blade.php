@@ -178,9 +178,11 @@
                                             </a>
                                         @endcan --}}
 
+                                    @can('Brand Delete')
                                     <a class="btn btn-red" wire:click="confirmarEliminado({{ $brand->id }})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
+                                    @endcan
 
 
 

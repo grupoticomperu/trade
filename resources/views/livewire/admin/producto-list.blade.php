@@ -267,10 +267,7 @@
                                         @endcan
 
                                         @can('Producto Delete')
-                                            {{-- <a class="btn btn-red" wire:click="confirmDelete({{ $producto->id }})">
-                                            <i class="fa-solid fa-trash-can"></i>
-                                        </a> --}}
-
+                                           
                                             {{-- Ocultar el botón para el superusuario --}}
                                             <a class="btn btn-red" wire:click="confirmarEliminado({{ $producto->id }})">
                                                 <i class="fa-solid fa-trash-can"></i>

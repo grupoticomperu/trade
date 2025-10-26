@@ -10,7 +10,7 @@ use Illuminate\Auth\Access\HandlesAuthorization; //agregue esto
 
 class BrandPolicy
 {
-     use HandlesAuthorization;
+    use HandlesAuthorization;
     //puede hacer de todo
     public function before($user)
     {
@@ -19,23 +19,29 @@ class BrandPolicy
         }
     }
 
+
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('Brand List');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Brand $brand): bool
+    /*     public function view(User $user, Brand $brand): bool
     {
         return false;
+    } */
+
+    public function view(User $user, Brand $brand): bool
+    {
+        return $user->hasPermissionTo('Brand View');
     }
 
 
     public function create(User $user): bool
     {
-         return $user->hasPermissionTo('Brand Create');
+        return $user->hasPermissionTo('Brand Create');
     }
 
     /**
@@ -43,7 +49,7 @@ class BrandPolicy
      */
     public function update(User $user, Brand $brand): bool
     {
-        return false;
+        return $user->hasPermissionTo('Brand Update');
     }
 
     /**
@@ -51,10 +57,10 @@ class BrandPolicy
      */
     public function delete(User $user, Brand $brand): bool
     {
-        return false;
+        return $user->hasPermissionTo('Brand Delete');
     }
 
-    /**
+     /**
      * Determine whether the user can restore the model.
      */
     public function restore(User $user, Brand $brand): bool

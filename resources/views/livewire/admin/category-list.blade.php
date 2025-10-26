@@ -119,7 +119,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        
+
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
                                                 {{ $categoryy->name }}
@@ -173,10 +173,11 @@
                                                 <i class="fa-solid fa-trash-can"></i>
                                             </a>
                                         @endcan --}}
-
-                                    <a class="btn btn-red" wire:click="confirmarEliminado({{ $categoryy->id }})">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </a>
+                                    @can('Category Delete')
+                                        <a class="btn btn-red" wire:click="confirmarEliminado({{ $categoryy->id }})">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    @endcan
 
 
 

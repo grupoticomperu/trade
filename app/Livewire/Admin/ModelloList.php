@@ -8,10 +8,13 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Lazy;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class ModelloList extends Component
 {
     use WithPagination;
+    use AuthorizesRequests; //para permisos
+
 
     public $search = '';
     public $sort = 'id';
@@ -114,6 +117,7 @@ class ModelloList extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', Modello::class);
         return view('livewire.admin.modello-list', [
             'modellos' => $this->modellos,
             'brands' => $this->brands,

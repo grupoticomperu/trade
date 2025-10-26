@@ -27,7 +27,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasPermissionTo('User Category');
+        return $user->hasPermissionTo('Category List');
     }
 
     //solo puede ver un modelo, solo un registro valido para show

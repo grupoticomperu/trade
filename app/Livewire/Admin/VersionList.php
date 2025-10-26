@@ -10,10 +10,12 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Lazy;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class VersionList extends Component
 {
     use WithPagination;
+    use AuthorizesRequests; //para permisos
 
     public $search = '';
     public $sort = 'id';
@@ -34,6 +36,7 @@ class VersionList extends Component
     {
         $this->resetPage();
     }
+
 
     #[Computed]
     #[Lazy]
@@ -164,6 +167,7 @@ class VersionList extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', Version::class);
         return view('livewire.admin.version-list', [
             'versions' => $this->versions,
             'brands' => $this->brands,

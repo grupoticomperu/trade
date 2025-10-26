@@ -8,10 +8,16 @@ use Livewire\WithPagination;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Lazy;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class YearList extends Component
 {
-    use WithPagination;
+
+    use WithPagination; //para paginacion
+    use AuthorizesRequests; //para permisos
+
+    
+       
 
     public $search = '';
     public $sort = 'id';
@@ -102,6 +108,8 @@ class YearList extends Component
 
     public function render()
     {
+        $this->authorize('viewAny', Year::class);
+
         return view('livewire.admin.year-list', [
             'years' => $this->years,
         ])->layout('layouts.app');

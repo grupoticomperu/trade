@@ -152,19 +152,20 @@
                     </article>
                 @endcan
 
-                {{-- @can('Modello List') --}}
-                <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/modelos.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('modello.list') }}">Modelos</a>
-                        </h1>
-                    </header>
-                </article>
-                {{-- @endcan --}}
+                @can('Modello List')
+                    <article>
+                        <figure>
+                            <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/modelos.jpg') }}"
+                                alt="">
+                        </figure>
+                        <header class="mt-2">
+                            <h1 class="text-xl text-center text-gray-700"><a href="{{ route('modello.list') }}">Modelos</a>
+                            </h1>
+                        </header>
+                    </article>
+                @endcan
 
+                @can('Version List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/modelos.jpg') }}"
@@ -176,7 +177,9 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
+                 {{-- @can('Color List') --}}
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/colores.jpg') }}"
@@ -187,7 +190,9 @@
                         </h1>
                     </header>
                 </article>
+                {{-- @endcan --}}
 
+                {{-- @can('Year List') --}}
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/anios2.jpg') }}"
@@ -198,6 +203,7 @@
                         </h1>
                     </header>
                 </article>
+               {{--  @endcan --}}
 
                 <article>
                     <figure>
@@ -325,7 +331,7 @@
                 </article>
 
 
-                <article>
+                {{--  <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/seguimiento.jpg') }}"
                             alt="">
@@ -334,10 +340,10 @@
                         <h1 class="text-xl text-center text-gray-700"><a href="">Seguimiento</a>
                         </h1>
                     </header>
-                </article>
+                </article> --}}
 
 
-                <article>
+                {{--  <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/ventas.jpg') }}"
                             alt="">
@@ -357,7 +363,7 @@
                         <h1 class="text-xl text-center text-gray-700"><a href="">Clientes</a>
                         </h1>
                     </header>
-                </article>
+                </article> --}}
                 {{-- @can('Local View')
                                 <article>
                                     <figure>

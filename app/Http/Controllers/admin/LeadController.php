@@ -36,9 +36,9 @@ class LeadController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'fechaderivacion' => 'nullable|date',
+            'fechaderivacion' => 'required',
             'fecha' => 'nullable|date',
-            'nombres' => 'nullable|string|max:255',
+            'nombres' => ' required|string|max:255',
             'telefono' => 'nullable|string|max:255',
             'correoelectronico' => 'nullable|email|max:255',
             'marca' => 'nullable|string|max:255',
@@ -54,6 +54,12 @@ class LeadController extends Controller
 
         Lead::create($validated);
 
+        session()->flash('swal', [
+            'icon' => 'succes',
+            'title' => 'Bien Hecho',
+            'text' => 'Lead Creado Correctamente',
+        ]);
+
         return redirect()->route('admin.leads.create')->with('success', 'Lead creado correctamente');
     }
 
@@ -63,7 +69,7 @@ class LeadController extends Controller
         //
     }
 
-  
+
     public function edit(Lead $lead)
     {
         $users = User::all();
@@ -75,9 +81,9 @@ class LeadController extends Controller
     public function update(Request $request, Lead $lead)
     {
         $validated = $request->validate([
-            'fechaderivacion'     => 'nullable|date',
+            'fechaderivacion'     => 'required|date',
             'fecha'               => 'nullable|date',
-            'nombres'             => 'nullable|string',
+            'nombres'             => 'required|string|max:255',
             'telefono'            => 'nullable|string',
             'correoelectronico'   => 'nullable|email',
             'marca'               => 'nullable|string',
@@ -98,7 +104,7 @@ class LeadController extends Controller
         session()->flash('swal', [
             'icon' => 'succes',
             'title' => 'Bien Hecho',
-            'text' => 'Usuario Actualizado Correctamente',
+            'text' => 'Lead Actualizado Correctamente',
         ]);
 
         return redirect()->route('admin.leads.index')->with('success', 'Lead actualizado correctamente.');

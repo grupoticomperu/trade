@@ -88,8 +88,7 @@ class LeadList extends Component
 
     public function render()
     {
-
-
+        // Autorizar el acceso a la lista de leads
         $this->authorize('viewAny', Lead::class);
 
         $user = auth()->user();

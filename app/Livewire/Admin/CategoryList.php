@@ -62,7 +62,7 @@ class CategoryList extends Component
     #[On('categoria-creada')] // Escucha el evento
     public function render()
     {
-        //$this->authorize('create', new Category);
+        $this->authorize('viewAny', Category::class);
         if ($this->readyToLoad) {
 
             $categories = Category::where('name', 'like', '%' . $this->search . '%')->paginate(10);

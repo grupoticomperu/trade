@@ -28,8 +28,9 @@
                         class="flex items-center justify-center w-80 sm:w-full rounded-lg py-2.5"
                         placeholder="Buscar versión, modelo o marca" />
                 </div>
-
-                @livewire('admin.version-create')
+                @can('Version Create')
+                    @livewire('admin.version-create')
+                @endcan
             </div>
 
             {{-- 🔸 Tabla --}}
@@ -107,13 +108,16 @@
                                     {{ $version->modello?->brand?->name ?? '—' }}
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                    <a wire:click="edit({{ $version->id }})" class="mr-1 btn btn-green">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </a>
-
-                                    <a class="btn btn-red" wire:click="confirmarEliminado({{ $version->id }})">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </a>
+                                    @can('Version Update')
+                                        <a wire:click="edit({{ $version->id }})" class="mr-1 btn btn-green">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </a>
+                                    @endcan
+                                    @can('Version Delete')
+                                        <a class="btn btn-red" wire:click="confirmarEliminado({{ $version->id }})">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

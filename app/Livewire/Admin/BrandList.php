@@ -68,6 +68,8 @@ class BrandList extends Component
     public function render()
     {
 
+        $this->authorize('viewAny', Brand::class);
+
         if ($this->readyToLoad) {
 
             $brands = Brand::where('name', 'like', '%' . $this->search . '%')->paginate(10);
