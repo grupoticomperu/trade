@@ -34,7 +34,7 @@ use App\Livewire\Admin\YearCrud;
 use App\Livewire\Admin\YearList;
 use Maatwebsite\Excel\Facades\Excel;
 
-
+use App\Livewire\Admin\Leads\LeadEdit;
 
 Route::get('/hola', function () {
     return ('hola');
@@ -47,6 +47,9 @@ Route::get('/inicio', function () {
 Route::get('/tables', [TableController::class, 'showtables'])->name('admin.showtables');
 Route::resource('users', UserController::class)->names('admin.users');
 Route::resource('leads', LeadController::class)->names('admin.leads');
+
+Route::get('/leadss/{lead}/edit', LeadEdit::class)->name('leads.edit');
+
 Route::resource('crms', CrmController::class)->names('admin.crms');
 Route::resource('proveedors', ProveedorController::class)->names('admin.proveedors')->parameters(['proveedors' => 'proveedor']);
 Route::resource('productos', ProductoController::class)->names('admin.productos');

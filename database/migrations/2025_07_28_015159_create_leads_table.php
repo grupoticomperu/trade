@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('correoelectronico')->nullable();
             $table->string('marca')->nullable();
             $table->string('modelo')->nullable();
+            $table->string('version')->nullable();
             $table->string('anio')->nullable();
             $table->string('kilometraje')->nullable();
             $table->string('placa')->nullable();                    

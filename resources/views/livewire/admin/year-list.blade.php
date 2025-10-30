@@ -6,6 +6,7 @@
             </h2>
         </div>
     </x-slot>
+    
 
     <div class="container py-12 mx-auto border-gray-400 max-w-7xl sm:px-6 lg:px-8">
         <x-table>

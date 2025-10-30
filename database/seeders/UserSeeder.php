@@ -183,6 +183,11 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Color Delete', 'display_name' => 'Eliminar Color', 'model_name' => 'Color'])->SyncRoles([$adminRole]);
 
 
+        Permission::create(['name' => 'Year List', 'display_name' => 'Listar Years', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Year View', 'display_name' => 'Ver Year', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Year Create', 'display_name' => 'Crear Year', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Year Update', 'display_name' => 'Actualizar Year', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Year Delete', 'display_name' => 'Eliminar Year', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
 
         //creando local principal de company
         //$local = Local::create([

@@ -41,6 +41,7 @@ class ColorList extends Component
     #[On('color-creado')] // Escucha el evento
     public function render()
     {
+        
         if ($this->readyToLoad) {
             $colors = Color::where('name', 'like', '%' . $this->search . '%')->orderBy($this->sort, $this->direction)
                 ->paginate($this->cant);

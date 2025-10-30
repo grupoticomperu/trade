@@ -281,7 +281,7 @@
                                     </td>
 
                                     <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                        {{ $lead->tipomarketing->name }}
+                                       {{ optional($lead->tipomarketing)->name ?? 'Sin tipo de marketing' }}
                                     </td>
 
                                     <td class="flex items-center px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
@@ -386,7 +386,7 @@
                                         @endcan
 
                                         @can('Lead Update')
-                                            <a href="{{ route('admin.leads.edit', $lead) }}" class="btn btn-green"><i
+                                            <a href="{{ route('leads.edit', $lead->id) }}" class="btn btn-green"><i
                                                     class="fa-solid fa-pen-to-square"></i></a>
                                         @endcan
 

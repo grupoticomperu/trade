@@ -49,8 +49,8 @@ return new class extends Migration
             $table->unsignedBigInteger('proveedor_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable(); // Vendedor o usuario asociado
             $table->unsignedBigInteger('brand_id')->nullable(); // Marca del vehículo
-            $table->unsignedBigInteger('modello_id')->nullable(); // modelo del vehículo
-            $table->unsignedBigInteger('version_id')->nullable(); // version del vehículo
+            //$table->unsignedBigInteger('modello_id')->nullable(); // modelo del vehículo
+            //$table->unsignedBigInteger('version_id')->nullable(); // version del vehículo
             $table->unsignedBigInteger('color_id')->nullable(); // Color del vehículo       
             $table->unsignedBigInteger('year_id')->nullable(); // Color del vehículo  
             $table->unsignedBigInteger('traccion_id')->nullable(); // Color del vehículo  

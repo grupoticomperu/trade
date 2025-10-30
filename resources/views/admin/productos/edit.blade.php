@@ -158,7 +158,7 @@
 
 
 
-                <div>
+                {{-- <div>
                     <x-label value="Color" />
                     <select name="color_id" class="w-full border-gray-300 rounded-md">
                         <option value="">-- Seleccione --</option>
@@ -169,6 +169,10 @@
                         @endforeach
                     </select>
                     <x-input-error for="color_id" />
+                </div> --}}
+
+                <div >
+                    @livewire('admin.producto-color-selector', ['producto' => $producto])
                 </div>
 
                 <div>
@@ -240,397 +244,397 @@
                     {{ $producto->crm->state }}
                 </div> --}}
 
-            @if($producto->crm->state)    
+                @if ($producto->crm->state)
 
-                {{-- FOTO 1 --}}
-                <div x-data="{ open: false }">
-                    <x-label value="Ingresar foto 1" />
-                    <div class="py-4">
-                        <input type="file" name="foto1" id="foto1" accept="image/*">
-                    </div>
-                    @error('foto1')
-                        <small class="mb-5 text-red-600">{{ $message }}</small>
-                    @enderror
-
-                    @if ($producto->foto1)
-                        <div>
-                            <p class="ml-4">Foto 1 del Vehículo</p>
+                    {{-- FOTO 1 --}}
+                    <div x-data="{ open: false }">
+                        <x-label value="Ingresar foto 1" />
+                        <div class="py-4">
+                            <input type="file" name="foto1" id="foto1" accept="image/*">
                         </div>
-                        <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
-                            src="{{ Storage::disk('s3')->url($producto->foto1) }}" alt="Foto 1"
-                            @click="open = true">
+                        @error('foto1')
+                            <small class="mb-5 text-red-600">{{ $message }}</small>
+                        @enderror
 
-                        <div x-show="open" x-transition
-                            class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-                            <div class="relative">
-                                <img src="{{ Storage::disk('s3')->url($producto->foto1) }}"
-                                    class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
-                                <button class="absolute top-2 right-2 text-white text-2xl"
-                                    @click="open = false">&times;</button>
+                        @if ($producto->foto1)
+                            <div>
+                                <p class="ml-4">Foto 1 del Vehículo</p>
                             </div>
-                        </div>
-                    @endif
-                </div>
+                            <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
+                                src="{{ Storage::disk('s3')->url($producto->foto1) }}" alt="Foto 1"
+                                @click="open = true">
 
-                {{-- FOTO 2 --}}
-                <div x-data="{ open: false }">
-                    <x-label value="Ingresar foto 2" />
-                    <div class="py-4">
-                        <input type="file" name="foto2" id="foto2" accept="image/*">
-                    </div>
-                    @error('foto2')
-                        <small class="mb-5 text-red-600">{{ $message }}</small>
-                    @enderror
-
-                    @if ($producto->foto2)
-                        <div>
-                            <p class="ml-4">Foto 2 del Vehículo</p>
-                        </div>
-                        <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
-                            src="{{ Storage::disk('s3')->url($producto->foto2) }}" alt="Foto 2"
-                            @click="open = true">
-
-                        <div x-show="open" x-transition
-                            class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-                            <div class="relative">
-                                <img src="{{ Storage::disk('s3')->url($producto->foto2) }}"
-                                    class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
-                                <button class="absolute top-2 right-2 text-white text-2xl"
-                                    @click="open = false">&times;</button>
+                            <div x-show="open" x-transition
+                                class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+                                <div class="relative">
+                                    <img src="{{ Storage::disk('s3')->url($producto->foto1) }}"
+                                        class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
+                                    <button class="absolute top-2 right-2 text-white text-2xl"
+                                        @click="open = false">&times;</button>
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                </div>
-
-                {{-- FOTO 3 --}}
-                <div x-data="{ open: false }">
-                    <x-label value="Ingresar foto 3" />
-                    <div class="py-4">
-                        <input type="file" name="foto3" id="foto3" accept="image/*">
+                        @endif
                     </div>
-                    @error('foto3')
-                        <small class="mb-5 text-red-600">{{ $message }}</small>
-                    @enderror
 
-                    @if ($producto->foto3)
-                        <div>
-                            <p class="ml-4">Foto 3 del Vehículo</p>
+                    {{-- FOTO 2 --}}
+                    <div x-data="{ open: false }">
+                        <x-label value="Ingresar foto 2" />
+                        <div class="py-4">
+                            <input type="file" name="foto2" id="foto2" accept="image/*">
                         </div>
-                        <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
-                            src="{{ Storage::disk('s3')->url($producto->foto3) }}" alt="Foto 3"
-                            @click="open = true">
+                        @error('foto2')
+                            <small class="mb-5 text-red-600">{{ $message }}</small>
+                        @enderror
 
-                        <div x-show="open" x-transition
-                            class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-                            <div class="relative">
-                                <img src="{{ Storage::disk('s3')->url($producto->foto3) }}"
-                                    class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
-                                <button class="absolute top-2 right-2 text-white text-2xl"
-                                    @click="open = false">&times;</button>
+                        @if ($producto->foto2)
+                            <div>
+                                <p class="ml-4">Foto 2 del Vehículo</p>
                             </div>
-                        </div>
-                    @endif
-                </div>
+                            <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
+                                src="{{ Storage::disk('s3')->url($producto->foto2) }}" alt="Foto 2"
+                                @click="open = true">
 
-                {{-- FOTO 4 --}}
-                <div x-data="{ open: false }">
-                    <x-label value="Ingresar foto 4" />
-                    <div class="py-4">
-                        <input type="file" name="foto4" id="foto4" accept="image/*">
-                    </div>
-                    @error('foto4')
-                        <small class="mb-5 text-red-600">{{ $message }}</small>
-                    @enderror
-
-                    @if ($producto->foto4)
-                        <div>
-                            <p class="ml-4">Foto 4 del Vehículo</p>
-                        </div>
-                        <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
-                            src="{{ Storage::disk('s3')->url($producto->foto4) }}" alt="Foto 4"
-                            @click="open = true">
-
-                        <div x-show="open" x-transition
-                            class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-                            <div class="relative">
-                                <img src="{{ Storage::disk('s3')->url($producto->foto4) }}"
-                                    class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
-                                <button class="absolute top-2 right-2 text-white text-2xl"
-                                    @click="open = false">&times;</button>
+                            <div x-show="open" x-transition
+                                class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+                                <div class="relative">
+                                    <img src="{{ Storage::disk('s3')->url($producto->foto2) }}"
+                                        class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
+                                    <button class="absolute top-2 right-2 text-white text-2xl"
+                                        @click="open = false">&times;</button>
+                                </div>
                             </div>
-                        </div>
-                    @endif
-                </div>
-
-                <div>
-                    <x-label value="ingresar tarjeta de propiedad" />
-                    <div class="py-4">
-                        <input type="file" name="tarjetadepropiedad" id="tarjetadepropiedad"
-                            accept="image/*,application/pdf">
+                        @endif
                     </div>
 
-
-                    @if ($producto->tarjetadepropiedad)
-                        <div>
-                            <p class="ml-4">Ver Tarjeta de Propiedad</p>
+                    {{-- FOTO 3 --}}
+                    <div x-data="{ open: false }">
+                        <x-label value="Ingresar foto 3" />
+                        <div class="py-4">
+                            <input type="file" name="foto3" id="foto3" accept="image/*">
                         </div>
+                        @error('foto3')
+                            <small class="mb-5 text-red-600">{{ $message }}</small>
+                        @enderror
 
-                        @php
-                            $ruta = $producto->tarjetadepropiedad; // guardas la ruta en BD
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->foto3)
+                            <div>
+                                <p class="ml-4">Foto 3 del Vehículo</p>
+                            </div>
+                            <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
+                                src="{{ Storage::disk('s3')->url($producto->foto3) }}" alt="Foto 3"
+                                @click="open = true">
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Tarjeta de Propiedad">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                            {{-- opcional: previsualizar dentro de la página --}}
-                            {{-- <object data="{{ $url }}" type="application/pdf" class="w-full h-96 mt-2"></object> --}}
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">
-                                Descargar archivo
-                            </a>
+                            <div x-show="open" x-transition
+                                class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+                                <div class="relative">
+                                    <img src="{{ Storage::disk('s3')->url($producto->foto3) }}"
+                                        class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
+                                    <button class="absolute top-2 right-2 text-white text-2xl"
+                                        @click="open = false">&times;</button>
+                                </div>
+                            </div>
                         @endif
-                    @endif
-
-                </div>
-
-                {{-- SOAT --}}
-                <div>
-                    <x-label value="Ingresar SOAT" />
-                    <div class="py-4">
-                        <input type="file" name="soat" id="soat" accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->soat)
-                        <div>
-                            <p class="ml-4">Ver SOAT</p>
+                    {{-- FOTO 4 --}}
+                    <div x-data="{ open: false }">
+                        <x-label value="Ingresar foto 4" />
+                        <div class="py-4">
+                            <input type="file" name="foto4" id="foto4" accept="image/*">
                         </div>
+                        @error('foto4')
+                            <small class="mb-5 text-red-600">{{ $message }}</small>
+                        @enderror
 
-                        @php
-                            $ruta = $producto->soat;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->foto4)
+                            <div>
+                                <p class="ml-4">Foto 4 del Vehículo</p>
+                            </div>
+                            <img class="w-40 mb-4 ml-4 cursor-pointer hover:opacity-80 transition"
+                                src="{{ Storage::disk('s3')->url($producto->foto4) }}" alt="Foto 4"
+                                @click="open = true">
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="SOAT">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            <div x-show="open" x-transition
+                                class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+                                <div class="relative">
+                                    <img src="{{ Storage::disk('s3')->url($producto->foto4) }}"
+                                        class="max-w-[90vw] max-h-[90vh] rounded shadow-lg">
+                                    <button class="absolute top-2 right-2 text-white text-2xl"
+                                        @click="open = false">&times;</button>
+                                </div>
+                            </div>
                         @endif
-                    @endif
-                </div>
-
-                {{-- Permiso de lunas --}}
-                <div>
-                    <x-label value="Ingresar Permiso de Lunas" />
-                    <div class="py-4">
-                        <input type="file" name="permisodelunas" id="permisodelunas"
-                            accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->permisodelunas)
-                        <div>
-                            <p class="ml-4">Ver Permiso de Lunas</p>
+                    <div>
+                        <x-label value="ingresar tarjeta de propiedad" />
+                        <div class="py-4">
+                            <input type="file" name="tarjetadepropiedad" id="tarjetadepropiedad"
+                                accept="image/*,application/pdf">
                         </div>
 
-                        @php
-                            $ruta = $producto->permisodelunas;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Permiso de Lunas">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                        @if ($producto->tarjetadepropiedad)
+                            <div>
+                                <p class="ml-4">Ver Tarjeta de Propiedad</p>
+                            </div>
+
+                            @php
+                                $ruta = $producto->tarjetadepropiedad; // guardas la ruta en BD
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Tarjeta de Propiedad">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                                {{-- opcional: previsualizar dentro de la página --}}
+                                {{-- <object data="{{ $url }}" type="application/pdf" class="w-full h-96 mt-2"></object> --}}
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">
+                                    Descargar archivo
+                                </a>
+                            @endif
                         @endif
-                    @endif
-                </div>
 
-                {{-- Revisión Técnica --}}
-                <div>
-                    <x-label value="Ingresar Revisión Técnica" />
-                    <div class="py-4">
-                        <input type="file" name="revisiontecnica" id="revisiontecnica"
-                            accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->revisiontecnica)
-                        <div>
-                            <p class="ml-4">Ver Revisión Técnica</p>
+                    {{-- SOAT --}}
+                    <div>
+                        <x-label value="Ingresar SOAT" />
+                        <div class="py-4">
+                            <input type="file" name="soat" id="soat" accept="image/*,application/pdf">
                         </div>
 
-                        @php
-                            $ruta = $producto->revisiontecnica;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->soat)
+                            <div>
+                                <p class="ml-4">Ver SOAT</p>
+                            </div>
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Revisión Técnica">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @php
+                                $ruta = $producto->soat;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="SOAT">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
                         @endif
-                    @endif
-                </div>
-
-                {{-- Voucher Pago 1 --}}
-                <div>
-                    <x-label value="Ingresar Voucher de Pago 1" />
-                    <div class="py-4">
-                        <input type="file" name="voucherpago1" id="voucherpago1"
-                            accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->voucherpago1)
-                        <div>
-                            <p class="ml-4">Ver Voucher de Pago 1</p>
+                    {{-- Permiso de lunas --}}
+                    <div>
+                        <x-label value="Ingresar Permiso de Lunas" />
+                        <div class="py-4">
+                            <input type="file" name="permisodelunas" id="permisodelunas"
+                                accept="image/*,application/pdf">
                         </div>
 
-                        @php
-                            $ruta = $producto->voucherpago1;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->permisodelunas)
+                            <div>
+                                <p class="ml-4">Ver Permiso de Lunas</p>
+                            </div>
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 1">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @php
+                                $ruta = $producto->permisodelunas;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Permiso de Lunas">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
                         @endif
-                    @endif
-                </div>
-
-                {{-- Voucher Pago 2 --}}
-                <div>
-                    <x-label value="Ingresar Voucher de Pago 2" />
-                    <div class="py-4">
-                        <input type="file" name="voucherpago2" id="voucherpago2"
-                            accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->voucherpago2)
-                        <div>
-                            <p class="ml-4">Ver Voucher de Pago 2</p>
+                    {{-- Revisión Técnica --}}
+                    <div>
+                        <x-label value="Ingresar Revisión Técnica" />
+                        <div class="py-4">
+                            <input type="file" name="revisiontecnica" id="revisiontecnica"
+                                accept="image/*,application/pdf">
                         </div>
 
-                        @php
-                            $ruta = $producto->voucherpago2;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->revisiontecnica)
+                            <div>
+                                <p class="ml-4">Ver Revisión Técnica</p>
+                            </div>
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 2">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @php
+                                $ruta = $producto->revisiontecnica;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Revisión Técnica">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
                         @endif
-                    @endif
-                </div>
-
-                {{-- Voucher Pago 3 --}}
-                <div>
-                    <x-label value="Ingresar Voucher de Pago 3" />
-                    <div class="py-4">
-                        <input type="file" name="voucherpago3" id="voucherpago3"
-                            accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->voucherpago3)
-                        <div>
-                            <p class="ml-4">Ver Voucher de Pago 3</p>
+                    {{-- Voucher Pago 1 --}}
+                    <div>
+                        <x-label value="Ingresar Voucher de Pago 1" />
+                        <div class="py-4">
+                            <input type="file" name="voucherpago1" id="voucherpago1"
+                                accept="image/*,application/pdf">
                         </div>
 
-                        @php
-                            $ruta = $producto->voucherpago3;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->voucherpago1)
+                            <div>
+                                <p class="ml-4">Ver Voucher de Pago 1</p>
+                            </div>
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 3">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @php
+                                $ruta = $producto->voucherpago1;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 1">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
                         @endif
-                    @endif
-                </div>
-
-                {{-- Voucher Pago 4 --}}
-                <div>
-                    <x-label value="Ingresar Voucher de Pago 4" />
-                    <div class="py-4">
-                        <input type="file" name="voucherpago4" id="voucherpago4"
-                            accept="image/*,application/pdf">
                     </div>
 
-                    @if ($producto->voucherpago4)
-                        <div>
-                            <p class="ml-4">Ver Voucher de Pago 4</p>
+                    {{-- Voucher Pago 2 --}}
+                    <div>
+                        <x-label value="Ingresar Voucher de Pago 2" />
+                        <div class="py-4">
+                            <input type="file" name="voucherpago2" id="voucherpago2"
+                                accept="image/*,application/pdf">
                         </div>
 
-                        @php
-                            $ruta = $producto->voucherpago4;
-                            $url = Storage::disk('s3')->url($ruta);
-                            $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
-                        @endphp
+                        @if ($producto->voucherpago2)
+                            <div>
+                                <p class="ml-4">Ver Voucher de Pago 2</p>
+                            </div>
 
-                        @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
-                            <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 4">
-                        @elseif ($ext === 'pdf')
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 inline-flex items-center text-red-600 hover:underline">
-                                <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
-                            </a>
-                        @else
-                            <a href="{{ $url }}" target="_blank"
-                                class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @php
+                                $ruta = $producto->voucherpago2;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 2">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
                         @endif
-                    @endif
-                </div>
+                    </div>
 
-            @endif    
+                    {{-- Voucher Pago 3 --}}
+                    <div>
+                        <x-label value="Ingresar Voucher de Pago 3" />
+                        <div class="py-4">
+                            <input type="file" name="voucherpago3" id="voucherpago3"
+                                accept="image/*,application/pdf">
+                        </div>
+
+                        @if ($producto->voucherpago3)
+                            <div>
+                                <p class="ml-4">Ver Voucher de Pago 3</p>
+                            </div>
+
+                            @php
+                                $ruta = $producto->voucherpago3;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 3">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
+                        @endif
+                    </div>
+
+                    {{-- Voucher Pago 4 --}}
+                    <div>
+                        <x-label value="Ingresar Voucher de Pago 4" />
+                        <div class="py-4">
+                            <input type="file" name="voucherpago4" id="voucherpago4"
+                                accept="image/*,application/pdf">
+                        </div>
+
+                        @if ($producto->voucherpago4)
+                            <div>
+                                <p class="ml-4">Ver Voucher de Pago 4</p>
+                            </div>
+
+                            @php
+                                $ruta = $producto->voucherpago4;
+                                $url = Storage::disk('s3')->url($ruta);
+                                $ext = strtolower(pathinfo($ruta, PATHINFO_EXTENSION));
+                            @endphp
+
+                            @if (in_array($ext, ['jpg', 'jpeg', 'png', 'gif', 'webp']))
+                                <img class="w-40 mb-4 ml-4" src="{{ $url }}" alt="Voucher Pago 4">
+                            @elseif ($ext === 'pdf')
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 inline-flex items-center text-red-600 hover:underline">
+                                    <i class="fa-solid fa-file-pdf mr-2"></i> Ver PDF
+                                </a>
+                            @else
+                                <a href="{{ $url }}" target="_blank"
+                                    class="ml-4 text-blue-600 hover:underline">Descargar archivo</a>
+                            @endif
+                        @endif
+                    </div>
+
+                @endif
 
 
 

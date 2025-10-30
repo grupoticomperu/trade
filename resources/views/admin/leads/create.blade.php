@@ -10,7 +10,7 @@
         </h2>
     </x-slot>
 
-    <form method="POST" action="{{ route('admin.leads.store') }}">
+    {{-- <form method="POST" action="{{ route('admin.leads.store') }}">
         @csrf
 
         <div class="max-w-6xl mx-auto mt-6 bg-white rounded-xl shadow p-6">
@@ -135,5 +135,8 @@
                 @endcan
             </div>
         </div>
-    </form>
+    </form> --}}
+
+    <livewire:admin.leads.lead-create />
+    
 </x-app-layout>
