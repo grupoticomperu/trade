@@ -26,31 +26,31 @@ class TipomarketingPolicy
 
     public function viewAny(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('Tipomarketing List');
     }
 
 
     public function view(User $user, Tipomarketing $tipomarketing): bool
     {
-        return false;
+        return $user->hasPermissionTo('Tipomarketing List');
     }
 
 
     public function create(User $user): bool
     {
-        return false;
+        return $user->hasPermissionTo('Tipomarketing Create');
     }
 
 
     public function update(User $user, Tipomarketing $tipomarketing): bool
     {
-        return false;
+       return $user->hasPermissionTo('Tipomarketing Update');
     }
 
 
     public function delete(User $user, Tipomarketing $tipomarketing): bool
     {
-        return false;
+       return $user->hasPermissionTo('Tipomarketing Delete');
     }
 
 

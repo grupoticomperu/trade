@@ -157,7 +157,6 @@ class CategoryList extends Component
     } */
 
 
-
     protected function rules()
     {
         return [
@@ -181,21 +180,23 @@ class CategoryList extends Component
     }
 
     public function update()
-{
-    $this->validate();
+    {
+        $this->validate();
 
-    $model = Category::findOrFail($this->category['id']);
-    $model->name = $this->category['name'];
-    $model->state = $this->category['state'];
-    $model->save();
+        $model = Category::findOrFail($this->category['id']);
+        $model->name = $this->category['name'];
+        $model->state = $this->category['state'];
+        $model->save();
 
-    $this->reset(['open_edit', 'category']);
-    $this->resetValidation();
+        $this->reset(['open_edit', 'category']);
+        $this->resetValidation();
 
-    $this->dispatch('Actualizado', [
-        'message' => 'Categoría actualizada con éxito.',
-    ]);
-}
+        /* $this->dispatch('Actualizado', [
+            'message' => 'Categoría actualizada con éxito.',
+        ]); */
+        $this->dispatch('swal:success', title: 'Actualizado', text: 'La Categoría fue modificada correctamente.');
+
+    }
 
     public function cancelar()
     {

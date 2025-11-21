@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Lead;
 use App\Models\Brand;
 use App\Models\Modello;
+use App\Models\User;
 use App\Models\Version;
 use App\Models\Year;
 use Carbon\Carbon;
@@ -19,7 +20,7 @@ class LeadEdit extends Component
     public $kilometraje, $placa, $state, $perfilcoincide, $esoportunidad, $observacion;
 
     // ✅ Relaciones con selects (usar camelCase)
-    public $brandId, $modelloId, $versionId, $yearId;
+    public $brandId, $modelloId, $versionId, $yearId, $userId;
 
     // Listas para selects
     public $brands = [];
@@ -75,7 +76,6 @@ class LeadEdit extends Component
             }
         }
     }
-
     // ✅ Hooks Livewire deben coincidir con propiedades camelCase
     public function updatedBrandId($value)
     {
@@ -111,6 +111,7 @@ class LeadEdit extends Component
             'state' => $this->state,
             'perfilcoincide' => $this->perfilcoincide,
             'esoportunidad' => $this->esoportunidad,
+            'user_id' =>$this->userId,
             'observacion' => $this->observacion,
         ]);
 
@@ -119,6 +120,7 @@ class LeadEdit extends Component
 
     public function render()
     {
-        return view('livewire.admin.leads.lead-edit')->layout('layouts.app');
+        $users = User::where('state', 1)->orderBy('name')->get();
+        return view('livewire.admin.leads.lead-edit', compact('users'))->layout('layouts.app');
     }
 }

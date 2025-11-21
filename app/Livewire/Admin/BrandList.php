@@ -44,8 +44,9 @@ class BrandList extends Component
 
 
     #[On('marca-creada')] // Escucha el evento
-    public function refreshList() {
-          $this->resetPage();
+    public function refreshList()
+    {
+        $this->resetPage();
     }
 
 
@@ -115,8 +116,6 @@ class BrandList extends Component
     {
         $this->brandid = $id;
 
-
-
         $this->dispatch('confirmareliminadooo');
         //$this->dispatch('confirmareliminado', message:'¿Estás seguro de eliminar?');
         /* $this->dispatch('confirmareliminado', [
@@ -140,17 +139,66 @@ class BrandList extends Component
 
                 // Notifica éxito
                 $this->dispatch('borrado', [
-                    'message' => 'Categoria eliminada con éxito.',
+                    'message' => 'Marca eliminada con éxito.',
                 ]);
             } else {
                 // Notifica error si el usuario no existe
                 $this->dispatch('borrado', [
-                    'message' => 'categoria no encontrado.',
+                    'message' => 'Marca no encontrado.',
                     'type' => 'error',
                 ]);
             }
 
             $this->reset('brandid');
         }
+    }
+
+
+    public function edit($id)
+    {
+        $model = Brand::findOrFail($id);
+
+        $this->brand = [
+            'id' => $model->id,
+            'name' => $model->name,
+            'state' => (bool) $model->state,
+        ];
+
+        $this->resetValidation();
+        $this->open_edit = true;
+    }
+
+    public function cancelar()
+    {
+        $this->reset('open_edit', 'brand');
+        $this->resetValidation();
+    }
+
+
+    protected function rules()
+    {
+        return [
+            'brand.name'  => 'required|string|max:255|unique:brands,name,' . ($this->brand['id'] ?? 'NULL'),
+            'brand.state' => 'boolean',
+        ];
+    }
+
+    public function update()
+    {
+        $this->validate();
+
+        $model = Brand::findOrFail($this->brand['id']);
+        $model->name = $this->brand['name'];
+        $model->state = $this->brand['state'];
+        $model->save();
+
+        $this->reset(['open_edit', 'brand']);
+        $this->resetValidation();
+
+        /* $this->dispatch('Actualizado', [
+            'message' => 'Marca actualizada con éxito.',
+        ]); */
+
+        $this->dispatch('swal:success', title: 'Actualizado', text: 'La marca fue modificada correctamente.');
     }
 }

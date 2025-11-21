@@ -110,6 +110,18 @@
                     @endforeach
                 </select>
             </div>
+
+
+            <div>
+                <label class="font-semibold text-gray-700">Usuario</label>
+                <select wire:model.live="userId" class="w-full border rounded p-2" >
+                    <option value="">Seleccione usuario</option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
         </div>
 
         {{-- ✅ Fila 4: Observación --}}

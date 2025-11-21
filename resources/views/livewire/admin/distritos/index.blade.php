@@ -3,24 +3,14 @@
     <x-slot name="header">
         <div class="flex items-center">
             <h2 class="text-xl font-semibold leading-tight text-gray-600">
-                Lista de Categorias
+                Lista de Distritos
             </h2>
         </div>
     </x-slot>
     <div class="container py-12 mx-auto border-gray-400 max-w-7xl sm:px-6 lg:px-8">
         <x-table>
 
-            {{-- <div class="flex items-center justify-between mt-2">
-                <div class="text-sm text-gray-600 dark:text-gray-300">Resultados: {{ $tipomarketings->total() }}</div>
-                <div>
-                    <select wire:model.live="perPage" class="rounded-xl border-gray-300 dark:bg-gray-800 dark:text-white">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                    </select>
-                </div>
-            </div> --}}
-
+           
 
 
             <div class="items-center px-6 py-4 bg-gray-200 sm:flex">
@@ -47,9 +37,9 @@
 
 
 
-                @can('Tipomarketing Create')
-                    @livewire('admin.tipomarketings.create')
-                @endcan
+               {{--  @can('Distrito Create') --}}
+                    @livewire('admin.distritos.create')
+               {{--  @endcan --}}
 
 
             </div>
@@ -79,7 +69,7 @@
                         </tr>
                     </thead>
                     <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                        @forelse ($tipomarketings as $row)
+                        @forelse ($distritos as $row)
                             <tr>
                                 <td class="px-4 py-2">{{ $row->id }}</td>
                                 <td class="px-4 py-2">{{ $row->name }}</td>
@@ -110,7 +100,7 @@
 
 
             <div>
-                {{ $tipomarketings->onEachSide(1)->links() }}
+                {{ $distritos->onEachSide(1)->links() }}
             </div>
 
 
@@ -121,15 +111,15 @@
 
     <x-dialog-modal wire:model="open_edit">
         <x-slot name="title">
-            Modificando Tipo Marketing
+            Modificando el Distrito
         </x-slot>
 
         <x-slot name="content">
             <div class="mb-4">
                 <x-label value="Tipo Marketing" />
-                <x-input type="text" class="w-full" wire:model.live="tipomarketing.name" />
+                <x-input type="text" class="w-full" wire:model.live="distrito.name" />
                 {{-- clave anidada --}}
-                <x-input-error for="tipomarketing.name" />
+                <x-input-error for="distrito.name" />
             </div>
 
 
@@ -148,42 +138,7 @@
 
     {{-- SweetAlert2 listeners --}}
     <script>
-        window.addEventListener('swal-confirm-delete', (e) => {
-            const {
-                id,
-                title,
-                text
-            } = e.detail;
-            Swal.fire({
-                    title,
-                    text,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar'
-                })
-                .then(result => {
-                    if (result.isConfirmed) {
-                        Livewire.dispatch('deleteConfirmed', {
-                            id
-                        });
-                    }
-                });
-        });
-
-
-        window.addEventListener('swal', (e) => {
-            const {
-                type,
-                title,
-                text
-            } = e.detail;
-            Swal.fire({
-                icon: type,
-                title,
-                text
-            });
-        });
+        
 
 
         window.addEventListener('confirmareliminadooo', event => {

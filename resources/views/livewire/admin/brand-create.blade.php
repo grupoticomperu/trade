@@ -15,7 +15,7 @@
 
             <div class="mb-4">
                 <x-label value="Marca" />
-                <x-input type="text" class="w-full uppercase" wire:model="name" />
+                <x-input type="text" class="w-full" wire:model="name" />
                 <x-input-error for="name" />
             </div>
 
@@ -25,19 +25,19 @@
                 <x-input-error for="order" />
             </div>
 
-            <div class="mb-4 mr-4">
+            {{-- <div class="mb-4 mr-4">
                 <x-label value="Estado" />
                 <x-input type="checkbox" wire:model="state" />
                 <x-input-error for="state" />
-            </div>
+            </div> --}}
 
 
 
 
 
-            <div class="box-border p-4 mb-4 border-2 rounded-md">
+            {{--  <div class="box-border p-4 mb-4 border-2 rounded-md">
                 <x-label value="Seleccione una Imagen" class="mb-2" />
-                <input type="file" wire:model="image" {{-- id="{{$identificador}} --}}">
+                <input type="file" wire:model="image">
                 <x-input-error for="image" />
                 <p class="text-red-400">tamaño 300px ancho por 200px alto</p>
             </div>
@@ -53,7 +53,7 @@
 
             @if ($image)
                 <img class="mb-4" src="{{ $image->temporaryUrl() }}" alt="">
-            @endif
+            @endif --}}
 
 
         </x-slot>
@@ -75,7 +75,7 @@
     </x-dialog-modal>
 
 
-    {{-- @push('scripts')
+    @push('scripts')
         <script>
             window.addEventListener('swal:success', event => {
                 Swal.fire({
@@ -86,7 +86,9 @@
                 });
             });
         </script>
-    @endpush --}}
+    @endpush
+
+   
 
 
 </div>

@@ -19,8 +19,9 @@ use App\Livewire\Admin\ColorList;
 use App\Livewire\Admin\Compras\ComprasList;
 use App\Livewire\Admin\Crms\GanadosList;
 use App\Livewire\Admin\Tipomarketings\Index as TipomarketingsIndex;
-use App\Livewire\Admin\Tipomarketings\Create as TipomarketingsCreate;
-use App\Livewire\Admin\Tipomarketings\Edit as TipomarketingsEdit;
+use App\Livewire\Admin\Distritos\Index as DistritosIndex;
+//use App\Livewire\Admin\Tipomarketings\Create as TipomarketingsCreate;
+//use App\Livewire\Admin\Tipomarketings\Edit as TipomarketingsEdit;
 use App\Exports\CrmExport;
 use App\Livewire\Admin\CombustibleList;
 use App\Livewire\Admin\DistritoList;
@@ -85,8 +86,9 @@ Route::resource('crms.seguimientos', SeguimientoController::class)
 
 
 Route::get('/tipomarketings', TipomarketingsIndex::class)->name('tipomarketings.index');
-Route::get('/tipomarketings/create', TipomarketingsCreate::class)->name('tipomarketings.create');
-Route::get('/tipomarketings/{tipomarketing}/edit', TipomarketingsEdit::class)->name('tipomarketings.edit');
+Route::get('/distritos', DistritosIndex::class)->name('distritos.index');
+//Route::get('/tipomarketings/create', TipomarketingsCreate::class)->name('tipomarketings.create');
+//Route::get('/tipomarketings/{tipomarketing}/edit', TipomarketingsEdit::class)->name('tipomarketings.edit');
 
 
 Route::get('/brands', BrandList::class)->name('brand.list');
@@ -116,6 +118,6 @@ Route::get('/modelos', ModelloList::class)->name('modello.list');
 
 Route::get('/versiones', VersionList::class)->name('version.list');  
 
-Route::get('/proveedors', ProveedorList::class)->name('proveedor.list');  
+Route::get('/proveedors-list', ProveedorList::class)->name('proveedor.list');  
 
-Route::get('/distritos', DistritoList::class)->name('distrito.list');  
+//Route::get('/distritos', DistritoList::class)->name('distrito.list');  

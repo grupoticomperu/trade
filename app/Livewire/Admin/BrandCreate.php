@@ -53,7 +53,7 @@ class BrandCreate extends Component
         brand::create([
             'name' => $this->name,
 
-            'state' => $statee,
+            'state' => 1,
 
             'order' => $this->order,
             //'image' => $urlimage,
@@ -80,12 +80,14 @@ class BrandCreate extends Component
             icon: 'success'
         ); */
 
-        $this->dispatch(
+        /* $this->dispatch(
             'swal:success',
             title: 'Guardado',
             text: 'La marca se creó correctamente.',
             icon: 'success'
-        );
+        ); */
+
+         $this->dispatch('swal:success', title: '¡Guardado!', text: 'La Marca se creó correctamente.');
 
         //$this->emit('alert', 'La categoria se creo correctamente');
     }

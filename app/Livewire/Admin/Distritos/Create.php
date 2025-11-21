@@ -1,15 +1,17 @@
 <?php
 
-namespace App\Livewire\Admin\Tipomarketings;
+namespace App\Livewire\Admin\Distritos;
 
 use Livewire\Component;
-use App\Models\Tipomarketing;
+
+use App\Models\Distrito;
 
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Create extends Component
 {
+
     use AuthorizesRequests;
     public $open = false;
     public $name;
@@ -17,16 +19,18 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.admin.tipomarketings.create');
+        return view('livewire.admin.distritos.create');
     }
+
 
     public function nuevo()
     {
         $this->open = true;
     }
 
+
     protected $rules = [
-        'name' => 'required|unique:tipomarketings',
+        'name' => 'required|unique:distritos',
     ];
 
 
@@ -35,8 +39,8 @@ class Create extends Component
         //$this->authorize('create', new Tipomarketing);
         $this->validate();
 
-      
-        Tipomarketing::create([
+
+        Distrito::create([
             'name' => $this->name,
         ]);
 
@@ -45,7 +49,7 @@ class Create extends Component
         //$this->emitTo('admin.category-list', 'render');
 
         // ✅ Emite evento global para que el otro componente lo escuche
-        $this->dispatch('tipomarketing-creada');
+        $this->dispatch('distrito-creada');
 
 
         /*  $this->dispatch('swal:success', [
@@ -55,7 +59,7 @@ class Create extends Component
 
         /*tenemos que mandar asi de la forma de array no funca*/
 
-        $this->dispatch('swal:success', title: '¡Guardado!', text: 'El Tipo de Marketing se creó correctamente.');
+        $this->dispatch('swal:success', title: '¡Guardado!', text: 'El Distrito se creó correctamente.');
 
 
 

@@ -116,18 +116,17 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="flex-shrink-0 w-10 h-10">
+                                        {{-- <div class="flex-shrink-0 w-10 h-10">
                                             @if ($brand->image)
                                                 <img class="object-cover w-10 h-10 rounded"
                                                     src="{{ url($brand->image) }}" alt="">
 
-                                                {{-- src="{{ Storage::disk("s3")->url($brand->image) }}" alt=""> --}}
-                                                {{-- src="{{ Storage::url($brand->image) }}" --}}
+                                              
                                             @else
                                                 <img class="object-cover w-10 h-10 rounded-full"
                                                     src="storage/brands/default.jpg" alt="">
                                             @endif
-                                        </div>
+                                        </div> --}}
                                         <div class="ml-4">
                                             <div class="text-sm font-medium text-gray-900">
                                                 {{ $brand->name }}
@@ -166,7 +165,7 @@
                                 <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                     {{-- <a href="" class="btn btn-blue"><i class="fa-sharp fa-solid fa-eye"></i></a> --}}
                                     @can('Brand Update')
-                                        <a wire:click="edit({{ $brand }})" class="mr-1 btn btn-green">
+                                        <a wire:click="edit({{ $brand->id }})" class="mr-1 btn btn-green">
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </a>
                                     @endcan
@@ -179,9 +178,9 @@
                                         @endcan --}}
 
                                     @can('Brand Delete')
-                                    <a class="btn btn-red" wire:click="confirmarEliminado({{ $brand->id }})">
-                                        <i class="fa-solid fa-trash-can"></i>
-                                    </a>
+                                        <a class="btn btn-red" wire:click="confirmarEliminado({{ $brand->id }})">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
                                     @endcan
 
 
@@ -226,90 +225,82 @@
     </x-slot>
 
 
+    <x-dialog-modal wire:model="open_edit">
+        <x-slot name="title">
+            Modificando la Marca
+        </x-slot>
+
+        <x-slot name="content">
+            <div class="mb-4">
+                <x-label value="Marca" />
+                <x-input type="text" class="w-full" wire:model="brand.name" />
+                {{-- clave anidada --}}
+                <x-input-error for="brand.name" />
+            </div>
+
+            <div class="flex row">
+                <div class="mb-4 mr-4">
+                    <x-label value="Estado" />
+                    <x-input type="checkbox" wire:model="brand.state" />
+                    {{-- clave anidada --}}
+                    <x-input-error for="brand.state" />
+                </div>
+            </div>
+        </x-slot>
+
+        <x-slot name="footer">
+            <x-button wire:click="cancelar" class="mr-2">
+                <i class="mx-2 fa-sharp fa-solid fa-xmark"></i>Cancelar
+            </x-button>
+
+            <x-danger-button wire:click="update" wire:loading.attr="disabled" class="disabled:opacity-25">
+                <i class="mx-2 fa-regular fa-floppy-disk"></i> Guardar
+            </x-danger-button>
+        </x-slot>
+    </x-dialog-modal>
+
+
+
     @push('scripts')
         {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
 
 
         <script>
-            document.addEventListener('livewire:navigated', () => {
-                Livewire.on('swal:success', (title, text, icon) => {
-                    Swal.fire({
-                        title: title,
-                        text: text,
-                        icon: icon, // aquí ya llega el que mandas desde PHP
-                        confirmButtonColor: '#3085d6'
-                    });
-                });
-
-                Livewire.on('borrado', (message) => {
-                    Swal.fire({
-                        title: "Mensaje del Sistema",
-                        text: message || "Registro eliminado correctamente.",
-                        icon: "success",
-                    });
-                });
-
-                Livewire.on('confirmareliminadooo', (message) => {
-                    Swal.fire({
-                        title: message,
-                        text: "No se podrá revertir!",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Sí, eliminar!",
-                        cancelButtonText: "Cancelar"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            Livewire.dispatch("eliminar");
-                        }
-                    });
+            window.addEventListener('confirmareliminadooo', event => {
+                Swal.fire({
+                    title: event.detail.message,
+                    text: "No se podrá revertir!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Sí, eliminar!",
+                    cancelButtonText: "Cancelar"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Emitir el evento 'eliminar' al backend
+                        //$wire.dispatch('eliminar');
+                        //console.log('Emitir evento eliminar'); // Verificar en la consola
+                        //Livewire.emit("eliminar");
+                        Livewire.dispatch("eliminar");
+                    }
                 });
             });
 
 
 
-            /*  window.addEventListener('confirmareliminadooo', event => {
-                 Swal.fire({
-                     title: event.detail.message,
-                     text: "No se podrá revertir!",
-                     icon: "warning",
-                     showCancelButton: true,
-                     confirmButtonColor: "#3085d6",
-                     cancelButtonColor: "#d33",
-                     confirmButtonText: "Sí, eliminar!",
-                     cancelButtonText: "Cancelar"
-                 }).then((result) => {
-                     if (result.isConfirmed) {
-                         
-                         Livewire.dispatch("eliminar");
-                     }
-                 });
-             });
+            window.addEventListener('borrado', event => {
+                Swal.fire({
+                    title: "Mensaje del Sistema",
+                    text: event.detail.message || "Registro eliminado correctamente.",
+                    icon: "success",
+                });
+            });
 
 
-             window.addEventListener('borrado', event => {
-                 Swal.fire({
-                     title: "Mensaje del Sistema",
-                     text: event.detail.message || "Registro eliminado correctamente.",
-                     icon: "success",
-                 });
-             });
 
             
-
-
-             document.addEventListener('livewire:init', () => {
-                 Livewire.on('swal:success', (title, text, icon) => {
-                     Swal.fire({
-                         title: title,
-                         text: text,
-                         icon: 'success',
-                         confirmButtonColor: '#3085d6'
-                     });
-                 });
-             });
-        </script> */
+        </script> 
     @endpush
 
 

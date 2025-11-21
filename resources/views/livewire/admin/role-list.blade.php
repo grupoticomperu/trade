@@ -52,9 +52,9 @@
 
 
 
-                    <a class="btn btn-red"  wire:click="generateReport">
+                    {{-- <a class="btn btn-red"  wire:click="generateReport">
                         generate Report
-                    </a>
+                    </a> --}}
                 @endcan
 
 

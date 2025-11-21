@@ -50,19 +50,19 @@
 
 
 
-                    <x-button wire:click="generateReport" class="mb-2 md:mb-0 md:mr-4">Exportar</x-jet-button>
+                    {{-- <x-button wire:click="generateReport" class="mb-2 md:mb-0 md:mr-4">Exportar</x-jet-button> --}}
 
 
-                        <a class="inline-flex items-center px-4 py-2 mb-2 text-xs font-semibold tracking-widest text-white uppercase transition bg-gray-800 border border-transparent rounded-md md:mb-0 hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25"
-                            href="{{ route('admin.users.pdf') }}" target="_blank">Reporte PDF</a>
+                        {{-- <a class="inline-flex items-center px-4 py-2 mb-2 text-xs font-semibold tracking-widest text-white uppercase transition bg-gray-800 border border-transparent rounded-md md:mb-0 hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring focus:ring-gray-300 disabled:opacity-25"
+                            href="{{ route('admin.users.pdf') }}" target="_blank">Reporte PDF</a> --}}
 
 
-                        <div class="mt-2 mb-2 text-center md:mt-0 md:ml-4">
+                        {{-- <div class="mt-2 mb-2 text-center md:mt-0 md:ml-4">
                             <div class="box-border inline-block p-2 border-2 rounded-md">
                                 <form action="" method="POST" enctype="multipart/form-data">
                                     @csrf
 
-                                    {{-- <x-jet-validation-errors class="mb-4"> --}}
+                                  
 
                                     <input type="file" name="file" accept=".csv, .xlxs">
                                     <x-button class="mt-2">Importar</x-button>
@@ -70,7 +70,7 @@
 
                                 </form>
                             </div>
-                        </div>
+                        </div> --}}
 
 
                 </div>
@@ -600,10 +600,6 @@
                             
                         });
                     });   */
-
-
-
-           
         </script>
     @endpush
 

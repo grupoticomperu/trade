@@ -114,12 +114,6 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Role Update', 'display_name' => 'Actualizar Rol', 'model_name' => 'Role'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Role Delete', 'display_name' => 'Eliminar Rol', 'model_name' => 'Role'])->SyncRoles([$adminRole]);
 
-        //Permission::create(['name' => 'Local List', 'display_name' => 'Listar Locales', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        //Permission::create(['name' => 'Local View', 'display_name' => 'Ver Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        //Permission::create(['name' => 'Local Create', 'display_name' => 'Crear Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        //Permission::create(['name' => 'Local Update', 'display_name' => 'Actualizar Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-        //Permission::create(['name' => 'Local Delete', 'display_name' => 'Eliminar Local', 'model_name' => 'Local'])->SyncRoles([$adminRole]);
-
         //php artisan make:policy CategoryPolicy --model=Category
         Permission::create(['name' => 'Category List', 'display_name' => 'Listar categorias', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Category View', 'display_name' => 'Ver Categoria', 'model_name' => 'Category'])->SyncRoles([$adminRole]);
@@ -189,16 +183,47 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Year Update', 'display_name' => 'Actualizar Year', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Year Delete', 'display_name' => 'Eliminar Year', 'model_name' => 'Year'])->SyncRoles([$adminRole]);
 
-        //creando local principal de company
-        //$local = Local::create([
-        //    'name' => 'local principal',
-        //'company_id' => $company->id,
-        //]);
 
-        // $local = Local::create([
-        //    'name' => 'local secundario',
-        //'company_id' => $company->id,
-        //]);
+        Permission::create(['name' => 'Distrito List', 'display_name' => 'Listar Distritos', 'model_name' => 'Distrito'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Distrito View', 'display_name' => 'Ver Distrito', 'model_name' => 'Distrito'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Distrito Create', 'display_name' => 'Crear Distrito', 'model_name' => 'Distrito'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Distrito Update', 'display_name' => 'Actualizar Distrito', 'model_name' => 'Distrito'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Distrito Delete', 'display_name' => 'Eliminar Distrito', 'model_name' => 'Distrito'])->SyncRoles([$adminRole]);
+
+        Permission::create(['name' => 'Combustible List', 'display_name' => 'Listar Combustibles', 'model_name' => 'Combustible'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Combustible View', 'display_name' => 'Ver Combustible', 'model_name' => 'Combustible'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Combustible Create', 'display_name' => 'Crear Combustible', 'model_name' => 'Combustible'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Combustible Update', 'display_name' => 'Actualizar Combustible', 'model_name' => 'Combustible'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Combustible Delete', 'display_name' => 'Eliminar Combustible', 'model_name' => 'Combustible'])->SyncRoles([$adminRole]);
+
+        
+        Permission::create(['name' => 'Transmision List', 'display_name' => 'Listar Transmisions', 'model_name' => 'Transmision'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Transmision View', 'display_name' => 'Ver Transmision', 'model_name' => 'Transmision'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Transmision Create', 'display_name' => 'Crear Transmision', 'model_name' => 'Transmision'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Transmision Update', 'display_name' => 'Actualizar Transmision', 'model_name' => 'Transmision'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Transmision Delete', 'display_name' => 'Eliminar Transmision', 'model_name' => 'Transmision'])->SyncRoles([$adminRole]);
+
+
+        Permission::create(['name' => 'Traccion List', 'display_name' => 'Listar Traccions', 'model_name' => 'Traccion'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Traccion View', 'display_name' => 'Ver Traccion', 'model_name' => 'Traccion'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Traccion Create', 'display_name' => 'Crear Traccion', 'model_name' => 'Traccion'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Traccion Update', 'display_name' => 'Actualizar Traccion', 'model_name' => 'Traccion'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Traccion Delete', 'display_name' => 'Eliminar Traccion', 'model_name' => 'Traccion'])->SyncRoles([$adminRole]);
+
+        Permission::create(['name' => 'Etapa List', 'display_name' => 'Listar Etapas', 'model_name' => 'Etapa'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Etapa View', 'display_name' => 'Ver Etapa', 'model_name' => 'Etapa'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Etapa Create', 'display_name' => 'Crear Etapa', 'model_name' => 'Etapa'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Etapa Update', 'display_name' => 'Actualizar Etapa', 'model_name' => 'Etapa'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Etapa Delete', 'display_name' => 'Eliminar Etapa', 'model_name' => 'Etapa'])->SyncRoles([$adminRole]);
+
+        
+        Permission::create(['name' => 'Version List', 'display_name' => 'Listar Versions', 'model_name' => 'Version'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Version View', 'display_name' => 'Ver Version', 'model_name' => 'Version'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Version Create', 'display_name' => 'Crear Version', 'model_name' => 'Version'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Version Update', 'display_name' => 'Actualizar Version', 'model_name' => 'Version'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Version Delete', 'display_name' => 'Eliminar Version', 'model_name' => 'Version'])->SyncRoles([$adminRole]);
+
+
 
         //creando posicion o profesion o cargo
         $position = Position::create([

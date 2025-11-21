@@ -65,10 +65,18 @@ class Lead extends Model
         );
     } */
 
-    protected function fechaderivacion(): Attribute
+    /* protected function fechaderivacion(): Attribute
     {
         return Attribute::make(
             get: fn($value) => Carbon::parse($value)->translatedFormat('d/m/Y'),
+        );
+    } */
+
+    protected function fechaderivacion(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) =>
+            $value ? Carbon::parse($value)->translatedFormat('d/m/Y') : null,
         );
     }
 
@@ -95,10 +103,18 @@ class Lead extends Model
         );
     } */
 
-    protected function fecha(): Attribute
+    /* protected function fecha(): Attribute
     {
         return Attribute::make(
             get: fn($value) => Carbon::parse($value)->translatedFormat('d/m/Y'),
+        );
+    } */
+
+    protected function fecha(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) =>
+            $value ? Carbon::parse($value)->translatedFormat('d/m/Y') : null,
         );
     }
 }

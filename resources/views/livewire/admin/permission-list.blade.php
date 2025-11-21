@@ -34,7 +34,7 @@
             </div>
 
 
-            <div class="flex items-center justify-center mb-2 mr-4 md:mb-0 sm:w-full">
+           {{--  <div class="flex items-center justify-center mb-2 mr-4 md:mb-0 sm:w-full">
             <x-input type="text"
                 wire:model.live="search"
                 class="flex items-center justify-center w-80 sm:w-full rounded-lg py-2.5"
@@ -43,7 +43,7 @@
                 <a class="btn btn-red"  wire:click="generateReport">
                     generate Report
                 </a>
-            </div>
+            </div> --}}
 
 
 {{--                 <div>

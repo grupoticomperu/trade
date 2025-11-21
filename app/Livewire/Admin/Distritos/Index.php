@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Livewire\Admin\Tipomarketings;
+namespace App\Livewire\Admin\Distritos;
 
-use App\Models\Tipomarketing;
+
+use App\Models\Distrito;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Carbon;
+
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,9 +26,8 @@ class Index extends Component
     public string $sortDirection = 'desc';
     public int $perPage = 10; // 10, 25, 50
 
-    //public $tipomarketing;
     public $open_edit = false;
-    public $tipomarketingid;
+    public $distritoid;
 
 
     // Filtros
@@ -34,7 +35,7 @@ class Index extends Component
     public string $filterCreated = 'all'; // all | today | last7 | thisMonth
 
 
-    public $tipomarketing = [
+    public $distrito = [
         'id' => null,
         'name' => '',
     ];
@@ -49,11 +50,6 @@ class Index extends Component
         'filterCreated' => ['except' => 'all'],
         'page' => ['except' => 1],
     ];
-
-    public function mount(): void
-    {
-        //$this->authorize('viewAny', Tipomarketing::class);
-    }
 
 
     public function updatingSearch(): void
@@ -91,11 +87,10 @@ class Index extends Component
         $this->dispatch('swal-confirm-delete', id: $id, title: '¿Eliminar registro?', text: 'Esta acción no se puede deshacer.');
     }
 
-
     #[On('deleteConfirmed')]
     public function deleteConfirmed(int $id): void
     {
-        $model = Tipomarketing::findOrFail($id);
+        $model = Distrito::findOrFail($id);
         $this->authorize('delete', $model);
         $model->delete();
 
@@ -104,10 +99,11 @@ class Index extends Component
         $this->resetPage();
     }
 
-    #[On('tipomarketing-creada')] // Escucha el evento
+
+    #[On('distrito-creada')] // Escucha el evento
     public function render()
     {
-        $query = Tipomarketing::query()
+        $query = Distrito::query()
             ->when($this->search !== '', fn($q) => $q->where('name', 'like', "%{$this->search}%"))
             ->when($this->filterHasOrder === 'with', fn($q) => $q->whereNotNull('order'))
             ->when($this->filterHasOrder === 'without', fn($q) => $q->whereNull('order'))
@@ -123,18 +119,18 @@ class Index extends Component
             ->orderBy($this->sortField, $this->sortDirection);
 
 
-        $tipomarketings = $query->paginate($this->perPage);
+        $distritos = $query->paginate($this->perPage);
 
 
-        return view('livewire.admin.tipomarketings.index', [
-            'tipomarketings' => $tipomarketings,
+        return view('livewire.admin.distritos.index', [
+            'distritos' => $distritos,
         ]);
     }
 
 
     public function cancelar()
     {
-        $this->reset('open_edit', 'tipomarketing');
+        $this->reset('open_edit', 'distrito');
         $this->resetValidation();
     }
 
@@ -142,16 +138,16 @@ class Index extends Component
     protected function rules()
     {
         return [
-            'tipomarketing.name'  => 'required|string|max:255|unique:tipomarketings,name,' . ($this->tipomarketing['id'] ?? 'NULL'),
+            'distrito.name'  => 'required|string|max:255|unique:distritos,name,' . ($this->distrito['id'] ?? 'NULL'),
         ];
     }
 
 
     public function edit($id)
     {
-        $model = Tipomarketing::findOrFail($id);
+        $model = Distrito::findOrFail($id);
 
-        $this->tipomarketing = [
+        $this->distrito = [
             'id' => $model->id,
             'name' => $model->name,
         ];
@@ -165,58 +161,51 @@ class Index extends Component
     {
         $this->validate();
 
-        $model = Tipomarketing::findOrFail($this->tipomarketing['id']);
-        $model->name = $this->tipomarketing['name'];
+        $model = Distrito::findOrFail($this->distrito['id']);
+        $model->name = $this->distrito['name'];
         $model->save();
 
-        $this->reset(['open_edit', 'tipomarketing']);
+        $this->reset(['open_edit', 'distrito']);
         $this->resetValidation();
 
         /* $this->dispatch('Actualizado', [
             'message' => 'Tipomarketing actualizada con éxito.',
         ]); */
 
-        $this->dispatch('swal:success', title: '¡Guardado!', text: 'El Tipo de Marketing se Actualizo correctamente.');
+        $this->dispatch('swal:success', title: '¡Guardado!', text: 'El Distrito se Actualizo correctamente.');
     }
 
 
     public function confirmarEliminado($id)
     {
-        $this->tipomarketingid = $id;
-
-
+        $this->distritoid = $id;
 
         $this->dispatch('confirmareliminadooo');
-        //$this->dispatch('confirmareliminado', message:'¿Estás seguro de eliminar?');
-        /* $this->dispatch('confirmareliminado', [
-            'message' => '¿Estás seguro de eliminar este usuario?',
-        ]); */
     }
-
 
     #[On('eliminar')] // Escucha el evento "eliminar"
     public function delete()
     {
         //$this->authorize('delete', $user);
-        if ($this->tipomarketingid) {
-            $tipomarketing = Tipomarketing::find($this->tipomarketingid);
-           
-            if ($tipomarketing) {
-                $tipomarketing->delete();
+        if ($this->distritoid) {
+            $distrito = Distrito::find($this->distritoid);
+
+            if ($distrito) {
+                $distrito->delete();
 
                 // Notifica éxito
                 $this->dispatch('borrado', [
-                    'message' => 'Tipo Marketing eliminada con éxito.',
+                    'message' => 'Distrito eliminada con éxito.',
                 ]);
             } else {
                 // Notifica error si el usuario no existe
                 $this->dispatch('borrado', [
-                    'message' => 'Tipo Marketing no encontrado.',
+                    'message' => 'Distrito no encontrado.',
                     'type' => 'error',
                 ]);
             }
 
-            $this->reset('tipomarketingid');
+            $this->reset('distritoid');
         }
     }
 }

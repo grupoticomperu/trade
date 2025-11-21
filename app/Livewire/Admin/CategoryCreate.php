@@ -86,7 +86,7 @@ class CategoryCreate extends Component
 
         /*tenemos que mandar asi de la forma de array no funca*/
 
-        $this->dispatch('swal:success', title: '¡Guardado!', text: 'La categoría se creó correctamente.');
+        $this->dispatch('swal:success', title: '¡Guardado!', text: 'La Categoría se creó correctamente.');
 
 
 

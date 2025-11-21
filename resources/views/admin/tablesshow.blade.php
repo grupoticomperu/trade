@@ -77,7 +77,8 @@
                                 alt="">
                         </figure>
                         <header class="mt-2">
-                            <h1 class="text-xl text-center text-gray-700"><a href="">Tipo Marketing</a>
+                            <h1 class="text-xl text-center text-gray-700"><a href="{{ route('tipomarketings.index') }}">Tipo
+                                    Marketing</a>
                             </h1>
                         </header>
                     </article>
@@ -97,19 +98,6 @@
                     </article>
                 @endcan
 
-
-                @can('Proveedor List')
-                    <article>
-                        <figure>
-                            <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/proveedores.jpg') }}"
-                                alt="">
-                        </figure>
-                        <header class="mt-2">
-                            <h1 class="text-xl text-center text-gray-700"><a href="">Proveedores</a>
-                            </h1>
-                        </header>
-                    </article>
-                @endcan
 
                 @can('Category List')
                     <article>
@@ -166,45 +154,46 @@
                 @endcan
 
                 @can('Version List')
-                <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/modelos.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a
-                                href="{{ route('version.list') }}">Versiones</a>
-                        </h1>
-                    </header>
-                </article>
+                    <article>
+                        <figure>
+                            <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/modelos.jpg') }}"
+                                alt="">
+                        </figure>
+                        <header class="mt-2">
+                            <h1 class="text-xl text-center text-gray-700"><a
+                                    href="{{ route('version.list') }}">Versiones</a>
+                            </h1>
+                        </header>
+                    </article>
                 @endcan
 
-                 {{-- @can('Color List') --}}
-                <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/colores.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('color.list') }}">Colores</a>
-                        </h1>
-                    </header>
-                </article>
-                {{-- @endcan --}}
+                @can('Color List')
+                    <article>
+                        <figure>
+                            <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/colores.jpg') }}"
+                                alt="">
+                        </figure>
+                        <header class="mt-2">
+                            <h1 class="text-xl text-center text-gray-700"><a href="{{ route('color.list') }}">Colores</a>
+                            </h1>
+                        </header>
+                    </article>
+                @endcan
 
-                {{-- @can('Year List') --}}
-                <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/anios2.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="{{ route('year.list') }}">Años</a>
-                        </h1>
-                    </header>
-                </article>
-               {{--  @endcan --}}
+                @can('Year List')
+                    <article>
+                        <figure>
+                            <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/anios2.jpg') }}"
+                                alt="">
+                        </figure>
+                        <header class="mt-2">
+                            <h1 class="text-xl text-center text-gray-700"><a href="{{ route('year.list') }}">Años</a>
+                            </h1>
+                        </header>
+                    </article>
+                @endcan
 
+                @can('Combustible List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/combustibles.jpg') }}"
@@ -216,7 +205,9 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
+                @can('Transmision List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/transmision.jpg') }}"
@@ -228,7 +219,9 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
+                @can('Tranccion List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/traccion.jpg') }}"
@@ -240,8 +233,10 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
 
+                @can('Proveedor List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/clientes.jpg') }}"
@@ -253,8 +248,9 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
-
+                @can('Distrito List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/clientes.jpg') }}"
@@ -262,12 +258,14 @@
                     </figure>
                     <header class="mt-2">
                         <h1 class="text-xl text-center text-gray-700"><a
-                                href="{{ route('proveedor.list') }}">Distritos</a>
+                                href=" {{ route('distritos.index') }}">Distritos</a>
                         </h1>
                     </header>
                 </article>
+                @endcan
 
 
+                @can('Crm List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
@@ -279,8 +277,9 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
-
+                @can('Crm List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
@@ -292,8 +291,9 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
-
+                @can('Crm List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"
@@ -305,20 +305,11 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
 
 
-                <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/crm.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a
-                                href="{{ route('admin.crms.index') }}">CRM</a>
-                        </h1>
-                    </header>
-                </article>
-
+        
+                @can('Etapa List')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/etapas.jpg') }}"
@@ -329,143 +320,12 @@
                         </h1>
                     </header>
                 </article>
+                @endcan
+
+                
 
 
-                {{--  <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/seguimiento.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="">Seguimiento</a>
-                        </h1>
-                    </header>
-                </article> --}}
-
-
-                {{--  <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/ventas.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="">Ventas</a>
-                        </h1>
-                    </header>
-                </article>
-
-                <article>
-                    <figure>
-                        <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/clientes.jpg') }}"
-                            alt="">
-                    </figure>
-                    <header class="mt-2">
-                        <h1 class="text-xl text-center text-gray-700"><a href="">Clientes</a>
-                        </h1>
-                    </header>
-                </article> --}}
-                {{-- @can('Local View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/locals.jpg')}}" alt="">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('local.list')}}">Locales</a></h1>
-                                    </header>
-
-                                </article>
-                                @endcan
-
-
-                                @can('Brand View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/brands.jpg')}}" alt="">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('brand.list')}}">Marcas</a></h1>
-                                    </header>
-
-                                </article>
-                                @endcan
-
-                                @can('Category View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/categories.jpg')}}" alt="">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('category.listd')}}">Categorias</a></h1>
-
-                                    </header>
-
-                                </article>
-                                @endcan
-
-
-
-                                @can('Modelo View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/modelos.jpg')}}" alt="">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('modelo.list')}}">Modelos</a></h1>
-                                    </header>
-
-                                </article>
-                                @endcan
-
-
-                                @can('Product View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/productservice2.jpg')}}" alt="TICOMSOFTWARE">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('product.list')}}">Productos</a></h1>
-                                    </header>
-
-                                </article>
-                                @endcan
-
-
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/customers.jpg')}}" alt="TICOMSOFTWARE">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('customer.list')}}">Clientes</a></h1>
-                                    </header>
-
-                                </article>
-
-
-
-
-                                @can('Sale View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/pos.jpg')}}" alt="">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('admin.comprobante.list')}}">POS</a></h1>
-                                    </header>
-
-                                </article>
-                                @endcan
-
-                                @can('Sale View')
-                                <article>
-                                    <figure>
-                                        <img class="object-cover w-full rounded-xl h-36" src="{{asset('img/1.jpg')}}" alt="">
-                                    </figure>
-                                    <header class="mt-2">
-                                        <h1 class="text-xl text-center text-gray-700"><a href="{{route('admin.resumen.list')}}">Resumenes</a></h1>
-                                    </header>
-
-                                </article>
-                                 @endcan  --}}
+                
 
 
 

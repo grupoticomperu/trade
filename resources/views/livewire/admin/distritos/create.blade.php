@@ -8,18 +8,16 @@
 
     <x-dialog-modal wire:model="open">
         <x-slot name="title">
-            Crear Nuevo Tipo de Marketingva Categoria
+            Crear Nuevo Distrito
         </x-slot>
 
         <x-slot name="content">
 
             <div class="mb-4">
-                <x-label value="Categoria" />
+                <x-label value="Distrito" />
                 <x-input type="text" class="w-full" wire:model="name" />
                 <x-input-error for="name" />
             </div>
-
-
 
         </x-slot>
 

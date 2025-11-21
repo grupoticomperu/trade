@@ -178,16 +178,7 @@
                                     >
 
                                     Campaña
-                                    {{-- @if ($sort == 'fecha')
-                                        @if ($direction == 'asc')
-                                            <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
-                                        @else
-                                            <i class="float-right mt-1 fas fa-sort-alpha-down-alt"></i>
-                                        @endif
-                                    @else
-                                        <i class="float-right mt-1 fas fa-sort"></i>
-                                    @endif --}}
-
+                                   
                                 </th>
 
 
@@ -197,7 +188,7 @@
                                     wire:click="order('nombres')">
 
                                     Nombres
-                                    @if ($sort == 'nombres')">
+                                    @if ($sort == 'nombres')
                                         @if ($direction == 'asc')
                                             <i class="float-right mt-1 fas fa-sort-alpha-up-alt"></i>
                                         @else
