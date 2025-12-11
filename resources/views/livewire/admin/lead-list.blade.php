@@ -22,13 +22,13 @@
                         @endcan
 
 
-                        {{-- @can('Lead Create') --}}
+                        @can('Lead Import')
                         <a href="{{ route('admin.leads.import.form') }}"
                             class="px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 flex items-center space-x-2">
                             <i class="fa-solid fa-plus"></i>
                             <span>Importar</span>
                         </a>
-                        {{-- @endcan --}}
+                        @endcan
 
                     </div>
                 </div>
@@ -342,7 +342,7 @@
 
                                     <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
 
-                                        @can('Lead View')
+                                        @can('Crm Create')
                                             {{--  <a href="{{ route('admin.crms.index') }}" class="btn btn-blue"><i
                                                     class="fa-sharp fa-solid fa-eye"></i></a> --}}
 

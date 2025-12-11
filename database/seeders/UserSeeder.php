@@ -125,6 +125,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Lead List', 'display_name' => 'Listar Leads', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Lead View', 'display_name' => 'Ver Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Lead Create', 'display_name' => 'Crear Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Lead Import', 'display_name' => 'Importar Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Lead Update', 'display_name' => 'Actualizar Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Lead Delete', 'display_name' => 'Eliminar Lead', 'model_name' => 'Lead'])->SyncRoles([$adminRole]);
 
@@ -135,6 +136,7 @@ class UserSeeder extends Seeder
         Permission::create(['name' => 'Crm Create', 'display_name' => 'Crear Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Crm Update', 'display_name' => 'Actualizar Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
         Permission::create(['name' => 'Crm Delete', 'display_name' => 'Eliminar Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
+        Permission::create(['name' => 'Crm Ganados', 'display_name' => 'Ganados Crm', 'model_name' => 'Crm'])->SyncRoles([$adminRole]);
 
 
         Permission::create(['name' => 'Producto List', 'display_name' => 'Listar Productos', 'model_name' => 'Producto'])->SyncRoles([$adminRole]);

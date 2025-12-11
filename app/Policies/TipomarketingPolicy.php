@@ -23,13 +23,15 @@ class TipomarketingPolicy
         return null;
     }
 
-
+    //Se usa cuando el usuario intenta ver una lista completa de registros
     public function viewAny(User $user): bool
     {
         return $user->hasPermissionTo('Tipomarketing List');
     }
 
-
+    // Se usa cuando el usuario intenta ver un registro individual por ejemplo:
+    // /admin/tipomarketings/5 (detalle de un Tipomarketing específico)
+    // $this->authorize('view', $tipomarketing);
     public function view(User $user, Tipomarketing $tipomarketing): bool
     {
         return $user->hasPermissionTo('Tipomarketing List');

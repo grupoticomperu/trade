@@ -21,6 +21,7 @@ class LeadCreate extends Component
     public $brand_id, $modello_id, $version_id;
     public $anio, $kilometraje, $placa, $observacion;
     public $state, $user_id, $tipomarketing_id;
+    public $perfilcoincide;
 
     public $modellos = [];
     public $versions = [];
@@ -112,6 +113,7 @@ class LeadCreate extends Component
             'state' => 1,
             'user_id' => $this->user_id,
             'tipomarketing_id' => $this->tipomarketing_id,
+            'perfilcoincide' => $this->perfilcoincide,
         ]);
 
         session()->flash('swal', [

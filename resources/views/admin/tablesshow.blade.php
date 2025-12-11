@@ -279,7 +279,7 @@
                 </article>
                 @endcan
 
-                @can('Crm List')
+                @can('Crm Ganados')
                 <article>
                     <figure>
                         <img class="object-cover w-full rounded-xl h-36" src="{{ asset('img/compras.jpg') }}"

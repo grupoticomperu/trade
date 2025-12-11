@@ -85,16 +85,17 @@
                                 <td class="px-4 py-2">{{ $row->name }}</td>
 
                                 <td class="px-4 py-2 text-right space-x-2">
-                                    {{--  <a href="{{ route('tipomarketings.edit', $row) }}"
-                                        class="px-3 py-1 rounded-lg bg-amber-500/90 text-white hover:bg-amber-600">Editar</a> --}}
+                                    @can('Tipomarketing Update')
                                     <a wire:click="edit({{ $row->id }})" class="mr-1 btn btn-green">
+                                    
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </a>
-                                    {{-- <button type="button" wire:click="confirmDelete({{ $row->id }})"
-                                        class="px-3 py-1 rounded-lg bg-rose-600 text-white hover:bg-rose-700">Eliminar</button> --}}
+                                    @endcan
+                                    @can('Tipomarketing Delete')
                                     <a class="btn btn-red" wire:click="confirmarEliminado({{ $row->id }})">
                                         <i class="fa-solid fa-trash-can"></i>
                                     </a>
+                                    @endcan
                                 </td>
                             </tr>
                         @empty

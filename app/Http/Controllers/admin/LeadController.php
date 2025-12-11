@@ -20,6 +20,7 @@ class LeadController extends Controller
 
     public function index()
     {
+        $this->authorize('viewAny', Lead::class);//para ver la lista eso es viewAny
         return view('admin.leads.index');
     }
 
@@ -50,6 +51,7 @@ class LeadController extends Controller
             'state' => 'nullable|boolean',
             'user_id' => 'nullable|exists:users,id',
             'tipomarketing_id' => 'nullable|exists:tipomarketings,id',
+            'perfilcoincide' => 'nullable|string|max:25',
         ]);
 
         Lead::create($validated);
@@ -68,7 +70,6 @@ class LeadController extends Controller
     {
         //
     }
-
 
     public function edit(Lead $lead)
     {

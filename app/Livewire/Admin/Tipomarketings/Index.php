@@ -12,7 +12,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 
 #[Layout('layouts.app')]
-#[Title('Tipomarketings')]
+#[Title('Tipomarketings')]  //Este atributo define el título de la página que Livewire usará al renderizar la vista.
 class Index extends Component
 {
 
@@ -52,7 +52,7 @@ class Index extends Component
 
     public function mount(): void
     {
-        //$this->authorize('viewAny', Tipomarketing::class);
+        $this->authorize('viewAny', Tipomarketing::class);//para ver la lista eso es viewAny
     }
 
 
@@ -107,6 +107,7 @@ class Index extends Component
     #[On('tipomarketing-creada')] // Escucha el evento
     public function render()
     {
+        //$this->authorize('viewAny', Tipomarketing::class);//aqui se ejecutara una y otra vez innecesariamente
         $query = Tipomarketing::query()
             ->when($this->search !== '', fn($q) => $q->where('name', 'like', "%{$this->search}%"))
             ->when($this->filterHasOrder === 'with', fn($q) => $q->whereNotNull('order'))

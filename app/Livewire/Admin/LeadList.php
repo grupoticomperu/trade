@@ -40,6 +40,13 @@ class LeadList extends Component
         'search' => ['except' => ''],
     ];
 
+
+    public function mount(): void
+    {
+        $this->authorize('viewAny', Lead::class);//para ver la lista eso es viewAny
+    }
+
+
     // Método para restablecer la selección después de eliminar
     private function resetSelected()
     {

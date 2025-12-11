@@ -1,11 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="text-xl font-semibold leading-tight text-gray-800 flex items-center space-x-2">
-            <a href="{{ route('admin.leads.index') }}" class="text-blue-600 flex items-center">
-                <i class="fas fa-users mr-1"></i> <span>Leads</span>
+
+            <a href="{{ route('admin.leads.index') }}" class="text-blue-600 no-underline flex items-center space-x-1">
+                <!-- Ícono de usuarios -->
+                <i class="fas fa-users"></i>
+                <span>{{ __('Lista de Leads') }}</span>
             </a>
-            <span class="text-gray-500">/</span>
-            <span>Editar</span>
+
+           
+
         </h2>
     </x-slot>
 
@@ -18,17 +22,17 @@
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ([
-                        'fechaderivacion' => 'Fecha de derivación',
-                        'fecha' => 'Fecha',
-                        'nombres' => 'Nombres',
-                        'telefono' => 'Teléfono',
-                        'correoelectronico' => 'Correo Electrónico',
-                        'marca' => 'Marca',
-                        'modelo' => 'Modelo',
-                        'anio' => 'Año',
-                        'kilometraje' => 'Kilometraje',
-                        'placa' => 'Placa',
-                    ] as $campo => $etiqueta)
+        'fechaderivacion' => 'Fecha de derivación',
+        'fecha' => 'Fecha',
+        'nombres' => 'Nombres',
+        'telefono' => 'Teléfono',
+        'correoelectronico' => 'Correo Electrónico',
+        'marca' => 'Marca',
+        'modelo' => 'Modelo',
+        'anio' => 'Año',
+        'kilometraje' => 'Kilometraje',
+        'placa' => 'Placa',
+    ] as $campo => $etiqueta)
                     <div>
                         <x-label value="{{ $etiqueta }}" />
 

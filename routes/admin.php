@@ -34,8 +34,10 @@ use App\Livewire\Admin\VersionList;
 use App\Livewire\Admin\YearCrud;
 use App\Livewire\Admin\YearList;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Models\Tipomarketing;
 
 use App\Livewire\Admin\Leads\LeadEdit;
+use App\Models\Lead;
 
 Route::get('/hola', function () {
     return ('hola');
@@ -47,7 +49,7 @@ Route::get('/inicio', function () {
 
 Route::get('/tables', [TableController::class, 'showtables'])->name('admin.showtables');
 Route::resource('users', UserController::class)->names('admin.users');
-Route::resource('leads', LeadController::class)->names('admin.leads');
+Route::resource('leads', LeadController::class)->middleware("can:viewAny," . Lead::class)->names('admin.leads');
 
 Route::get('/leadss/{lead}/edit', LeadEdit::class)->name('leads.edit');
 
@@ -85,7 +87,13 @@ Route::resource('crms.seguimientos', SeguimientoController::class)
     ->shallow();
 
 
-Route::get('/tipomarketings', TipomarketingsIndex::class)->name('tipomarketings.index');
+//Route::get('/tipomarketings', TipomarketingsIndex::class)->name('tipomarketings.index');
+
+Route::get('/tipomarketings', TipomarketingsIndex::class)
+    ->middleware("can:viewAny," . Tipomarketing::class)
+    ->name('tipomarketings.index');
+
+
 Route::get('/distritos', DistritosIndex::class)->name('distritos.index');
 //Route::get('/tipomarketings/create', TipomarketingsCreate::class)->name('tipomarketings.create');
 //Route::get('/tipomarketings/{tipomarketing}/edit', TipomarketingsEdit::class)->name('tipomarketings.edit');

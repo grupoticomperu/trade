@@ -147,6 +147,17 @@
         </div>
 
         <div>
+            <x-label value="Perfil Coincide" />
+            <select wire:model="perfilcoincide" class="w-full border-gray-300 rounded-md">
+                <option value="iniciar">Iniciar</option>
+                <option value="si">Si</option>
+                <option value="no">No</option>
+          
+            </select>
+            <x-input-error for="perfilcoincide" />
+        </div>
+
+        <div>
             <x-label value="Observaciones" />
             <x-textarea wire:model="observacion" class="w-full"></x-textarea>
         </div>

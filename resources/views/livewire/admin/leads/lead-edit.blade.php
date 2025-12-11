@@ -1,14 +1,24 @@
 <div>
-    <x-slot name="header">
-        <div class="bg-gray-100 p-2 rounded-lg shadow">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <i class="fa-solid fa-badge-check text-emerald-600 text-xl"></i>
-                    <h1 class="text-2xl font-semibold text-gray-800">Leads </h1>
-                </div>
-            </div>
-        </div>
+   
+     <x-slot name="header">
+        <h2 class="text-xl font-semibold leading-tight text-gray-800 flex items-center space-x-2">
+            <!-- Enlace a la lista de usuarios -->
+            <a href="{{ route('admin.leads.index') }}" class="text-blue-600 no-underline flex items-center space-x-1">
+                <!-- Ícono de usuarios -->
+                <i class="fas fa-users"></i>
+                <span>{{ __('Lista de Leads') }}</span>
+            </a>
+            <!-- Separador -->
+            <span class="text-gray-500">/</span>
+            <!-- Página actual -->
+            <span class="text-gray-800">{{ __('Edición de Leads') }}</span>
+        </h2>
+
+
+
     </x-slot>
+
+
     <div class="max-w-6xl mx-auto mt-6 bg-white rounded-xl shadow p-6">
 
 
@@ -111,7 +121,7 @@
                 </select>
             </div>
 
-
+            @role('Admin')
             <div>
                 <label class="font-semibold text-gray-700">Usuario</label>
                 <select wire:model.live="userId" class="w-full border rounded p-2" >
@@ -121,6 +131,18 @@
                     @endforeach
                 </select>
             </div>
+            @endrole
+
+
+            <div>
+                <label class="font-semibold text-gray-700">Perfil</label>
+                <select wire:model.live="perfilcoincide" class="w-full border rounded p-2" >
+                    <option value="iniciar">Iniciar</option>
+                     <option value="si">si</option>
+                     <option value="no">no</option>
+                </select>
+            </div>
+
 
         </div>
 
