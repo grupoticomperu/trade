@@ -46,15 +46,19 @@ class DatabaseSeeder extends Seeder
 
         Brand::create([
             'name' => 'Chevrolet',
+            'state' => true,
         ]);
         Brand::create([
             'name' => 'Toyota',
+            'state' => true,
         ]);
         Brand::create([
             'name' => 'Mazda',
+            'state' => true,
         ]);
         Brand::create([
             'name' => 'Hyundai',
+            'state' => true,
         ]);
 
         Modello::create([

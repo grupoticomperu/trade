@@ -16,6 +16,7 @@ class Lead extends Model
         'correoelectronico',
         'marca',
         'modelo',
+        'version',
         'anio',
         'kilometraje',
         'placa',

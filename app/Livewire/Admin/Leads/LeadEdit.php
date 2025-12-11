@@ -35,10 +35,19 @@ class LeadEdit extends Component
         // Manejo robusto de fechas para input type="date"
         $this->fechaderivacion = $this->formatDateForInput($lead->fechaderivacion);
         $this->fecha = $this->formatDateForInput($lead->fecha);
+        $this->userId = $lead->user_id;
+        //$this->versionId = $lead->version_id;
 
         $this->fill($lead->only([
-            'nombres','telefono','correoelectronico',
-            'kilometraje','placa','state','perfilcoincide','esoportunidad','observacion'
+            'nombres',
+            'telefono',
+            'correoelectronico',
+            'kilometraje',
+            'placa',
+            'state',
+            'perfilcoincide',
+            'esoportunidad',
+            'observacion'
         ]));
 
         // Cargar listas
@@ -57,6 +66,18 @@ class LeadEdit extends Component
 
         if ($this->modelloId) {
             $this->versions = Version::where('modello_id', $this->modelloId)->orderBy('name')->get();
+
+            /* $this->versionId = Version::where('modello_id', $this->modelloId)
+                ->where('name', 'like', "%{$lead->version}%")
+                ->value('id') ?? ''; */
+
+            if (!empty($lead->version)) {
+                $this->versionId = Version::where('modello_id', $this->modelloId)
+                    ->where('name', 'like', "%{$lead->version}%")
+                    ->value('id'); // devolverá null si no hay coincidencia
+            } else {
+                $this->versionId = null; // o ''
+            }
         }
 
         $this->yearId = Year::where('name', 'like', "%{$lead->anio}%")->value('id');
@@ -103,6 +124,30 @@ class LeadEdit extends Component
             'modelo' => optional(Modello::find($this->modelloId))->name ?? $this->lead->modelo,
             'version' => optional(Version::find($this->versionId))->name ?? $this->lead->version,
             'anio' => optional(Year::find($this->yearId))->name ?? $this->lead->anio,
+
+            // 👉 Si no hay brandId, guarda null
+           /*  'marca'   => $this->brandId
+                ? optional(Brand::find($this->brandId))->name
+                : null, */
+
+            // 👉 Si no hay modelloId, guarda null
+            /* 'modelo'  => $this->modelloId
+                ? optional(Modello::find($this->modelloId))->name
+                : null,
+            */
+            // 👉 Si no hay versionId, guarda null
+            /* 'version' => $this->versionId
+                ? optional(Version::find($this->versionId))->name
+                : null, */
+
+            // 👉 Igual para año
+            /* 'anio'    => $this->yearId
+                ? optional(Year::find($this->yearId))->name
+                : null,
+            */
+
+
+
             'nombres' => $this->nombres,
             'telefono' => $this->telefono,
             'correoelectronico' => $this->correoelectronico,
@@ -111,7 +156,7 @@ class LeadEdit extends Component
             'state' => $this->state,
             'perfilcoincide' => $this->perfilcoincide,
             'esoportunidad' => $this->esoportunidad,
-            'user_id' =>$this->userId,
+            'user_id' => $this->userId,
             'observacion' => $this->observacion,
         ]);
 
